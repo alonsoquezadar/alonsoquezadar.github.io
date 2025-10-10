@@ -1,0 +1,15 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": "Net Investment by UK Financial Institutions",
+  "description": "Net investment by UK financial institutions",
+  "data": {
+    "url": "https://raw.githubusercontent.com/alonsoquezadar/istruealon.github.io/refs/heads/main/Inversio%CC%81n%20neta%20instituciones%20financieras%20UK%20(1).csv",
+    "format": {"type": "csv"}
+  },
+  "mark": "line",
+  "encoding": {
+    "x": {"field": "date", "type": "temporal"},
+    "y": {"field": "value", "type": "quantitative"}
+  },
+  "config": {}
+}

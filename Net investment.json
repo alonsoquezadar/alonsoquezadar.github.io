@@ -1,5 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 400,
+  "height": 300,
   "title": "Net Investment by UK Financial Institutions",
   "description": "Net investment by UK financial institutions",
   "data": {

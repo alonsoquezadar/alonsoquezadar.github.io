@@ -1,0 +1,46 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Copper production",
+    "anchor": "start",
+    "subtitle": "Based on mined, rather than refined, production. Measured in tonnes",
+    "fontSize": 14,
+    "subtitleFontSize": 12,
+    "color": "#000000",
+    "subtitleColor": "#000000"
+  },
+  "height": 300,
+  "width": 500,
+  "background": "#ffffff",
+  "data": {
+    "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/Produccio%CC%81n%20de%20Cobre%20Chile%20lead.csv",
+    "format": {"type": "csv"}
+  },
+  "mark": {
+    "type": "line",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "quantitative",
+      "axis": {
+        "title": "",
+        "grid": false,
+        "format": "d",
+        "tickCount": 10
+      },
+      "scale": {"zero": false}
+    },
+    "y": {
+      "field": "production",
+      "type": "quantitative",
+      "axis": {"title": "", "grid": false}
+    },
+    "color": {
+      "field": "Entity",
+      "type": "nominal",
+      "title": "Country"
+    }
+  }
+}

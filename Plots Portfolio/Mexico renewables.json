@@ -14,9 +14,9 @@
   "autosize": {"type": "fit", "contains": "padding", "resize": false},
   "background": "#ffffff",
   "view": {"fill": "#ffffff", "strokeOpacity": 0},
-  "data": {
-  "url": "https://api.economicsobservatory.com/mex/eGWh?vega",
-  "format": {"type": "json", "property": "data"}
+ "data": {
+  "url": "https://eco-temp-cache.s3.eu-west-2.amazonaws.com/mex/eGWh.json",
+  "format": {"type": "json"}
 },
   "mark": {"type": "line", "color": "#33a37e", "strokeWidth": 2},
   "encoding": {

@@ -14,8 +14,7 @@
   "background": "#ffffff",
   "view": {"fill": "#ffffff", "strokeOpacity": 0},
   "data": {
-    "url": "https://api.economicsobservatory.com/mex/eGWh",
-    "format": {"type": "json", "property": "data"}
+    "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/Hours%20work%20dataset.csv"
   },
   "mark": {"type": "line", "color": "#33a37e", "strokeWidth": 2},
   "encoding": {

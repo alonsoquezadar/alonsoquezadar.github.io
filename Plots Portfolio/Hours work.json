@@ -10,14 +10,13 @@
     "subtitleColor": "#000000"
   },
   "height": 250,
-  "width": "container",
-  "autosize": {"type": "fit", "contains": "padding", "resize": false},
+  "width": 400,
   "background": "#ffffff",
   "view": {"fill": "#ffffff", "strokeOpacity": 0},
- "data": {
-  "url": "https://eco-temp-cache.s3.eu-west-2.amazonaws.com/mex/eGWh.json",
-  "format": {"type": "json"}
-},
+  "data": {
+    "url": "https://api.economicsobservatory.com/mex/eGWh",
+    "format": {"type": "json", "property": "data"}
+  },
   "mark": {"type": "line", "color": "#33a37e", "strokeWidth": 2},
   "encoding": {
     "x": {

@@ -1,0 +1,140 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "white",
+  "padding": 5,
+  "width": 900,
+  "height": 500,
+  "title": {
+    "text": "Global Lithium Production in 2023",
+    "subtitle": "Percentage of world production by country",
+    "fontSize": 18,
+    "fontWeight": "bold",
+    "subtitleFontSize": 14,
+    "subtitleColor": "#666",
+    "anchor": "start"
+  },
+  "style": "view",
+  "data": [
+    {
+      "name": "source_1",
+      "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/Lithium%20production.csv",
+      "format": {"type": "csv", "delimiter": ","}
+    },
+    {
+      "name": "source_0",
+      "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+      "format": {"type": "topojson", "feature": "countries", "parse": {}},
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "datum[\"properties\"] && datum[\"properties\"][\"name\"]",
+          "as": "properties.name"
+        },
+        {
+          "type": "lookup",
+          "from": "source_1",
+          "key": "Entity",
+          "fields": ["properties.name"],
+          "values": ["production", "Year"]
+        },
+        {
+          "type": "formula",
+          "expr": "datum.production == null ? 0 : datum.production",
+          "as": "prod_clean"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.production == null ? 'No production' : format(datum.production, '.1f') + '%'",
+          "as": "prod_label"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"prod_clean\"]) && isFinite(+datum[\"prod_clean\"])"
+        }
+      ]
+    }
+  ],
+  "projections": [
+    {
+      "name": "projection",
+      "size": {"signal": "[width, height]"},
+      "fit": {"signal": "data('source_0')"},
+      "type": "equalEarth"
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "shape",
+      "style": ["geoshape"],
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#fff"},
+          "strokeWidth": {"value": 0.5},
+          "fill": {"scale": "color", "field": "prod_clean"},
+          "tooltip": {
+            "signal": "{\"Country\": isValid(datum[\"properties.name\"]) ? isArray(datum[\"properties.name\"]) ? join(datum[\"properties.name\"], '\\n') : datum[\"properties.name\"] : \"\"+datum[\"properties.name\"], \"Production Share\": isValid(datum[\"prod_label\"]) ? isArray(datum[\"prod_label\"]) ? join(datum[\"prod_label\"], '\\n') : datum[\"prod_label\"] : \"\"+datum[\"prod_label\"]}"
+          },
+          "ariaRoleDescription": {"value": "geoshape"},
+          "description": {
+            "signal": "\"prod_clean: \" + (format(datum[\"prod_clean\"], \".0f\")) + \"; Country: \" + (isValid(datum[\"properties.name\"]) ? isArray(datum[\"properties.name\"]) ? join(datum[\"properties.name\"], ' ') : datum[\"properties.name\"] : \"\"+datum[\"properties.name\"]) + \"; Production Share: \" + (isValid(datum[\"prod_label\"]) ? isArray(datum[\"prod_label\"]) ? join(datum[\"prod_label\"], ' ') : datum[\"prod_label\"] : \"\"+datum[\"prod_label\"])"
+          }
+        }
+      },
+      "transform": [{"type": "geoshape", "projection": "projection"}]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "sqrt",
+      "domain": [0, 50],
+      "range": [
+        "#f0f0f0",
+        "#fed976",
+        "#feb24c",
+        "#fd8d3c",
+        "#fc4e2a",
+        "#e31a1c",
+        "#b10026"
+      ],
+      "zero": true,
+      "interpolate": "hcl"
+    }
+  ],
+  "legends": [
+    {
+      "direction": "horizontal",
+      "format": ".0f",
+      "gradientLength": 300,
+      "labelFontSize": 10,
+      "offset": 20,
+      "orient": "bottom",
+      "title": "Production Share (%)",
+      "titleFontSize": 12,
+      "titlePadding": 10,
+      "fill": "color"
+    }
+  ],
+  "config": {
+    "style": {
+      "guide-label": {
+        "font": "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+      },
+      "guide-title": {
+        "font": "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+      },
+      "group-title": {
+        "font": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontSize": 20,
+        "fontWeight": 600
+      },
+      "group-subtitle": {
+        "font": "Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+      },
+      "cell": {"stroke": null, "fill": "#e6f2ff"},
+      "text": {"font": "Inter, -apple-system, BlinkMacSystemFont, sans-serif"}
+    }
+  }
+}

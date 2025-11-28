@@ -144,15 +144,18 @@ body > p:first-of-type {
 section {
     margin-bottom: 4rem;
     padding: 2rem;
-    background: var(--background-white);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
     border-radius: 12px;
-    box-shadow: 0 2px 10px var(--shadow-light);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(224, 224, 224, 0.3);
 }
 
 section:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 20px var(--shadow-medium);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-color: rgba(15, 76, 117, 0.2);
 }
 
 /* Descripción de gráficos */
@@ -168,20 +171,32 @@ section:hover {
 /* Contenedor de gráficos */
 figure {
     margin: 1.5rem 0;
-    padding: 1.5rem;
-    background: var(--background-light);
+    padding: 1rem 0;
+    background: transparent;
     border-radius: 8px;
-    border: 1px solid var(--border-color);
+    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 400px;
     transition: all 0.3s ease;
+    position: relative;
 }
 
-figure:hover {
-    border-color: var(--accent-color);
-    box-shadow: 0 2px 8px var(--shadow-light);
+figure::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+figure:hover::after {
+    width: 100px;
 }
 
 /* Diseño responsivo para múltiples gráficos */
@@ -213,10 +228,18 @@ section:has(figure:only-of-type) figure {
 /* Estilo para los gráficos de Vega */
 .vega-embed {
     width: 100% !important;
+    padding: 0.5rem 0;
 }
 
 .vega-embed summary {
     display: none !important;
+}
+
+/* Separador visual opcional entre gráficos */
+figure + figure {
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(224, 224, 224, 0.3);
 }
 
 /* Animaciones sutiles */
@@ -275,7 +298,7 @@ section {
     }
     
     figure {
-        padding: 1rem;
+        padding: 0.5rem 0;
         min-height: 250px;
     }
 }

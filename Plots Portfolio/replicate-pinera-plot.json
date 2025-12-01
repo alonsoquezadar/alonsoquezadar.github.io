@@ -1,0 +1,204 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "#0f2847",
+  "padding": {"left": 55, "right": 25, "top": 45, "bottom": 35},
+  "width": 680,
+  "height": 400,
+  "title": {
+    "text": "EL DESPEGUE DE CHILE",
+    "subtitle": "PIB PER CAPITA 1810 - 2014 (a PPP en USD)",
+    "fontSize": 26,
+    "fontWeight": "bold",
+    "color": "#ffffff",
+    "subtitleFontSize": 14,
+    "subtitleColor": "#d4a84b",
+    "anchor": "middle",
+    "offset": 10,
+    "frame": "group"
+  },
+  "style": "cell",
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/chile_despegue_data_replica.csv",
+      "format": {"type": "csv", "parse": {"year": "number"}, "delimiter": ","}
+    },
+    {"name": "source_1", "values": [{"year": 1973, "gdp_pc": 6899}]},
+    {
+      "name": "source_2",
+      "values": [{"year": 1975, "gdp_pc": 6899, "label": "1975"}]
+    },
+    {
+      "name": "data_0",
+      "source": "source_1",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"year\"]) && isFinite(+datum[\"year\"]) && isValid(datum[\"gdp_pc\"]) && isFinite(+datum[\"gdp_pc\"])"
+        }
+      ]
+    },
+    {
+      "name": "data_1",
+      "source": "source_2",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"year\"]) && isFinite(+datum[\"year\"]) && isValid(datum[\"gdp_pc\"]) && isFinite(+datum[\"gdp_pc\"])"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_marks",
+      "type": "line",
+      "style": ["line"],
+      "sort": {"field": "x"},
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "strokeWidth": {"value": 2.5},
+          "interpolate": {"value": "monotone"},
+          "stroke": {"value": "#ffffff"},
+          "description": {
+            "signal": "\"year: \" + (format(datum[\"year\"], \"d\")) + \"; gdp_pc: \" + (format(datum[\"gdp_pc\"], \",.0f\"))"
+          },
+          "x": {"scale": "x", "field": "year"},
+          "y": {"scale": "y", "field": "gdp_pc"},
+          "defined": {
+            "signal": "isValid(datum[\"year\"]) && isFinite(+datum[\"year\"]) && isValid(datum[\"gdp_pc\"]) && isFinite(+datum[\"gdp_pc\"])"
+          }
+        }
+      }
+    },
+    {
+      "name": "layer_1_marks",
+      "type": "symbol",
+      "style": ["point"],
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "opacity": {"value": 0.7},
+          "fill": {"value": "#cc0000"},
+          "stroke": {"value": "#ff3333"},
+          "strokeWidth": {"value": 1},
+          "size": {"value": 100},
+          "shape": {"value": "diamond"},
+          "ariaRoleDescription": {"value": "point"},
+          "description": {
+            "signal": "\"year: \" + (format(datum[\"year\"], \"\")) + \"; gdp_pc: \" + (format(datum[\"gdp_pc\"], \"\"))"
+          },
+          "x": {"scale": "x", "field": "year"},
+          "y": {"scale": "y", "field": "gdp_pc"}
+        }
+      }
+    },
+    {
+      "name": "layer_2_marks",
+      "type": "text",
+      "style": ["text"],
+      "from": {"data": "data_1"},
+      "encode": {
+        "update": {
+          "align": {"value": "center"},
+          "baseline": {"value": "top"},
+          "dx": {"value": -5},
+          "dy": {"value": 20},
+          "fontSize": {"value": 15},
+          "fontWeight": {"value": "bold"},
+          "fill": {"value": "#ffdd00"},
+          "description": {
+            "signal": "\"year: \" + (format(datum[\"year\"], \"\")) + \"; gdp_pc: \" + (format(datum[\"gdp_pc\"], \"\")) + \"; label: \" + (isValid(datum[\"label\"]) ? isArray(datum[\"label\"]) ? join(datum[\"label\"], ' ') : datum[\"label\"] : \"\"+datum[\"label\"])"
+          },
+          "x": {"scale": "x", "field": "year"},
+          "y": {"scale": "y", "field": "gdp_pc"},
+          "text": {
+            "signal": "isValid(datum[\"label\"]) ? datum[\"label\"] : \"\"+datum[\"label\"]"
+          }
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": [1810, 2014],
+      "range": [0, {"signal": "width"}],
+      "nice": true,
+      "zero": false
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": [800, 23000],
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": false
+    }
+  ],
+  "axes": [
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": true,
+      "gridColor": "rgba(255,255,255,0.2)",
+      "values": [800, 2500, 5000, 10000, 23000],
+      "gridScale": "x",
+      "tickCount": {"signal": "ceil(height/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "domainColor": "#ffffff",
+      "format": "d",
+      "labelAngle": 0,
+      "labelColor": "#ffffff",
+      "labelFontSize": 11,
+      "tickColor": "#ffffff",
+      "values": [
+        1810,
+        1830,
+        1850,
+        1870,
+        1890,
+        1910,
+        1930,
+        1950,
+        1970,
+        1990,
+        2014
+      ],
+      "labelBaseline": "top",
+      "labelFlush": true,
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(width/40)"},
+      "tickMinStep": 1,
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "domainColor": "#ffffff",
+      "format": ",.0f",
+      "labelColor": "#ffffff",
+      "labelFontSize": 11,
+      "tickColor": "#ffffff",
+      "values": [800, 2500, 5000, 10000, 23000],
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "zindex": 0
+    }
+  ],
+  "config": {"style": {"cell": {"stroke": null}}}
+}

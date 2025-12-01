@@ -1,102 +1,234 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "#fdfcfa",
+  "padding": 5,
+  "width": 700,
+  "height": 420,
   "title": {
-    "text": "EL DESPEGUE DE CHILE",
-    "subtitle": "PIB PER CAPITA 1810 - 2014 (a PPP en USD)",
-    "fontSize": 26,
-    "fontWeight": "bold",
-    "color": "#ffffff",
+    "text": "The Economic Trajectory of Chile",
+    "subtitle": "Real GDP per capita compared to peer economies, 1950–2016 (2011 US$ PPP)",
+    "fontSize": 20,
     "subtitleFontSize": 14,
-    "subtitleColor": "#d4a84b",
-    "anchor": "middle",
-    "offset": 10
+    "subtitleColor": "#666",
+    "frame": "group"
   },
-  "width": 680,
-  "height": 400,
-  "padding": {"left": 55, "right": 25, "top": 45, "bottom": 35},
-  "data": {
-    "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/chile_despegue_data_replica.csv",
-    "format": {"type": "csv"}
-  },
-  "layer": [
+  "style": "cell",
+  "data": [
     {
-      "mark": {
-        "type": "line",
-        "strokeWidth": 2.5,
-        "color": "#ffffff",
-        "interpolate": "monotone"
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/chile_gdp_comparison_data.csv",
+      "format": {"type": "csv", "parse": {"year": "number"}, "delimiter": ","}
+    },
+    {"name": "source_1", "values": [{"year": 1973}]},
+    {"name": "source_2", "values": [{"year": 1973, "label": "1973"}]},
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {"type": "filter", "expr": "datum.year === 2016"},
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"year\"]) && isFinite(+datum[\"year\"]) && isValid(datum[\"gdp_pc\"]) && isFinite(+datum[\"gdp_pc\"])"
+        }
+      ]
+    },
+    {
+      "name": "data_1",
+      "source": "source_1",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"year\"]) && isFinite(+datum[\"year\"])"
+        }
+      ]
+    },
+    {
+      "name": "data_2",
+      "source": "source_2",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"year\"]) && isFinite(+datum[\"year\"])"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_pathgroup",
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "faceted_path_layer_0_main",
+          "data": "source_0",
+          "groupby": ["country"]
+        }
       },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "quantitative",
-          "title": null,
-          "scale": {"domain": [1810, 2014]},
-          "axis": {
-            "grid": false,
-            "format": "d",
-            "labelFontSize": 11,
-            "labelColor": "#ffffff",
-            "labelAngle": 0,
-            "tickColor": "#ffffff",
-            "domainColor": "#ffffff",
-            "values": [1810, 1830, 1850, 1870, 1890, 1910, 1930, 1950, 1970, 1990, 2014]
+      "encode": {
+        "update": {
+          "width": {"field": {"group": "width"}},
+          "height": {"field": {"group": "height"}}
+        }
+      },
+      "marks": [
+        {
+          "name": "layer_0_marks",
+          "type": "line",
+          "style": ["line"],
+          "sort": {"field": "x"},
+          "from": {"data": "faceted_path_layer_0_main"},
+          "encode": {
+            "update": {
+              "opacity": {"value": 0.8},
+              "strokeWidth": {"value": 2},
+              "stroke": {"scale": "color", "field": "country"},
+              "description": {
+                "signal": "\"year: \" + (format(datum[\"year\"], \"d\")) + \"; GDP per capita (2011 US$ PPP): \" + (format(datum[\"gdp_pc\"], \"$,.0f\")) + \"; country: \" + (isValid(datum[\"country\"]) ? isArray(datum[\"country\"]) ? join(datum[\"country\"], ' ') : datum[\"country\"] : \"\"+datum[\"country\"])"
+              },
+              "x": {"scale": "x", "field": "year"},
+              "y": {"scale": "y", "field": "gdp_pc"},
+              "defined": {
+                "signal": "isValid(datum[\"year\"]) && isFinite(+datum[\"year\"]) && isValid(datum[\"gdp_pc\"]) && isFinite(+datum[\"gdp_pc\"])"
+              }
+            }
           }
-        },
-        "y": {
-          "field": "gdp_pc",
-          "type": "quantitative",
-          "title": null,
-          "scale": {"domain": [800, 23000]},
-          "axis": {
-            "grid": true,
-            "gridColor": "rgba(255,255,255,0.2)",
-            "labelFontSize": 11,
-            "labelColor": "#ffffff",
-            "tickColor": "#ffffff",
-            "domainColor": "#ffffff",
-            "values": [800, 2500, 5000, 10000, 23000],
-            "format": ",.0f"
-          }
+        }
+      ]
+    },
+    {
+      "name": "layer_1_marks",
+      "type": "text",
+      "style": ["text"],
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "align": {"value": "left"},
+          "dx": {"value": 8},
+          "fontSize": {"value": 12},
+          "fontWeight": {"value": "bold"},
+          "fill": {"scale": "color", "field": "country"},
+          "description": {
+            "signal": "\"year: \" + (format(datum[\"year\"], \"\")) + \"; gdp_pc: \" + (format(datum[\"gdp_pc\"], \"\")) + \"; country: \" + (isValid(datum[\"country\"]) ? isArray(datum[\"country\"]) ? join(datum[\"country\"], ' ') : datum[\"country\"] : \"\"+datum[\"country\"])"
+          },
+          "x": {"scale": "x", "field": "year"},
+          "y": {"scale": "y", "field": "gdp_pc"},
+          "text": {
+            "signal": "isValid(datum[\"country\"]) ? datum[\"country\"] : \"\"+datum[\"country\"]"
+          },
+          "baseline": {"value": "middle"}
         }
       }
     },
     {
-      "mark": {
-        "type": "point",
-        "size": 100,
-        "shape": "diamond",
-        "fill": "#cc0000",
-        "stroke": "#ff3333",
-        "strokeWidth": 1
-      },
-      "data": {"values": [{"year": 1973, "gdp_pc": 6899}]},
-      "encoding": {
-        "x": {"field": "year", "type": "quantitative"},
-        "y": {"field": "gdp_pc", "type": "quantitative"}
+      "name": "layer_2_marks",
+      "type": "rule",
+      "style": ["rule"],
+      "from": {"data": "data_1"},
+      "encode": {
+        "update": {
+          "opacity": {"value": 0.5},
+          "strokeWidth": {"value": 1.5},
+          "strokeDash": {"value": [6, 4]},
+          "stroke": {"value": "#c41e3a"},
+          "description": {
+            "signal": "\"year: \" + (format(datum[\"year\"], \"\"))"
+          },
+          "x": {"scale": "x", "field": "year"},
+          "y": {"value": 0},
+          "y2": {"field": {"group": "height"}}
+        }
       }
     },
     {
-      "mark": {
-        "type": "text",
-        "align": "center",
-        "baseline": "top",
-        "dy": 20,
-        "dx": -5,
-        "fontSize": 15,
-        "fontWeight": "bold",
-        "color": "#ffdd00"
-      },
-      "data": {"values": [{"year": 1975, "gdp_pc": 6899, "label": "1975"}]},
-      "encoding": {
-        "x": {"field": "year", "type": "quantitative"},
-        "y": {"field": "gdp_pc", "type": "quantitative"},
-        "text": {"field": "label"}
+      "name": "layer_3_marks",
+      "type": "text",
+      "style": ["text"],
+      "from": {"data": "data_2"},
+      "encode": {
+        "update": {
+          "align": {"value": "center"},
+          "dx": {"value": 20},
+          "dy": {"value": -190},
+          "fontSize": {"value": 11},
+          "fontStyle": {"value": "italic"},
+          "fill": {"value": "#c41e3a"},
+          "description": {
+            "signal": "\"year: \" + (format(datum[\"year\"], \"\")) + \"; label: \" + (isValid(datum[\"label\"]) ? isArray(datum[\"label\"]) ? join(datum[\"label\"], ' ') : datum[\"label\"] : \"\"+datum[\"label\"])"
+          },
+          "x": {"scale": "x", "field": "year"},
+          "y": {"signal": "height", "mult": 0.5},
+          "text": {
+            "signal": "isValid(datum[\"label\"]) ? datum[\"label\"] : \"\"+datum[\"label\"]"
+          },
+          "baseline": {"value": "middle"}
+        }
       }
     }
   ],
-  "config": {
-    "view": {"stroke": null},
-    "background": "#0f2847"
-  }
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": [1950, 2022],
+      "range": [0, {"signal": "width"}],
+      "nice": true,
+      "zero": false
+    },
+    {
+      "name": "y",
+      "type": "log",
+      "domain": [1000, 45000],
+      "range": [{"signal": "height"}, 0],
+      "nice": true
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": ["Chile", "South Korea", "Argentina", "Spain", "Portugal"],
+      "range": ["#c41e3a", "#2563eb", "#71717a", "#059669", "#7c3aed"]
+    }
+  ],
+  "axes": [
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": true,
+      "gridColor": "#e8e8e8",
+      "gridDash": [3, 3],
+      "tickCount": 5,
+      "gridScale": "x",
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "format": "d",
+      "labelFontSize": 12,
+      "tickCount": 8,
+      "labelFlush": true,
+      "labelOverlap": true,
+      "tickMinStep": 1,
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "GDP per capita (2011 US$ PPP)",
+      "format": "$,.0f",
+      "labelFontSize": 11,
+      "tickCount": 5,
+      "titleFontSize": 12,
+      "labelOverlap": "greedy",
+      "zindex": 0
+    }
+  ],
+  "config": {"style": {"cell": {"stroke": null}}}
 }

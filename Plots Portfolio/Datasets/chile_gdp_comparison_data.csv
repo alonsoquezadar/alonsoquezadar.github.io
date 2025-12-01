@@ -1,0 +1,336 @@
+year,country,gdp_pc
+1950,Chile,5128.0
+1950,South Korea,1178.0
+1950,Portugal,3610.0
+1950,Spain,4098.0
+1950,Argentina,8759.0
+1951,Chile,5234.0
+1951,South Korea,1085.0
+1951,Portugal,3751.0
+1951,Spain,4485.0
+1951,Argentina,8911.0
+1952,Chile,5452.0
+1952,South Korea,1152.0
+1952,Portugal,3740.0
+1952,Spain,4856.0
+1952,Argentina,8286.0
+1953,Chile,5739.0
+1953,South Korea,1478.0
+1953,Portugal,3977.0
+1953,Spain,4812.0
+1953,Argentina,8562.0
+1954,Chile,5439.0
+1954,South Korea,1550.0
+1954,Portugal,4142.0
+1954,Spain,5120.0
+1954,Argentina,8747.0
+1955,Chile,5530.0
+1955,South Korea,1612.0
+1955,Portugal,4282.0
+1955,Spain,5256.0
+1955,Argentina,9199.0
+1956,Chile,5480.0
+1956,South Korea,1584.0
+1956,Portugal,4437.0
+1956,Spain,5644.0
+1956,Argentina,9284.0
+1957,Chile,5893.0
+1957,South Korea,1663.0
+1957,Portugal,4601.0
+1957,Spain,5797.0
+1957,Argentina,9592.0
+1958,Chile,6067.0
+1958,South Korea,1702.0
+1958,Portugal,4624.0
+1958,Spain,6123.0
+1958,Argentina,10009.0
+1959,Chile,5589.0
+1959,South Korea,1714.0
+1959,Portugal,4835.0
+1959,Spain,6017.0
+1959,Argentina,9207.0
+1960,Chile,5913.0
+1960,South Korea,1691.0
+1960,Portugal,5115.0
+1960,Spain,5960.0
+1960,Argentina,9765.0
+1961,Chile,6038.0
+1961,South Korea,1719.0
+1961,Portugal,5398.0
+1961,Spain,6611.0
+1961,Argentina,10297.0
+1962,Chile,6166.0
+1962,South Korea,1717.0
+1962,Portugal,5763.0
+1962,Spain,7197.0
+1962,Argentina,9972.0
+1963,Chile,6396.0
+1963,South Korea,1814.0
+1963,Portugal,6064.0
+1963,Spain,7854.0
+1963,Argentina,9583.0
+1964,Chile,6383.0
+1964,South Korea,1916.0
+1964,Portugal,6435.0
+1964,Spain,8218.0
+1964,Argentina,10409.0
+1965,Chile,6286.0
+1965,South Korea,1981.0
+1965,Portugal,6909.0
+1965,Spain,8778.0
+1965,Argentina,11190.0
+1966,Chile,6841.0
+1966,South Korea,2164.0
+1966,Portugal,7206.0
+1966,Spain,9324.0
+1966,Argentina,11102.0
+1967,Chile,6918.0
+1967,South Korea,2268.0
+1967,Portugal,7754.0
+1967,Spain,9719.0
+1967,Argentina,11240.0
+1968,Chile,7022.0
+1968,South Korea,2499.0
+1968,Portugal,8433.0
+1968,Spain,10183.0
+1968,Argentina,11554.0
+1969,Chile,7140.0
+1969,South Korea,2813.0
+1969,Portugal,8629.0
+1969,Spain,11012.0
+1969,Argentina,12361.0
+1970,Chile,7146.0
+1970,South Korea,2989.0
+1970,Portugal,9471.0
+1970,Spain,11253.0
+1970,Argentina,12826.0
+1971,Chile,7651.0
+1971,South Korea,3217.0
+1971,Portugal,10159.0
+1971,Spain,11705.0
+1971,Argentina,13227.0
+1972,Chile,7430.0
+1972,South Korea,3388.0
+1972,Portugal,10998.0
+1972,Spain,12773.0
+1972,Argentina,13410.0
+1973,Chile,6899.0
+1973,South Korea,3895.0
+1973,Portugal,12222.0
+1973,Spain,13770.0
+1973,Argentina,13986.0
+1974,Chile,6851.0
+1974,South Korea,4158.0
+1974,Portugal,12196.0
+1974,Spain,14658.0
+1974,Argentina,14639.0
+1975,Chile,5870.0
+1975,South Korea,4360.0
+1975,Portugal,11278.0
+1975,Spain,14933.0
+1975,Argentina,14268.0
+1976,Chile,5989.0
+1976,South Korea,4794.0
+1976,Portugal,11792.0
+1976,Spain,15443.0
+1976,Argentina,13991.0
+1977,Chile,6486.0
+1977,South Korea,5205.0
+1977,Portugal,12400.0
+1977,Spain,15784.0
+1977,Argentina,14587.0
+1978,Chile,6921.0
+1978,South Korea,5604.0
+1978,Portugal,12702.0
+1978,Spain,16058.0
+1978,Argentina,13714.0
+1979,Chile,7390.0
+1979,South Korea,5922.0
+1979,Portugal,13382.0
+1979,Spain,16186.0
+1979,Argentina,14451.0
+1980,Chile,7869.0
+1980,South Korea,5674.0
+1980,Portugal,13920.0
+1980,Spain,16574.0
+1980,Argentina,14414.0
+1981,Chile,8221.0
+1981,South Korea,5933.0
+1981,Portugal,14042.0
+1981,Spain,16440.0
+1981,Argentina,13361.0
+1982,Chile,6990.0
+1982,South Korea,6285.0
+1982,Portugal,14328.0
+1982,Spain,16618.0
+1982,Argentina,12727.0
+1983,Chile,6687.0
+1983,South Korea,6905.0
+1983,Portugal,14284.0
+1983,Spain,16846.0
+1983,Argentina,12976.0
+1984,Chile,6970.0
+1984,South Korea,7412.0
+1984,Portugal,13997.0
+1984,Spain,16928.0
+1984,Argentina,13044.0
+1985,Chile,6998.0
+1985,South Korea,7820.0
+1985,Portugal,14373.0
+1985,Spain,17381.0
+1985,Argentina,12006.0
+1986,Chile,7260.0
+1986,South Korea,8637.0
+1986,Portugal,14953.0
+1986,Spain,18028.0
+1986,Argentina,12689.0
+1987,Chile,7605.0
+1987,South Korea,9538.0
+1987,Portugal,15894.0
+1987,Spain,19248.0
+1987,Argentina,12819.0
+1988,Chile,8022.0
+1988,South Korea,10509.0
+1988,Portugal,17076.0
+1988,Spain,20436.0
+1988,Argentina,12391.0
+1989,Chile,8725.0
+1989,South Korea,11070.0
+1989,Portugal,17948.0
+1989,Spain,21722.0
+1989,Argentina,11453.0
+1990,Chile,8898.0
+1990,South Korea,12004.0
+1990,Portugal,18735.0
+1990,Spain,22735.0
+1990,Argentina,11300.0
+1991,Chile,9433.0
+1991,South Korea,13116.0
+1991,Portugal,19411.0
+1991,Spain,23425.0
+1991,Argentina,12311.0
+1992,Chile,10402.0
+1992,South Korea,13782.0
+1992,Portugal,20034.0
+1992,Spain,23671.0
+1992,Argentina,13394.0
+1993,Chile,10935.0
+1993,South Korea,14577.0
+1993,Portugal,19872.0
+1993,Spain,23166.0
+1993,Argentina,14049.0
+1994,Chile,11362.0
+1994,South Korea,15760.0
+1994,Portugal,20113.0
+1994,Spain,23690.0
+1994,Argentina,14682.0
+1995,Chile,12357.0
+1995,South Korea,17095.0
+1995,Portugal,20507.0
+1995,Spain,24465.0
+1995,Argentina,14091.0
+1996,Chile,13089.0
+1996,South Korea,18219.0
+1996,Portugal,21144.0
+1996,Spain,25017.0
+1996,Argentina,14700.0
+1997,Chile,13765.0
+1997,South Korea,19118.0
+1997,Portugal,21981.0
+1997,Spain,25856.0
+1997,Argentina,15708.0
+1998,Chile,14019.0
+1998,South Korea,17942.0
+1998,Portugal,22919.0
+1998,Spain,26949.0
+1998,Argentina,16127.0
+1999,Chile,13729.0
+1999,South Korea,19830.0
+1999,Portugal,23675.0
+1999,Spain,28127.0
+1999,Argentina,15409.0
+2000,Chile,14159.0
+2000,South Korea,21420.0
+2000,Portugal,24400.0
+2000,Spain,29481.0
+2000,Argentina,15119.0
+2001,Chile,14473.0
+2001,South Korea,22218.0
+2001,Portugal,24699.0
+2001,Spain,30501.0
+2001,Argentina,14298.0
+2002,Chile,14626.0
+2002,South Korea,23731.0
+2002,Portugal,24753.0
+2002,Spain,30902.0
+2002,Argentina,12609.0
+2003,Chile,15006.0
+2003,South Korea,24301.0
+2003,Portugal,24430.0
+2003,Spain,31315.0
+2003,Argentina,13582.0
+2004,Chile,15744.0
+2004,South Korea,25391.0
+2004,Portugal,24813.0
+2004,Spain,31823.0
+2004,Argentina,14650.0
+2005,Chile,16480.0
+2005,South Korea,26331.0
+2005,Portugal,24957.0
+2005,Spain,32406.0
+2005,Argentina,15776.0
+2006,Chile,17346.0
+2006,South Korea,27550.0
+2006,Portugal,25299.0
+2006,Spain,33211.0
+2006,Argentina,16876.0
+2007,Chile,18012.0
+2007,South Korea,28908.0
+2007,Portugal,25879.0
+2007,Spain,33801.0
+2007,Argentina,18226.0
+2008,Chile,18440.0
+2008,South Korea,29501.0
+2008,Portugal,25893.0
+2008,Spain,33643.0
+2008,Argentina,18779.0
+2009,Chile,17949.0
+2009,South Korea,29557.0
+2009,Portugal,25098.0
+2009,Spain,32181.0
+2009,Argentina,17490.0
+2010,Chile,18787.0
+2010,South Korea,31321.0
+2010,Portugal,25563.0
+2010,Spain,32042.0
+2010,Argentina,19068.0
+2011,Chile,19705.0
+2011,South Korea,32225.0
+2011,Portugal,25133.0
+2011,Spain,31600.0
+2011,Argentina,20003.0
+2012,Chile,20531.0
+2012,South Korea,32791.0
+2012,Portugal,24218.0
+2012,Spain,30699.0
+2012,Argentina,19599.0
+2013,Chile,21135.0
+2013,South Korea,33588.0
+2013,Portugal,24076.0
+2013,Spain,30280.0
+2013,Argentina,19873.0
+2014,Chile,21335.0
+2014,South Korea,34493.0
+2014,Portugal,24423.0
+2014,Spain,30819.0
+2014,Argentina,19183.0
+2015,Chile,21589.0
+2015,South Korea,35269.0
+2015,Portugal,24915.0
+2015,Spain,31847.0
+2015,Argentina,19502.0
+2016,Chile,21696.0
+2016,South Korea,36103.0
+2016,Portugal,25346.0
+2016,Spain,30110.0
+2016,Argentina,18875.0

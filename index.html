@@ -97,6 +97,19 @@
     </p>
 </section>
 
+<section>
+    <div class="chart-description">
+        <h2>CC5: Improving a graph </h2>
+        <h3>Original Graph</h3>
+    <img src="https://github.com/alonsoquezadar/alonsoquezadar.github.io/blob/1fb78e50d7f2859da983c9f1b1e7de989f1cdd16/Plots%20Portfolio/graph%20to%20improve.png" 
+         alt="Original Chile GDP per capita graph" 
+         style="max-width: 100%; border-radius: 8px; opacity: 0.9;">
+        <h3>New graph version</h3>
+        <figure id="Location8"></figure>
+    </div>
+    
+</section>
+    
     <!-- Do you want to add more sections? -->
         <!-- Try copying pasting the section above -->
         <!-- You'll need to change the id of the figure "<figure id="Location3"... -->
@@ -111,8 +124,9 @@
         let figure_3_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Debt%20interest%20payments.json";  // You should have a spec for a graph in this same folder. Just specify its name here, e.g. let figure_1_spec = "chart1.json"
         let figure_4_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Hours%20work.json";
         let figure_5_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Real%20GDP.json";
-        let figure_6_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Copper%20production.json"
-        let figure_7_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Lithium%20production%20map.json"
+        let figure_6_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Copper%20production.json";
+        let figure_7_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Lithium%20production%20map.json";
+        let figure_8_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/improve-chile-graph.json"
 
 
         
@@ -122,6 +136,7 @@
         vegaEmbed('#Location5', figure_5_spec)
         vegaEmbed('#Location6', figure_6_spec)
         vegaEmbed('#Location7', figure_7_spec)
+        vegaEmbed('#Location8', figure_8_spec)
 
 
 

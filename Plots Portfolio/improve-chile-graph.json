@@ -19,8 +19,8 @@
       "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/chile_gdp_comparison_data.csv",
       "format": {"type": "csv", "parse": {"year": "number"}, "delimiter": ","}
     },
-    {"name": "source_1", "values": [{"year": 1973}]},
-    {"name": "source_2", "values": [{"year": 1973, "label": "1973"}]},
+    {"name": "source_1", "values": [{"year": 1975}]},
+    {"name": "source_2", "values": [{"year": 1975, "label": "1975"}]},
     {
       "name": "data_0",
       "source": "source_0",
@@ -79,12 +79,9 @@
           "from": {"data": "faceted_path_layer_0_main"},
           "encode": {
             "update": {
-              "opacity": {"value": 0.8},
-              "strokeWidth": {"value": 2},
+              "opacity": {"value": 0.9},
+              "strokeWidth": {"signal": "datum.country === 'Chile' ? 3 : 2"},
               "stroke": {"scale": "color", "field": "country"},
-              "description": {
-                "signal": "\"year: \" + (format(datum[\"year\"], \"d\")) + \"; GDP per capita (2011 US$ PPP): \" + (format(datum[\"gdp_pc\"], \"$,.0f\")) + \"; country: \" + (isValid(datum[\"country\"]) ? isArray(datum[\"country\"]) ? join(datum[\"country\"], ' ') : datum[\"country\"] : \"\"+datum[\"country\"])"
-              },
               "x": {"scale": "x", "field": "year"},
               "y": {"scale": "y", "field": "gdp_pc"},
               "defined": {
@@ -105,11 +102,8 @@
           "align": {"value": "left"},
           "dx": {"value": 8},
           "fontSize": {"value": 12},
-          "fontWeight": {"value": "bold"},
+          "fontWeight": {"signal": "datum.country === 'Chile' ? 'bold' : 'normal'"},
           "fill": {"scale": "color", "field": "country"},
-          "description": {
-            "signal": "\"year: \" + (format(datum[\"year\"], \"\")) + \"; gdp_pc: \" + (format(datum[\"gdp_pc\"], \"\")) + \"; country: \" + (isValid(datum[\"country\"]) ? isArray(datum[\"country\"]) ? join(datum[\"country\"], ' ') : datum[\"country\"] : \"\"+datum[\"country\"])"
-          },
           "x": {"scale": "x", "field": "year"},
           "y": {"scale": "y", "field": "gdp_pc"},
           "text": {
@@ -130,9 +124,6 @@
           "strokeWidth": {"value": 1.5},
           "strokeDash": {"value": [6, 4]},
           "stroke": {"value": "#c41e3a"},
-          "description": {
-            "signal": "\"year: \" + (format(datum[\"year\"], \"\"))"
-          },
           "x": {"scale": "x", "field": "year"},
           "y": {"value": 0},
           "y2": {"field": {"group": "height"}}
@@ -152,9 +143,6 @@
           "fontSize": {"value": 11},
           "fontStyle": {"value": "italic"},
           "fill": {"value": "#c41e3a"},
-          "description": {
-            "signal": "\"year: \" + (format(datum[\"year\"], \"\")) + \"; label: \" + (isValid(datum[\"label\"]) ? isArray(datum[\"label\"]) ? join(datum[\"label\"], ' ') : datum[\"label\"] : \"\"+datum[\"label\"])"
-          },
           "x": {"scale": "x", "field": "year"},
           "y": {"signal": "height", "mult": 0.5},
           "text": {
@@ -185,7 +173,7 @@
       "name": "color",
       "type": "ordinal",
       "domain": ["Chile", "South Korea", "Argentina", "Spain", "Portugal"],
-      "range": ["#c41e3a", "#2563eb", "#71717a", "#059669", "#7c3aed"]
+      "range": ["#c41e3a", "#5b8fa8", "#a89b8b", "#7d9d78", "#9887a1"]
     }
   ],
   "axes": [

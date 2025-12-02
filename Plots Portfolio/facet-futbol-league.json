@@ -5,8 +5,8 @@
   "title": {
     "text": "Chilean League 2025 - Points Evolution by Team",
     "subtitle": "Cumulative points per matchday",
-    "fontSize": 20,
-    "subtitleFontSize": 13,
+    "fontSize": 18,
+    "subtitleFontSize": 12,
     "subtitleColor": "#666",
     "anchor": "start"
   },
@@ -95,10 +95,10 @@
     }
   ],
   "signals": [
-    {"name": "child_width", "value": 300},
-    {"name": "child_height", "value": 300}
+    {"name": "child_width", "value": 200},
+    {"name": "child_height", "value": 200}
   ],
-  "layout": {"padding": 25, "bounds": "full", "align": "all", "columns": 4},
+  "layout": {"padding": 15, "bounds": "full", "align": "all", "columns": 4},
   "marks": [
     {
       "name": "row_header",
@@ -111,6 +111,7 @@
           "scale": "y",
           "orient": "left",
           "grid": false,
+          "labelFontSize": 8,
           "tickCount": 3,
           "labelOverlap": true,
           "zindex": 0
@@ -128,7 +129,8 @@
           "scale": "x",
           "orient": "bottom",
           "grid": false,
-          "tickCount": 5,
+          "labelFontSize": 8,
+          "tickCount": 3,
           "labelFlush": true,
           "labelOverlap": true,
           "zindex": 0
@@ -144,8 +146,7 @@
         },
         "style": "guide-label",
         "frame": "group",
-        "fontSize": 12,
-        "fontWeight": "bold",
+        "fontSize": 10,
         "offset": 10
       },
       "style": "cell",

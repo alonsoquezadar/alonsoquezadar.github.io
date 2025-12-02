@@ -122,7 +122,7 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
     <div class="chart-description">
     <h2>CC5: Accessing data - Scraper and API</h2>
             <figure id="Location10"></figure>
-     <h3>World Bank API - Functional Description</h3>
+        <h3>World Bank API - Functional Description</h3>
         <p>
             The World Bank API uses the base URL <code>https://api.worldbank.org/v2/</code> followed by the endpoint structure <code>/country/{country_codes}/indicator/{indicator_code}</code>. Country codes are ISO-3 codes separated by semicolons (e.g., <code>WLD;EUU;NAC</code> for World, European Union, and North America). The indicator code specifies which dataset to retrieve (e.g., <code>EG.FEC.RNEW.ZS</code> for renewable energy consumption). Query parameters include <code>format=json</code> for JSON output, <code>per_page</code> to set the number of records, and <code>date</code> for the year range (e.g., <code>1990:2022</code>). The full URL used in the chart is:
         </p>
@@ -130,6 +130,9 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
         <p>
             Note that the API returns a two-element array where index <code>[0]</code> contains metadata and index <code>[1]</code> contains the actual data, so in Vega-Lite you must use <code>"format": {"property": "[1]"}</code> to extract the data correctly.
         </p>
+        <h3>Scraping: Chilean Futbol League</h3>
+        <iframe src="tabla_posiciones.html" width="100%" height="600" style="border: none;"></iframe>
+
     </div>
 </section>
 

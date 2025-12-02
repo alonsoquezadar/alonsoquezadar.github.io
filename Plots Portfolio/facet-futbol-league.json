@@ -1,0 +1,341 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "#fdfcfa",
+  "padding": 5,
+  "title": {
+    "text": "Chilean League 2025 - Points Evolution by Team",
+    "subtitle": "Cumulative points per matchday",
+    "fontSize": 20,
+    "subtitleFontSize": 13,
+    "subtitleColor": "#666",
+    "anchor": "start"
+  },
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/puntos_acumulados_chile_2025.csv",
+      "format": {
+        "type": "csv",
+        "parse": {"partido": "number"},
+        "delimiter": ","
+      },
+      "transform": [
+        {"type": "filter", "expr": "datum.equipo != 'Deportes La serena'"},
+        {
+          "type": "formula",
+          "expr": "datum[\"equipo\"]===\"Coquimbo Unido\" ? 0 : datum[\"equipo\"]===\"Universidad Católica\" ? 1 : datum[\"equipo\"]===\"O'Higgins\" ? 2 : datum[\"equipo\"]===\"Universidad de Chile\" ? 3 : datum[\"equipo\"]===\"Palestino\" ? 4 : datum[\"equipo\"]===\"Cobresal\" ? 5 : datum[\"equipo\"]===\"Audax Italiano\" ? 6 : datum[\"equipo\"]===\"Colo Colo\" ? 7 : datum[\"equipo\"]===\"Huachipato\" ? 8 : datum[\"equipo\"]===\"Ñublense\" ? 9 : datum[\"equipo\"]===\"Unión La Calera\" ? 10 : datum[\"equipo\"]===\"Deportes Limache\" ? 11 : datum[\"equipo\"]===\"Deportes La Serena\" ? 12 : datum[\"equipo\"]===\"Everton\" ? 13 : datum[\"equipo\"]===\"Deportes Iquique\" ? 14 : datum[\"equipo\"]===\"Unión Española\" ? 15 : 16",
+          "as": "facet_equipo_sort_index"
+        },
+        {
+          "type": "formula",
+          "expr": "indexof(['Coquimbo Unido', 'Universidad Católica', 'O\\'Higgins'], datum.equipo) >= 0 ? 'libertadores' : indexof(['Universidad de Chile', 'Palestino', 'Cobresal', 'Audax Italiano'], datum.equipo) >= 0 ? 'sudamericana' : indexof(['Deportes Iquique', 'Unión Española'], datum.equipo) >= 0 ? 'descenso' : 'medio'",
+          "as": "categoria"
+        }
+      ]
+    },
+    {
+      "name": "facet_domain",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["equipo"],
+          "fields": ["facet_equipo_sort_index"],
+          "ops": ["max"],
+          "as": ["facet_equipo_sort_index"]
+        }
+      ]
+    },
+    {
+      "name": "facet_domain_row",
+      "transform": [
+        {
+          "type": "sequence",
+          "start": 0,
+          "stop": {"signal": "ceil(length(data(\"facet_domain\")) / 4)"}
+        }
+      ]
+    },
+    {
+      "name": "facet_domain_column",
+      "transform": [
+        {
+          "type": "sequence",
+          "start": 0,
+          "stop": {"signal": "min(length(data(\"facet_domain\")), 4)"}
+        }
+      ]
+    },
+    {
+      "name": "data_2",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "indexof([\"libertadores\",\"sudamericana\",\"medio\",\"descenso\"], datum['categoria'])",
+          "as": "_categoria_sort_index"
+        },
+        {
+          "type": "impute",
+          "field": "puntos_acumulados",
+          "groupby": ["categoria", "equipo"],
+          "key": "partido",
+          "method": "value",
+          "value": 0
+        },
+        {
+          "type": "stack",
+          "groupby": ["partido", "equipo"],
+          "field": "puntos_acumulados",
+          "sort": {"field": ["_categoria_sort_index"], "order": ["descending"]},
+          "as": ["puntos_acumulados_start", "puntos_acumulados_end"],
+          "offset": "zero"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {"name": "child_width", "value": 300},
+    {"name": "child_height", "value": 300}
+  ],
+  "layout": {"padding": 25, "bounds": "full", "align": "all", "columns": 4},
+  "marks": [
+    {
+      "name": "row_header",
+      "type": "group",
+      "role": "row-header",
+      "from": {"data": "facet_domain_row"},
+      "encode": {"update": {"height": {"signal": "child_height"}}},
+      "axes": [
+        {
+          "scale": "y",
+          "orient": "left",
+          "grid": false,
+          "tickCount": 3,
+          "labelOverlap": true,
+          "zindex": 0
+        }
+      ]
+    },
+    {
+      "name": "column_footer",
+      "type": "group",
+      "role": "column-footer",
+      "from": {"data": "facet_domain_column"},
+      "encode": {"update": {"width": {"signal": "child_width"}}},
+      "axes": [
+        {
+          "scale": "x",
+          "orient": "bottom",
+          "grid": false,
+          "tickCount": 5,
+          "labelFlush": true,
+          "labelOverlap": true,
+          "zindex": 0
+        }
+      ]
+    },
+    {
+      "name": "cell",
+      "type": "group",
+      "title": {
+        "text": {
+          "signal": "isValid(parent[\"equipo\"]) ? parent[\"equipo\"] : \"\"+parent[\"equipo\"]"
+        },
+        "style": "guide-label",
+        "frame": "group",
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "offset": 10
+      },
+      "style": "cell",
+      "from": {
+        "facet": {
+          "name": "facet",
+          "data": "source_0",
+          "groupby": ["equipo"],
+          "aggregate": {
+            "fields": ["facet_equipo_sort_index"],
+            "ops": ["max"],
+            "as": ["facet_equipo_sort_index"]
+          }
+        }
+      },
+      "sort": {
+        "field": ["datum[\"facet_equipo_sort_index\"]"],
+        "order": ["ascending"]
+      },
+      "data": [
+        {
+          "source": "facet",
+          "name": "data_0",
+          "transform": [
+            {
+              "type": "formula",
+              "expr": "indexof([\"libertadores\",\"sudamericana\",\"medio\",\"descenso\"], datum['categoria'])",
+              "as": "_categoria_sort_index"
+            },
+            {
+              "type": "impute",
+              "field": "puntos_acumulados",
+              "groupby": ["categoria"],
+              "key": "partido",
+              "method": "value",
+              "value": 0
+            },
+            {
+              "type": "stack",
+              "groupby": ["partido"],
+              "field": "puntos_acumulados",
+              "sort": {
+                "field": ["_categoria_sort_index"],
+                "order": ["descending"]
+              },
+              "as": ["puntos_acumulados_start", "puntos_acumulados_end"],
+              "offset": "zero"
+            }
+          ]
+        }
+      ],
+      "encode": {
+        "update": {
+          "width": {"signal": "child_width"},
+          "height": {"signal": "child_height"}
+        }
+      },
+      "marks": [
+        {
+          "name": "child_layer_0_pathgroup",
+          "type": "group",
+          "from": {
+            "facet": {
+              "name": "faceted_path_child_layer_0_main",
+              "data": "data_0",
+              "groupby": ["categoria", "_categoria_sort_index"]
+            }
+          },
+          "encode": {
+            "update": {
+              "width": {"field": {"group": "width"}},
+              "height": {"field": {"group": "height"}}
+            }
+          },
+          "marks": [
+            {
+              "name": "child_layer_0_marks",
+              "type": "area",
+              "style": ["area"],
+              "sort": {"field": "x"},
+              "from": {"data": "faceted_path_child_layer_0_main"},
+              "encode": {
+                "update": {
+                  "opacity": {"value": 0.3},
+                  "interpolate": {"value": "step-after"},
+                  "orient": {"value": "vertical"},
+                  "fill": {"scale": "color", "field": "categoria"},
+                  "description": {
+                    "signal": "\"partido: \" + (format(datum[\"partido\"], \"\")) + \"; puntos_acumulados: \" + (format(datum[\"puntos_acumulados\"], \"\")) + \"; categoria: \" + (isValid(datum[\"categoria\"]) ? isArray(datum[\"categoria\"]) ? join(datum[\"categoria\"], ' ') : datum[\"categoria\"] : \"\"+datum[\"categoria\"])"
+                  },
+                  "x": {"scale": "x", "field": "partido"},
+                  "y": {"scale": "y", "field": "puntos_acumulados_end"},
+                  "y2": {"scale": "y", "field": "puntos_acumulados_start"},
+                  "defined": {
+                    "signal": "isValid(datum[\"partido\"]) && isFinite(+datum[\"partido\"]) && isValid(datum[\"puntos_acumulados\"]) && isFinite(+datum[\"puntos_acumulados\"])"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "child_layer_1_pathgroup",
+          "type": "group",
+          "from": {
+            "facet": {
+              "name": "faceted_path_child_layer_1_main",
+              "data": "facet",
+              "groupby": ["categoria"]
+            }
+          },
+          "encode": {
+            "update": {
+              "width": {"field": {"group": "width"}},
+              "height": {"field": {"group": "height"}}
+            }
+          },
+          "marks": [
+            {
+              "name": "child_layer_1_marks",
+              "type": "line",
+              "style": ["line"],
+              "sort": {"field": "x"},
+              "from": {"data": "faceted_path_child_layer_1_main"},
+              "encode": {
+                "update": {
+                  "strokeWidth": {"value": 2},
+                  "interpolate": {"value": "step-after"},
+                  "stroke": {"scale": "color", "field": "categoria"},
+                  "description": {
+                    "signal": "\"partido: \" + (format(datum[\"partido\"], \"\")) + \"; puntos_acumulados: \" + (format(datum[\"puntos_acumulados\"], \"\")) + \"; categoria: \" + (isValid(datum[\"categoria\"]) ? isArray(datum[\"categoria\"]) ? join(datum[\"categoria\"], ' ') : datum[\"categoria\"] : \"\"+datum[\"categoria\"])"
+                  },
+                  "x": {"scale": "x", "field": "partido"},
+                  "y": {"scale": "y", "field": "puntos_acumulados"},
+                  "defined": {
+                    "signal": "isValid(datum[\"partido\"]) && isFinite(+datum[\"partido\"]) && isValid(datum[\"puntos_acumulados\"]) && isFinite(+datum[\"puntos_acumulados\"])"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "axes": [
+        {
+          "scale": "y",
+          "orient": "left",
+          "grid": true,
+          "gridColor": "#e0e0e0",
+          "tickCount": 3,
+          "gridScale": "x",
+          "domain": false,
+          "labels": false,
+          "aria": false,
+          "maxExtent": 0,
+          "minExtent": 0,
+          "ticks": false,
+          "zindex": 0
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": {
+        "fields": [
+          {"data": "data_2", "field": "partido"},
+          {"data": "source_0", "field": "partido"}
+        ]
+      },
+      "range": [0, {"signal": "child_width"}],
+      "nice": true,
+      "zero": false
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": [0, 75],
+      "range": [{"signal": "child_height"}, 0],
+      "nice": true,
+      "zero": true
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": ["libertadores", "sudamericana", "medio", "descenso"],
+      "range": ["#28a745", "#ffc107", "#6c757d", "#dc3545"]
+    }
+  ],
+  "config": {"style": {"cell": {"stroke": null}}}
+}

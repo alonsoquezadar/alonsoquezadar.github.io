@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabla de Posiciones - Chile 2025</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background: #f5f5f5; 
+            padding: 20px; 
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { 
+            text-align: center; 
+            margin-bottom: 20px; 
+            color: #1a1a2e; 
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            background: white; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        th { 
+            background: #1a1a2e; 
+            color: white; 
+            padding: 12px 8px; 
+            text-align: center; 
+            font-size: 0.85em; 
+        }
+        td { 
+            padding: 10px 8px; 
+            text-align: center; 
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+        .equipo { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            text-align: left; 
+        }
+        .escudo { width: 25px; height: 25px; object-fit: contain; }
+        .libertadores { 
+            border-left: 4px solid #28a745;
+            background: rgba(40, 167, 69, 0.08);
+        }
+        .sudamericana { 
+            border-left: 4px solid #ffc107;
+            background: rgba(255, 193, 7, 0.08);
+        }
+        .descenso { 
+            border-left: 4px solid #dc3545;
+            background: rgba(220, 53, 69, 0.08);
+        }
+        .leyenda { 
+            display: flex; 
+            gap: 20px; 
+            margin-top: 15px; 
+            font-size: 0.85em; 
+        }
+        .leyenda span { 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+        }
+        .leyenda .box { 
+            width: 15px; 
+            height: 15px; 
+            border-radius: 3px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 Tabla de Posiciones - Chile 2025</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Equipo</th>
+                    <th>PTS</th>
+                    <th>J</th>
+                    <th>G</th>
+                    <th>E</th>
+                    <th>P</th>
+                    <th>GF</th>
+                    <th>GC</th>
+                    <th>DG</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr class="libertadores">
+                    <td>1</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/coquimbo-unido.png" class="escudo" alt="Coquimbo Unido">
+                            Coquimbo Unido
+                        </div>
+                    </td>
+                    <td><strong>71</strong></td>
+                    <td>28</td>
+                    <td>22</td>
+                    <td>5</td>
+                    <td>1</td>
+                    <td>44</td>
+                    <td>14</td>
+                    <td>+30</td>
+                </tr>
+
+                <tr class="libertadores">
+                    <td>2</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/universidad-catolica.png" class="escudo" alt="U. Católica">
+                            U. Católica
+                        </div>
+                    </td>
+                    <td><strong>55</strong></td>
+                    <td>29</td>
+                    <td>16</td>
+                    <td>7</td>
+                    <td>6</td>
+                    <td>42</td>
+                    <td>25</td>
+                    <td>+17</td>
+                </tr>
+
+                <tr class="libertadores">
+                    <td>3</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/ohiggins.png" class="escudo" alt="O'Higgins">
+                            O'Higgins
+                        </div>
+                    </td>
+                    <td><strong>53</strong></td>
+                    <td>29</td>
+                    <td>15</td>
+                    <td>8</td>
+                    <td>6</td>
+                    <td>42</td>
+                    <td>34</td>
+                    <td>+8</td>
+                </tr>
+
+                <tr class="sudamericana">
+                    <td>4</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/u-de-chile.png" class="escudo" alt="U. de Chile">
+                            U. de Chile
+                        </div>
+                    </td>
+                    <td><strong>51</strong></td>
+                    <td>28</td>
+                    <td>16</td>
+                    <td>3</td>
+                    <td>9</td>
+                    <td>54</td>
+                    <td>29</td>
+                    <td>+25</td>
+                </tr>
+
+                <tr class="sudamericana">
+                    <td>5</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/palestino.png" class="escudo" alt="Palestino">
+                            Palestino
+                        </div>
+                    </td>
+                    <td><strong>48</strong></td>
+                    <td>29</td>
+                    <td>14</td>
+                    <td>6</td>
+                    <td>9</td>
+                    <td>40</td>
+                    <td>29</td>
+                    <td>+11</td>
+                </tr>
+
+                <tr class="sudamericana">
+                    <td>6</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/cobresal.png" class="escudo" alt="Cobresal">
+                            Cobresal
+                        </div>
+                    </td>
+                    <td><strong>47</strong></td>
+                    <td>29</td>
+                    <td>14</td>
+                    <td>5</td>
+                    <td>10</td>
+                    <td>38</td>
+                    <td>33</td>
+                    <td>+5</td>
+                </tr>
+
+                <tr class="sudamericana">
+                    <td>7</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/audax.png" class="escudo" alt="Audax Italiano">
+                            Audax Italiano
+                        </div>
+                    </td>
+                    <td><strong>46</strong></td>
+                    <td>28</td>
+                    <td>14</td>
+                    <td>4</td>
+                    <td>10</td>
+                    <td>48</td>
+                    <td>42</td>
+                    <td>+6</td>
+                </tr>
+
+                <tr class="">
+                    <td>8</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/colo-colo.png" class="escudo" alt="Colo Colo">
+                            Colo Colo
+                        </div>
+                    </td>
+                    <td><strong>44</strong></td>
+                    <td>29</td>
+                    <td>12</td>
+                    <td>8</td>
+                    <td>9</td>
+                    <td>45</td>
+                    <td>34</td>
+                    <td>+11</td>
+                </tr>
+
+                <tr class="">
+                    <td>9</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/huachipato.png" class="escudo" alt="Huachipato">
+                            Huachipato
+                        </div>
+                    </td>
+                    <td><strong>42</strong></td>
+                    <td>29</td>
+                    <td>12</td>
+                    <td>6</td>
+                    <td>11</td>
+                    <td>41</td>
+                    <td>40</td>
+                    <td>+1</td>
+                </tr>
+
+                <tr class="">
+                    <td>10</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/nublense.png" class="escudo" alt="Ñublense">
+                            Ñublense
+                        </div>
+                    </td>
+                    <td><strong>30</strong></td>
+                    <td>28</td>
+                    <td>7</td>
+                    <td>9</td>
+                    <td>12</td>
+                    <td>26</td>
+                    <td>39</td>
+                    <td>-13</td>
+                </tr>
+
+                <tr class="">
+                    <td>11</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/club-deportes-limache.png" class="escudo" alt="Dep. Limache">
+                            Dep. Limache
+                        </div>
+                    </td>
+                    <td><strong>29</strong></td>
+                    <td>29</td>
+                    <td>7</td>
+                    <td>7</td>
+                    <td>15</td>
+                    <td>35</td>
+                    <td>43</td>
+                    <td>-8</td>
+                </tr>
+
+                <tr class="">
+                    <td>12</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/union-la-calera.png" class="escudo" alt="Unión La Calera">
+                            Unión La Calera
+                        </div>
+                    </td>
+                    <td><strong>29</strong></td>
+                    <td>29</td>
+                    <td>8</td>
+                    <td>5</td>
+                    <td>16</td>
+                    <td>27</td>
+                    <td>37</td>
+                    <td>-10</td>
+                </tr>
+
+                <tr class="">
+                    <td>13</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/la-serena.png" class="escudo" alt="Dep. La Serena">
+                            Dep. La Serena
+                        </div>
+                    </td>
+                    <td><strong>27</strong></td>
+                    <td>29</td>
+                    <td>7</td>
+                    <td>6</td>
+                    <td>16</td>
+                    <td>32</td>
+                    <td>51</td>
+                    <td>-19</td>
+                </tr>
+
+                <tr class="">
+                    <td>14</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/everton.png" class="escudo" alt="Everton">
+                            Everton
+                        </div>
+                    </td>
+                    <td><strong>26</strong></td>
+                    <td>29</td>
+                    <td>6</td>
+                    <td>8</td>
+                    <td>15</td>
+                    <td>27</td>
+                    <td>43</td>
+                    <td>-16</td>
+                </tr>
+
+                <tr class="descenso">
+                    <td>15</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/iquique.png" class="escudo" alt="Dep. Iquique">
+                            Dep. Iquique
+                        </div>
+                    </td>
+                    <td><strong>24</strong></td>
+                    <td>29</td>
+                    <td>6</td>
+                    <td>6</td>
+                    <td>17</td>
+                    <td>32</td>
+                    <td>57</td>
+                    <td>-25</td>
+                </tr>
+
+                <tr class="descenso">
+                    <td>16</td>
+                    <td>
+                        <div class="equipo">
+                            <img src="https://static.emol.cl/emol50/especiales/img/recursos/logos/futbol/200x200_c/chile/union-espanola.png" class="escudo" alt="Unión Española">
+                            Unión Española
+                        </div>
+                    </td>
+                    <td><strong>21</strong></td>
+                    <td>29</td>
+                    <td>6</td>
+                    <td>3</td>
+                    <td>20</td>
+                    <td>31</td>
+                    <td>54</td>
+                    <td>-23</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="leyenda" style="color: #333;">
+            <span><div class="box" style="background:#28a745"></div> Copa Libertadores</span>
+            <span><div class="box" style="background:#ffc107"></div> Copa Sudamericana</span>
+            <span><div class="box" style="background:#dc3545"></div> Descenso</span>
+        </div>
+    </div>
+</body>
+</html>

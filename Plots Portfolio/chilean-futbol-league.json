@@ -1,234 +1,100 @@
 {
-  "$schema": "https://vega.github.io/schema/vega/v6.json",
-  "background": "#fdfcfa",
-  "padding": 5,
-  "width": 800,
-  "height": 600,
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Chilean League 2025 - Title Race",
-    "subtitle": "Cumulative points evolution by matchday",
+    "subtitle": "Hover over points to see match details",
     "fontSize": 20,
     "subtitleFontSize": 13,
-    "subtitleColor": "#666",
-    "frame": "group"
+    "subtitleColor": "#666"
   },
-  "style": "cell",
-  "data": [
+  "width": 800,
+  "height": 600,
+  "background": "#fdfcfa",
+  "data": {
+    "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/puntos_con_partidos_chile_2025.csv"
+  },
+  "transform": [
+    {"filter": "datum.equipo != 'Deportes La serena'"},
     {
-      "name": "source_0",
-      "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/puntos_acumulados_chile_2025.csv",
-      "format": {
-        "type": "csv",
-        "parse": {"partido": "number"},
-        "delimiter": ","
-      },
-      "transform": [
-        {"type": "filter", "expr": "datum.equipo != 'Deportes La serena'"},
-        {
-          "type": "formula",
-          "expr": "indexof(['Coquimbo Unido', 'Universidad Católica', 'Universidad de Chile', 'Colo Colo', 'O\\'Higgins'], datum.equipo) >= 0",
-          "as": "destacado"
-        }
-      ]
-    },
-    {
-      "name": "data_0",
-      "source": "source_0",
-      "transform": [{"type": "filter", "expr": "!datum.destacado"}]
-    },
-    {
-      "name": "data_1",
-      "source": "source_0",
-      "transform": [{"type": "filter", "expr": "datum.destacado"}]
-    },
-    {
-      "name": "data_2",
-      "source": "data_1",
-      "transform": [
-        {
-          "type": "filter",
-          "expr": "datum.partido == 28 && datum.equipo == 'Coquimbo Unido' || datum.partido == 29 && datum.equipo == 'Universidad Católica' || datum.partido == 28 && datum.equipo == 'Universidad de Chile' || datum.partido == 29 && datum.equipo == 'Colo Colo' || datum.partido == 28 && datum.equipo == 'O\\'Higgins'"
-        },
-        {
-          "type": "filter",
-          "expr": "isValid(datum[\"partido\"]) && isFinite(+datum[\"partido\"]) && isValid(datum[\"puntos_acumulados\"]) && isFinite(+datum[\"puntos_acumulados\"])"
-        }
-      ]
+      "calculate": "indexof(['Coquimbo Unido', 'Universidad Católica', 'Universidad de Chile', 'Colo Colo', 'O\\'Higgins'], datum.equipo) >= 0",
+      "as": "destacado"
     }
   ],
-  "marks": [
+  "layer": [
     {
-      "name": "layer_0_pathgroup",
-      "type": "group",
-      "from": {
-        "facet": {
-          "name": "faceted_path_layer_0_main",
-          "data": "data_0",
-          "groupby": ["equipo"]
-        }
-      },
-      "encode": {
-        "update": {
-          "width": {"field": {"group": "width"}},
-          "height": {"field": {"group": "height"}}
-        }
-      },
-      "marks": [
-        {
-          "name": "layer_0_marks",
-          "type": "line",
-          "style": ["line"],
-          "sort": {"field": "x"},
-          "from": {"data": "faceted_path_layer_0_main"},
-          "encode": {
-            "update": {
-              "opacity": {"value": 0.25},
-              "strokeWidth": {"value": 1.5},
-              "interpolate": {"value": "step-after"},
-              "stroke": {"value": "#999999"},
-              "description": {
-                "signal": "\"Matchday: \" + (format(datum[\"partido\"], \"\")) + \"; Cumulative Points: \" + (format(datum[\"puntos_acumulados\"], \"\")) + \"; equipo: \" + (isValid(datum[\"equipo\"]) ? isArray(datum[\"equipo\"]) ? join(datum[\"equipo\"], ' ') : datum[\"equipo\"] : \"\"+datum[\"equipo\"])"
-              },
-              "x": {"scale": "x", "field": "partido"},
-              "y": {"scale": "y", "field": "puntos_acumulados"},
-              "defined": {
-                "signal": "isValid(datum[\"partido\"]) && isFinite(+datum[\"partido\"]) && isValid(datum[\"puntos_acumulados\"]) && isFinite(+datum[\"puntos_acumulados\"])"
-              }
-            }
-          }
-        }
-      ]
+      "transform": [{"filter": "!datum.destacado"}],
+      "mark": {"type": "line", "interpolate": "step-after", "strokeWidth": 1.5, "opacity": 0.25},
+      "encoding": {
+        "x": {"field": "partido", "type": "quantitative"},
+        "y": {"field": "puntos_acumulados", "type": "quantitative"},
+        "color": {"value": "#999999"},
+        "detail": {"field": "equipo"}
+      }
     },
     {
-      "name": "layer_1_pathgroup",
-      "type": "group",
-      "from": {
-        "facet": {
-          "name": "faceted_path_layer_1_main",
-          "data": "data_1",
-          "groupby": ["equipo"]
-        }
+      "transform": [{"filter": "datum.destacado"}],
+      "mark": {
+        "type": "line", 
+        "interpolate": "step-after", 
+        "strokeWidth": 3,
+        "point": {"filled": true, "size": 60}
       },
-      "encode": {
-        "update": {
-          "width": {"field": {"group": "width"}},
-          "height": {"field": {"group": "height"}}
-        }
-      },
-      "marks": [
-        {
-          "name": "layer_1_marks",
-          "type": "line",
-          "style": ["line"],
-          "sort": {"field": "x"},
-          "from": {"data": "faceted_path_layer_1_main"},
-          "encode": {
-            "update": {
-              "strokeWidth": {"value": 3},
-              "interpolate": {"value": "step-after"},
-              "stroke": {"scale": "color", "field": "equipo"},
-              "description": {
-                "signal": "\"partido: \" + (format(datum[\"partido\"], \"\")) + \"; puntos_acumulados: \" + (format(datum[\"puntos_acumulados\"], \"\")) + \"; equipo: \" + (isValid(datum[\"equipo\"]) ? isArray(datum[\"equipo\"]) ? join(datum[\"equipo\"], ' ') : datum[\"equipo\"] : \"\"+datum[\"equipo\"])"
-              },
-              "x": {"scale": "x", "field": "partido"},
-              "y": {"scale": "y", "field": "puntos_acumulados"},
-              "defined": {
-                "signal": "isValid(datum[\"partido\"]) && isFinite(+datum[\"partido\"]) && isValid(datum[\"puntos_acumulados\"]) && isFinite(+datum[\"puntos_acumulados\"])"
-              }
-            }
-          }
-        }
-      ]
+      "encoding": {
+        "x": {"field": "partido", "type": "quantitative"},
+        "y": {"field": "puntos_acumulados", "type": "quantitative"},
+        "color": {
+          "field": "equipo",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Coquimbo Unido", "Universidad Católica", "Universidad de Chile", "Colo Colo", "O'Higgins"],
+            "range": ["#D4AF37", "#57B9FF", "#0047AB", "#1a1a1a", "#2E8B57"]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "equipo", "title": "Team"},
+          {"field": "partido", "title": "Matchday"},
+          {"field": "rival", "title": "Opponent"},
+          {"field": "resultado", "title": "Score"},
+          {"field": "local_visita", "title": "Home/Away"},
+          {"field": "resultado_texto", "title": "Result"},
+          {"field": "puntos", "title": "Points gained"},
+          {"field": "puntos_acumulados", "title": "Total Points"}
+        ]
+      }
     },
     {
-      "name": "layer_2_marks",
-      "type": "text",
-      "style": ["text"],
-      "from": {"data": "data_2"},
-      "encode": {
-        "update": {
-          "align": {"value": "left"},
-          "dx": {"value": 8},
-          "dy": {"value": 0},
-          "fontSize": {"value": 11},
-          "fontWeight": {"value": "bold"},
-          "fill": {"scale": "color", "field": "equipo"},
-          "description": {
-            "signal": "\"partido: \" + (format(datum[\"partido\"], \"\")) + \"; puntos_acumulados: \" + (format(datum[\"puntos_acumulados\"], \"\")) + \"; equipo: \" + (isValid(datum[\"equipo\"]) ? isArray(datum[\"equipo\"]) ? join(datum[\"equipo\"], ' ') : datum[\"equipo\"] : \"\"+datum[\"equipo\"])"
-          },
-          "x": {"scale": "x", "field": "partido"},
-          "y": {"scale": "y", "field": "puntos_acumulados"},
-          "text": {
-            "signal": "isValid(datum[\"equipo\"]) ? datum[\"equipo\"] : \"\"+datum[\"equipo\"]"
-          },
-          "baseline": {"value": "middle"}
+      "transform": [
+        {"filter": "datum.destacado"},
+        {"filter": "datum.partido == 28 && datum.equipo == 'Coquimbo Unido' || datum.partido == 29 && datum.equipo == 'Universidad Católica' || datum.partido == 28 && datum.equipo == 'Universidad de Chile' || datum.partido == 29 && datum.equipo == 'Colo Colo' || datum.partido == 28 && datum.equipo == 'O\\'Higgins'"}
+      ],
+      "mark": {"type": "text", "align": "left", "dx": 8, "fontSize": 11, "fontWeight": "bold"},
+      "encoding": {
+        "x": {"field": "partido", "type": "quantitative"},
+        "y": {"field": "puntos_acumulados", "type": "quantitative"},
+        "text": {"field": "equipo"},
+        "color": {
+          "field": "equipo",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Coquimbo Unido", "Universidad Católica", "Universidad de Chile", "Colo Colo", "O'Higgins"],
+            "range": ["#D4AF37", "#57B9FF", "#0047AB", "#1a1a1a", "#2E8B57"]
+          }
         }
       }
     }
   ],
-  "scales": [
-    {
-      "name": "x",
-      "type": "linear",
-      "domain": [0, 38],
-      "range": [0, {"signal": "width"}],
-      "zero": true
+  "encoding": {
+    "x": {
+      "scale": {"domain": [0, 38]},
+      "axis": {"grid": false, "title": "Matchday"}
     },
-    {
-      "name": "y",
-      "type": "linear",
-      "domain": [0, 75],
-      "range": [{"signal": "height"}, 0],
-      "zero": true
-    },
-    {
-      "name": "color",
-      "type": "ordinal",
-      "domain": [
-        "Coquimbo Unido",
-        "Universidad Católica",
-        "Universidad de Chile",
-        "Colo Colo",
-        "O'Higgins"
-      ],
-      "range": ["#D4AF37", "#57B9FF", "#0047AB", "#1a1a1a", "#2E8B57"]
+    "y": {
+      "scale": {"domain": [0, 75]},
+      "axis": {"grid": true, "gridColor": "#e0e0e0", "title": "Cumulative Points"}
     }
-  ],
-  "axes": [
-    {
-      "scale": "y",
-      "orient": "left",
-      "grid": true,
-      "gridColor": "#e0e0e0",
-      "gridScale": "x",
-      "tickCount": {"signal": "ceil(height/40)"},
-      "domain": false,
-      "labels": false,
-      "aria": false,
-      "maxExtent": 0,
-      "minExtent": 0,
-      "ticks": false,
-      "zindex": 0
-    },
-    {
-      "scale": "x",
-      "orient": "bottom",
-      "grid": false,
-      "title": "Matchday",
-      "labelFlush": true,
-      "labelOverlap": true,
-      "tickCount": {"signal": "ceil(width/40)"},
-      "zindex": 0
-    },
-    {
-      "scale": "y",
-      "orient": "left",
-      "grid": false,
-      "title": "Cumulative Points",
-      "labelOverlap": true,
-      "tickCount": {"signal": "ceil(height/40)"},
-      "zindex": 0
-    }
-  ],
-  "config": {"style": {"cell": {"stroke": null}}}
+  },
+  "config": {
+    "view": {"stroke": null}
+  }
 }

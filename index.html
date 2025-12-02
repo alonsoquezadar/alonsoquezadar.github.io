@@ -117,6 +117,19 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
         <figure id="Location8"></figure>
     </div>
 </section>
+
+<section>
+
+    <h2>CC5: Accessing data - Scraper and API</h2>
+        <h3>World Bank API - Functional Description</h3>
+            <figure id="Location10"></figure>
+<p>
+    The World Bank API uses the base URL <code>https://api.worldbank.org/v2/</code> followed by the endpoint structure <code>/country/{country_codes}/indicator/{indicator_code}</code>. Country codes are ISO-3 codes separated by semicolons (e.g., <code>WLD;EUU;NAC</code> for World, European Union, and North America). The indicator code specifies which dataset to retrieve (e.g., <code>EG.FEC.RNEW.ZS</code> for renewable energy consumption). Query parameters include <code>format=json</code> for JSON output, <code>per_page</code> to set the number of records, and <code>date</code> for the year range (e.g., <code>1990:2022</code>). The full URL used in the chart is: <code>https://api.worldbank.org/v2/country/WLD;EUU;NAC;EAS;LCN;SSF/indicator/EG.FEC.RNEW.ZS?format=json&per_page=500&date=1990:2022</code>. Note that the API returns a two-element array where index <code>[0]</code> contains metadata and index <code>[1]</code> contains the actual data, so in Vega-Lite you must use <code>"format": {"property": "[1]"}</code> to extract the data correctly.
+</p>
+
+</section>
+
+
     
     <!-- Do you want to add more sections? -->
         <!-- Try copying pasting the section above -->
@@ -135,8 +148,10 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
         let figure_6_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Copper%20production.json";
         let figure_7_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Lithium%20production%20map.json";
         let figure_8_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/improve-chile-graph.json";
-        let figure_9_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/replicate-pinera-plot.json"
+        let figure_9_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/replicate-pinera-plot.json";
+        let figure_9_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/renewable-energy-api-graph.json"
 
+        
         
 
         
@@ -148,6 +163,7 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
         vegaEmbed('#Location7', figure_7_spec)
         vegaEmbed('#Location8', figure_8_spec)
         vegaEmbed('#Location9', figure_9_spec)
+        vegaEmbed('#Location10', figure_10_spec)
 
 
 

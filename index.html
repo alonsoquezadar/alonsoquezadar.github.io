@@ -134,21 +134,9 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
         <p>
             Below are three figures created by scraping the web from the Sports section of the El Mercurio newspaper.
         </p>
-        <div id="tabla-container"></div>
+        <iframe src="Plots%20Portfolio/tabla_posiciones.html" width="100%" height="650" style="border: none; border-radius: 10px;"></iframe>
     </div>
 </section>
-
-<script>
-fetch('Plots%20Portfolio/tabla_posiciones.html')
-    .then(response => response.text())
-    .then(html => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const container = doc.querySelector('.container');
-        document.getElementById('tabla-container').innerHTML = container.innerHTML;
-    });
-</script>
-
 
     
     <!-- Do you want to add more sections? -->

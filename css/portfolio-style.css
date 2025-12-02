@@ -97,44 +97,6 @@ h3.small {
     line-height: 1.5;
 }
 
-/* Fix para tabla de posiciones */
-#tabla-container {
-    display: block !important;
-    flex-wrap: nowrap !important;
-}
-
-#tabla-container table {
-    width: 100% !important;
-    display: table !important;
-}
-
-#tabla-container h1 {
-    font-size: 1.5rem !important;
-    background: none !important;
-    -webkit-text-fill-color: #1a1a2e !important;
-    color: #1a1a2e !important;
-}
-
-#tabla-container tr {
-    display: table-row !important;
-}
-
-#tabla-container td,
-#tabla-container th {
-    display: table-cell !important;
-}
-
-#tabla-container .equipo {
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-}
-
-#tabla-container .leyenda {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: flex-start !important;
-}
 /* Enlaces */
 pre {
     background: var(--background-light);

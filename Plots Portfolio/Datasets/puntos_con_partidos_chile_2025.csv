@@ -1,0 +1,453 @@
+﻿equipo,partido,jornada,puntos,puntos_acumulados,rival,goles_favor,goles_contra,resultado,resultado_texto,local_visita
+Ñublense,1,1,0,0,Universidad de Chile,0,5,0-5,Loss,Visita
+Ñublense,2,2,1,1,Deportes Limache,1,1,1-1,Draw,Local
+Ñublense,3,3,3,4,Everton,2,1,2-1,Win,Visita
+Ñublense,4,4,1,5,Universidad Católica,1,1,1-1,Draw,Local
+Ñublense,5,5,0,5,Palestino,0,2,0-2,Loss,Visita
+Ñublense,6,6,1,6,Deportes Iquique,1,1,1-1,Draw,Local
+Ñublense,7,7,0,6,Unión Española,0,3,0-3,Loss,Visita
+Ñublense,8,8,1,7,Coquimbo Unido,0,0,0-0,Draw,Local
+Ñublense,9,9,3,10,Deportes La Serena,2,0,2-0,Win,Local
+Ñublense,10,10,1,11,Unión La Calera,1,1,1-1,Draw,Local
+Ñublense,11,11,1,12,Colo Colo,2,2,2-2,Draw,Visita
+Ñublense,12,12,0,12,O'Higgins,0,1,0-1,Loss,Local
+Ñublense,13,13,3,15,Huachipato,1,0,1-0,Win,Visita
+Ñublense,14,14,0,15,Audax Italiano,2,3,2-3,Loss,Local
+Ñublense,15,15,1,16,Cobresal,1,1,1-1,Draw,Visita
+Ñublense,16,16,1,17,Universidad de Chile,2,2,2-2,Draw,Local
+Ñublense,17,17,3,20,Deportes Limache,1,0,1-0,Win,Visita
+Ñublense,18,18,3,23,Everton,1,0,1-0,Win,Local
+Ñublense,19,19,0,23,Universidad Católica,0,1,0-1,Loss,Visita
+Ñublense,20,20,3,26,Palestino,1,0,1-0,Win,Local
+Ñublense,21,21,3,29,Deportes Iquique,2,0,2-0,Win,Visita
+Ñublense,22,22,0,29,Unión Española,1,2,1-2,Loss,Local
+Ñublense,23,23,0,29,Coquimbo Unido,1,2,1-2,Loss,Visita
+Ñublense,24,24,1,30,Deportes La Serena,1,1,1-1,Draw,Visita
+Ñublense,25,25,0,30,Unión La Calera,0,3,0-3,Loss,Visita
+Ñublense,26,26,0,30,Colo Colo,0,1,0-1,Loss,Local
+Ñublense,27,27,0,30,O'Higgins,2,4,2-4,Loss,Visita
+Ñublense,28,28,0,30,Huachipato,0,1,0-1,Loss,Local
+Deportes La Serena,1,1,0,0,Colo Colo,1,3,1-3,Loss,Local
+Deportes La Serena,2,2,0,0,Cobresal,1,3,1-3,Loss,Visita
+Deportes La Serena,3,3,3,3,Unión Española,1,0,1-0,Win,Local
+Deportes La Serena,4,4,1,4,O'Higgins,1,1,1-1,Draw,Visita
+Deportes La Serena,5,5,3,7,Unión La Calera,1,0,1-0,Win,Local
+Deportes La Serena,6,6,0,7,Huachipato,1,3,1-3,Loss,Visita
+Deportes La Serena,7,7,3,10,Everton,2,1,2-1,Win,Local
+Deportes La Serena,8,8,0,10,Universidad de Chile,1,3,1-3,Loss,Visita
+Deportes La Serena,9,9,0,10,Ñublense,0,2,0-2,Loss,Visita
+Deportes La Serena,10,10,0,10,Audax Italiano,1,2,1-2,Loss,Visita
+Deportes La Serena,11,11,3,13,Deportes Iquique,2,1,2-1,Win,Local
+Deportes La Serena,12,12,3,16,Universidad Católica,3,1,3-1,Win,Visita
+Deportes La Serena,13,13,0,16,Coquimbo Unido,2,4,2-4,Loss,Local
+Deportes La Serena,14,14,0,16,Palestino,1,2,1-2,Loss,Visita
+Deportes La Serena,15,15,1,17,Deportes Limache,1,1,1-1,Draw,Local
+Deportes La Serena,16,17,0,17,Cobresal,0,2,0-2,Loss,Local
+Deportes La Serena,17,18,0,17,Unión Española,0,1,0-1,Loss,Visita
+Deportes La Serena,18,19,1,18,O'Higgins,3,3,3-3,Draw,Local
+Deportes La Serena,19,20,1,19,Unión La Calera,1,1,1-1,Draw,Visita
+Deportes La Serena,20,21,0,19,Huachipato,0,2,0-2,Loss,Local
+Deportes La Serena,21,22,0,19,Everton,1,3,1-3,Loss,Visita
+Deportes La Serena,22,23,1,20,Universidad de Chile,1,1,1-1,Draw,Local
+Deportes La Serena,23,24,1,21,Ñublense,1,1,1-1,Draw,Local
+Deportes La Serena,24,25,3,24,Audax Italiano,2,1,2-1,Win,Local
+Deportes La Serena,25,26,3,27,Deportes Iquique,2,1,2-1,Win,Visita
+Deportes La Serena,26,27,0,27,Universidad Católica,0,1,0-1,Loss,Local
+Deportes La Serena,27,28,0,27,Coquimbo Unido,1,2,1-2,Loss,Visita
+Deportes La Serena,28,29,0,27,Palestino,0,3,0-3,Loss,Local
+Audax Italiano,1,1,0,0,Universidad Católica,1,3,1-3,Loss,Visita
+Audax Italiano,2,2,3,3,Deportes Iquique,4,2,4-2,Win,Local
+Audax Italiano,3,3,3,6,Palestino,2,0,2-0,Win,Visita
+Audax Italiano,4,4,3,9,Deportes Limache,3,1,3-1,Win,Local
+Audax Italiano,5,5,1,10,Universidad de Chile,1,1,1-1,Draw,Local
+Audax Italiano,6,6,0,10,Coquimbo Unido,1,2,1-2,Loss,Visita
+Audax Italiano,7,7,3,13,O'Higgins,1,0,1-0,Win,Local
+Audax Italiano,8,8,3,16,Unión Española,2,0,2-0,Win,Local
+Audax Italiano,9,9,0,16,Unión La Calera,0,1,0-1,Loss,Visita
+Audax Italiano,10,10,3,19,Deportes La Serena,2,1,2-1,Win,Local
+Audax Italiano,11,11,3,22,Cobresal,1,0,1-0,Win,Visita
+Audax Italiano,12,12,3,25,Huachipato,4,3,4-3,Win,Local
+Audax Italiano,13,13,1,26,Everton,1,1,1-1,Draw,Visita
+Audax Italiano,14,14,3,29,Ñublense,3,2,3-2,Win,Visita
+Audax Italiano,15,15,3,32,Colo Colo,2,1,2-1,Win,Local
+Audax Italiano,16,16,1,33,Universidad Católica,1,1,1-1,Draw,Local
+Audax Italiano,17,17,0,33,Deportes Iquique,0,1,0-1,Loss,Visita
+Audax Italiano,18,18,1,34,Palestino,1,1,1-1,Draw,Local
+Audax Italiano,19,19,0,34,Deportes Limache,0,4,0-4,Loss,Visita
+Audax Italiano,20,20,3,37,Universidad de Chile,3,1,3-1,Win,Visita
+Audax Italiano,21,21,0,37,Coquimbo Unido,0,1,0-1,Loss,Local
+Audax Italiano,22,22,0,37,O'Higgins,2,3,2-3,Loss,Visita
+Audax Italiano,23,23,3,40,Unión Española,4,3,4-3,Win,Visita
+Audax Italiano,24,24,3,43,Unión La Calera,4,3,4-3,Win,Local
+Audax Italiano,25,25,0,43,Deportes La Serena,1,2,1-2,Loss,Visita
+Audax Italiano,26,26,0,43,Cobresal,1,2,1-2,Loss,Local
+Audax Italiano,27,27,0,43,Huachipato,1,2,1-2,Loss,Visita
+Audax Italiano,28,28,3,46,Everton,2,0,2-0,Win,Local
+Universidad de Chile,1,1,3,3,Ñublense,5,0,5-0,Win,Local
+Universidad de Chile,2,2,3,6,Unión La Calera,1,0,1-0,Win,Local
+Universidad de Chile,3,3,0,6,Cobresal,1,2,1-2,Loss,Visita
+Universidad de Chile,4,4,3,9,Unión Española,2,0,2-0,Win,Visita
+Universidad de Chile,5,5,1,10,Audax Italiano,1,1,1-1,Draw,Visita
+Universidad de Chile,6,6,0,10,Everton,0,2,0-2,Loss,Visita
+Universidad de Chile,7,7,3,13,Colo Colo,2,1,2-1,Win,Local
+Universidad de Chile,8,8,3,16,Deportes La Serena,3,1,3-1,Win,Local
+Universidad de Chile,9,9,3,19,Palestino,3,2,3-2,Win,Visita
+Universidad de Chile,10,10,3,22,Universidad Católica,1,0,1-0,Win,Local
+Universidad de Chile,11,11,3,25,Huachipato,5,1,5-1,Win,Local
+Universidad de Chile,12,12,0,25,Deportes Limache,0,2,0-2,Loss,Visita
+Universidad de Chile,13,13,3,28,O'Higgins,6,0,6-0,Win,Local
+Universidad de Chile,14,14,0,28,Coquimbo Unido,0,1,0-1,Loss,Visita
+Universidad de Chile,15,15,3,31,Deportes Iquique,3,1,3-1,Win,Local
+Universidad de Chile,16,16,1,32,Ñublense,2,2,2-2,Draw,Visita
+Universidad de Chile,17,17,3,35,Unión La Calera,4,0,4-0,Win,Visita
+Universidad de Chile,18,18,0,35,Cobresal,0,1,0-1,Loss,Local
+Universidad de Chile,19,19,3,38,Unión Española,4,1,4-1,Win,Local
+Universidad de Chile,20,20,0,38,Audax Italiano,1,3,1-3,Loss,Local
+Universidad de Chile,21,21,3,41,Everton,2,0,2-0,Win,Local
+Universidad de Chile,22,22,0,41,Colo Colo,0,1,0-1,Loss,Visita
+Universidad de Chile,23,23,1,42,Deportes La Serena,1,1,1-1,Draw,Visita
+Universidad de Chile,24,24,3,45,Palestino,2,1,2-1,Win,Local
+Universidad de Chile,25,25,0,45,Universidad Católica,0,1,0-1,Loss,Visita
+Universidad de Chile,26,26,0,45,Huachipato,0,1,0-1,Loss,Visita
+Universidad de Chile,27,27,3,48,Deportes Limache,4,3,4-3,Win,Local
+Universidad de Chile,28,28,3,51,O'Higgins,1,0,1-0,Win,Visita
+Huachipato,1,1,1,1,O'Higgins,0,0,0-0,Draw,Visita
+Huachipato,2,2,3,4,Everton,4,0,4-0,Win,Local
+Huachipato,3,3,3,7,Colo Colo,2,1,2-1,Win,Local
+Huachipato,4,4,0,7,Unión La Calera,0,1,0-1,Loss,Visita
+Huachipato,5,5,3,10,Deportes Limache,3,2,3-2,Win,Visita
+Huachipato,6,6,3,13,Deportes La Serena,3,1,3-1,Win,Local
+Huachipato,7,7,1,14,Coquimbo Unido,0,0,0-0,Draw,Visita
+Huachipato,8,8,0,14,Cobresal,0,1,0-1,Loss,Local
+Huachipato,9,9,3,17,Unión Española,2,1,2-1,Win,Local
+Huachipato,10,10,0,17,Deportes Iquique,0,3,0-3,Loss,Visita
+Huachipato,11,11,0,17,Universidad de Chile,1,5,1-5,Loss,Visita
+Huachipato,12,12,0,17,Audax Italiano,3,4,3-4,Loss,Visita
+Huachipato,13,13,0,17,Ñublense,0,1,0-1,Loss,Local
+Huachipato,14,14,0,17,Universidad Católica,0,1,0-1,Loss,Visita
+Huachipato,15,15,1,18,Palestino,2,2,2-2,Draw,Local
+Huachipato,16,16,3,21,O'Higgins,2,1,2-1,Win,Local
+Huachipato,17,17,0,21,Everton,1,4,1-4,Loss,Visita
+Huachipato,18,18,1,22,Colo Colo,2,2,2-2,Draw,Visita
+Huachipato,19,19,3,25,Unión La Calera,1,0,1-0,Win,Local
+Huachipato,20,20,3,28,Deportes Limache,4,0,4-0,Win,Local
+Huachipato,21,21,3,31,Deportes La Serena,2,0,2-0,Win,Visita
+Huachipato,22,22,0,31,Coquimbo Unido,0,1,0-1,Loss,Local
+Huachipato,23,23,0,31,Cobresal,2,3,2-3,Loss,Visita
+Huachipato,24,24,0,31,Unión Española,2,4,2-4,Loss,Visita
+Huachipato,25,25,1,32,Deportes Iquique,1,1,1-1,Draw,Local
+Huachipato,26,26,3,35,Universidad de Chile,1,0,1-0,Win,Local
+Huachipato,27,27,3,38,Audax Italiano,2,1,2-1,Win,Local
+Huachipato,28,28,3,41,Ñublense,1,0,1-0,Win,Visita
+Huachipato,29,29,1,42,Universidad Católica,0,0,0-0,Draw,Local
+Cobresal,1,1,0,0,Palestino,1,2,1-2,Loss,Visita
+Cobresal,2,2,3,3,Deportes La Serena,3,1,3-1,Win,Local
+Cobresal,3,3,3,6,Universidad de Chile,2,1,2-1,Win,Local
+Cobresal,4,4,1,7,Coquimbo Unido,1,1,1-1,Draw,Visita
+Cobresal,5,5,1,8,O'Higgins,0,0,0-0,Draw,Local
+Cobresal,6,6,0,8,Unión La Calera,1,2,1-2,Loss,Visita
+Cobresal,7,7,1,9,Universidad Católica,1,1,1-1,Draw,Local
+Cobresal,8,8,3,12,Huachipato,1,0,1-0,Win,Visita
+Cobresal,9,9,3,15,Deportes Limache,3,1,3-1,Win,Local
+Cobresal,10,10,3,18,Unión Española,1,0,1-0,Win,Visita
+Cobresal,11,11,0,18,Audax Italiano,0,1,0-1,Loss,Local
+Cobresal,12,12,1,19,Everton,2,2,2-2,Draw,Visita
+Cobresal,13,14,0,19,Colo Colo,0,4,0-4,Loss,Visita
+Cobresal,14,15,1,20,Ñublense,1,1,1-1,Draw,Local
+Cobresal,15,16,3,23,Palestino,2,1,2-1,Win,Local
+Cobresal,16,17,3,26,Deportes La Serena,2,0,2-0,Win,Visita
+Cobresal,17,18,3,29,Universidad de Chile,1,0,1-0,Win,Visita
+Cobresal,18,19,0,29,Coquimbo Unido,1,2,1-2,Loss,Local
+Cobresal,19,20,0,29,O'Higgins,0,1,0-1,Loss,Visita
+Cobresal,20,21,3,32,Unión La Calera,1,0,1-0,Win,Local
+Cobresal,21,22,0,32,Universidad Católica,1,2,1-2,Loss,Visita
+Cobresal,22,23,3,35,Huachipato,3,2,3-2,Win,Local
+Cobresal,23,24,0,35,Deportes Limache,0,2,0-2,Loss,Visita
+Cobresal,24,25,3,38,Unión Española,1,0,1-0,Win,Local
+Cobresal,25,26,3,41,Audax Italiano,2,1,2-1,Win,Visita
+Cobresal,26,27,0,41,Everton,1,2,1-2,Loss,Local
+Cobresal,27,28,0,41,Deportes Iquique,1,2,1-2,Loss,Visita
+Cobresal,28,29,3,44,Colo Colo,3,0,3-0,Win,Local
+Colo Colo,1,1,3,3,Deportes La Serena,3,1,3-1,Win,Visita
+Colo Colo,2,2,0,3,O'Higgins,0,1,0-1,Loss,Local
+Colo Colo,3,3,0,3,Huachipato,1,2,1-2,Loss,Visita
+Colo Colo,4,4,3,6,Everton,2,0,2-0,Win,Local
+Colo Colo,5,5,0,6,Universidad Católica,0,2,0-2,Loss,Visita
+Colo Colo,6,6,1,7,Palestino,1,1,1-1,Draw,Local
+Colo Colo,7,7,0,7,Universidad de Chile,1,2,1-2,Loss,Visita
+Colo Colo,8,8,1,8,Deportes Iquique,2,2,2-2,Draw,Visita
+Colo Colo,9,9,3,11,Coquimbo Unido,2,0,2-0,Win,Local
+Colo Colo,10,10,0,11,Deportes Limache,0,1,0-1,Loss,Visita
+Colo Colo,11,11,1,12,Ñublense,2,2,2-2,Draw,Local
+Colo Colo,12,12,3,15,Unión Española,4,1,4-1,Win,Local
+Colo Colo,13,13,3,18,Unión La Calera,1,0,1-0,Win,Visita
+Colo Colo,14,14,3,21,Cobresal,4,0,4-0,Win,Local
+Colo Colo,15,15,0,21,Audax Italiano,1,2,1-2,Loss,Visita
+Colo Colo,16,16,3,24,Deportes La serena,2,1,2-1,Win,Local
+Colo Colo,17,17,1,25,O'Higgins,1,1,1-1,Draw,Visita
+Colo Colo,18,18,1,26,Huachipato,2,2,2-2,Draw,Local
+Colo Colo,19,19,1,27,Everton,1,1,1-1,Draw,Visita
+Colo Colo,20,20,0,27,Universidad Católica,1,4,1-4,Loss,Local
+Colo Colo,21,21,1,28,Palestino,0,0,0-0,Draw,Visita
+Colo Colo,22,22,3,31,Universidad de Chile,1,0,1-0,Win,Local
+Colo Colo,23,23,3,34,Deportes Iquique,4,0,4-0,Win,Local
+Colo Colo,24,24,0,34,Coquimbo Unido,0,1,0-1,Loss,Visita
+Colo Colo,25,25,1,35,Deportes Limache,2,2,2-2,Draw,Local
+Colo Colo,26,26,3,38,Ñublense,1,0,1-0,Win,Visita
+Colo Colo,27,27,3,41,Unión Española,2,1,2-1,Win,Visita
+Colo Colo,28,28,3,44,Unión La Calera,4,1,4-1,Win,Local
+Colo Colo,29,29,0,44,Cobresal,0,3,0-3,Loss,Visita
+Deportes Iquique,1,1,0,0,Coquimbo Unido,0,3,0-3,Loss,Local
+Deportes Iquique,2,2,0,0,Audax Italiano,2,4,2-4,Loss,Visita
+Deportes Iquique,3,3,0,0,Universidad Católica,0,1,0-1,Loss,Visita
+Deportes Iquique,4,4,0,0,Palestino,1,3,1-3,Loss,Local
+Deportes Iquique,5,5,0,0,Unión Española,0,4,0-4,Loss,Local
+Deportes Iquique,6,6,1,1,Ñublense,1,1,1-1,Draw,Visita
+Deportes Iquique,7,7,0,1,Deportes Limache,0,2,0-2,Loss,Visita
+Deportes Iquique,8,8,1,2,Colo Colo,2,2,2-2,Draw,Local
+Deportes Iquique,9,9,1,3,O'Higgins,2,2,2-2,Draw,Visita
+Deportes Iquique,10,10,3,6,Huachipato,3,0,3-0,Win,Local
+Deportes Iquique,11,11,0,6,Deportes La Serena,1,2,1-2,Loss,Visita
+Deportes Iquique,12,12,0,6,Unión La Calera,0,1,0-1,Loss,Local
+Deportes Iquique,13,14,0,6,Everton,1,2,1-2,Loss,Local
+Deportes Iquique,14,15,0,6,Universidad de Chile,1,3,1-3,Loss,Visita
+Deportes Iquique,15,16,0,6,Coquimbo Unido,1,4,1-4,Loss,Visita
+Deportes Iquique,16,17,3,9,Audax Italiano,1,0,1-0,Win,Local
+Deportes Iquique,17,18,1,10,Universidad Católica,2,2,2-2,Draw,Local
+Deportes Iquique,18,19,0,10,Palestino,0,2,0-2,Loss,Visita
+Deportes Iquique,19,20,1,11,Unión Española,2,2,2-2,Draw,Visita
+Deportes Iquique,20,21,0,11,Ñublense,0,2,0-2,Loss,Local
+Deportes Iquique,21,22,3,14,Deportes Limache,2,1,2-1,Win,Local
+Deportes Iquique,22,23,0,14,Colo Colo,0,4,0-4,Loss,Visita
+Deportes Iquique,23,24,0,14,O'Higgins,2,3,2-3,Loss,Local
+Deportes Iquique,24,25,1,15,Huachipato,1,1,1-1,Draw,Visita
+Deportes Iquique,25,26,0,15,Deportes La Serena,1,2,1-2,Loss,Local
+Deportes Iquique,26,27,3,18,Unión La Calera,2,1,2-1,Win,Visita
+Deportes Iquique,27,28,3,21,Cobresal,2,1,2-1,Win,Local
+Deportes Iquique,28,29,3,24,Everton,1,0,1-0,Win,Visita
+Unión La Calera,1,1,3,3,Unión Española,4,0,4-0,Win,Local
+Unión La Calera,2,2,0,3,Universidad de Chile,0,1,0-1,Loss,Visita
+Unión La Calera,3,4,3,6,Huachipato,1,0,1-0,Win,Local
+Unión La Calera,4,5,0,6,Deportes La Serena,0,1,0-1,Loss,Visita
+Unión La Calera,5,6,3,9,Cobresal,2,1,2-1,Win,Local
+Unión La Calera,6,7,0,9,Palestino,0,1,0-1,Loss,Visita
+Unión La Calera,7,8,1,10,Everton,1,1,1-1,Draw,Visita
+Unión La Calera,8,9,3,13,Audax Italiano,1,0,1-0,Win,Local
+Unión La Calera,9,10,1,14,Ñublense,1,1,1-1,Draw,Visita
+Unión La Calera,10,11,0,14,Coquimbo Unido,0,1,0-1,Loss,Local
+Unión La Calera,11,12,3,17,Deportes Iquique,1,0,1-0,Win,Visita
+Unión La Calera,12,13,0,17,Colo Colo,0,1,0-1,Loss,Local
+Unión La Calera,13,14,3,20,Deportes Limache,1,0,1-0,Win,Visita
+Unión La Calera,14,15,1,21,Universidad Católica,1,1,1-1,Draw,Local
+Unión La Calera,15,16,0,21,Unión Española,1,3,1-3,Loss,Visita
+Unión La Calera,16,17,0,21,Universidad de Chile,0,4,0-4,Loss,Local
+Unión La Calera,17,18,0,21,O'Higgins,0,1,0-1,Loss,Visita
+Unión La Calera,18,19,0,21,Huachipato,0,1,0-1,Loss,Visita
+Unión La Calera,19,20,1,22,Deportes La Serena,1,1,1-1,Draw,Local
+Unión La Calera,20,21,0,22,Cobresal,0,1,0-1,Loss,Visita
+Unión La Calera,21,22,0,22,Palestino,1,2,1-2,Loss,Local
+Unión La Calera,22,23,3,25,Everton,1,0,1-0,Win,Local
+Unión La Calera,23,24,0,25,Audax Italiano,3,4,3-4,Loss,Visita
+Unión La Calera,24,25,3,28,Ñublense,3,0,3-0,Win,Local
+Unión La Calera,25,26,0,28,Coquimbo Unido,0,2,0-2,Loss,Visita
+Unión La Calera,26,27,0,28,Deportes Iquique,1,2,1-2,Loss,Local
+Unión La Calera,27,28,0,28,Colo Colo,1,4,1-4,Loss,Visita
+Unión La Calera,28,29,0,28,Deportes Limache,0,1,0-1,Loss,Local
+Coquimbo Unido,1,1,3,3,Deportes Iquique,3,0,3-0,Win,Visita
+Coquimbo Unido,2,2,3,6,Universidad Católica,1,0,1-0,Win,Local
+Coquimbo Unido,3,3,3,9,Deportes Limache,2,1,2-1,Win,Visita
+Coquimbo Unido,4,4,1,10,Cobresal,1,1,1-1,Draw,Local
+Coquimbo Unido,5,5,1,11,Everton,0,0,0-0,Draw,Visita
+Coquimbo Unido,6,6,3,14,Audax Italiano,2,1,2-1,Win,Local
+Coquimbo Unido,7,7,1,15,Huachipato,0,0,0-0,Draw,Local
+Coquimbo Unido,8,8,1,16,Ñublense,0,0,0-0,Draw,Visita
+Coquimbo Unido,9,9,0,16,Colo Colo,0,2,0-2,Loss,Visita
+Coquimbo Unido,10,10,3,19,O'Higgins,2,0,2-0,Win,Local
+Coquimbo Unido,11,11,3,22,Unión La Calera,1,0,1-0,Win,Visita
+Coquimbo Unido,12,12,1,23,Palestino,0,0,0-0,Draw,Local
+Coquimbo Unido,13,13,3,26,Deportes La Serena,4,2,4-2,Win,Visita
+Coquimbo Unido,14,14,3,29,Universidad de Chile,1,0,1-0,Win,Local
+Coquimbo Unido,15,15,3,32,Unión Española,2,0,2-0,Win,Visita
+Coquimbo Unido,16,16,3,35,Deportes Iquique,4,1,4-1,Win,Local
+Coquimbo Unido,17,17,3,38,Universidad Católica,3,0,3-0,Win,Visita
+Coquimbo Unido,18,18,3,41,Deportes Limache,2,1,2-1,Win,Local
+Coquimbo Unido,19,19,3,44,Cobresal,2,1,2-1,Win,Visita
+Coquimbo Unido,20,20,3,47,Everton,2,1,2-1,Win,Local
+Coquimbo Unido,21,21,3,50,Audax Italiano,1,0,1-0,Win,Visita
+Coquimbo Unido,22,22,3,53,Huachipato,1,0,1-0,Win,Visita
+Coquimbo Unido,23,23,3,56,Ñublense,2,1,2-1,Win,Local
+Coquimbo Unido,24,24,3,59,Colo Colo,1,0,1-0,Win,Local
+Coquimbo Unido,25,25,3,62,O'Higgins,1,0,1-0,Win,Visita
+Coquimbo Unido,26,26,3,65,Unión La Calera,2,0,2-0,Win,Local
+Coquimbo Unido,27,27,3,68,Palestino,2,1,2-1,Win,Visita
+Coquimbo Unido,28,28,3,71,Deportes La Serena,2,1,2-1,Win,Local
+Everton,1,1,1,1,Deportes Limache,1,1,1-1,Draw,Visita
+Everton,2,2,0,1,Huachipato,0,4,0-4,Loss,Visita
+Everton,3,3,0,1,Ñublense,1,2,1-2,Loss,Local
+Everton,4,4,0,1,Colo Colo,0,2,0-2,Loss,Visita
+Everton,5,5,1,2,Coquimbo Unido,0,0,0-0,Draw,Local
+Everton,6,6,3,5,Universidad de Chile,2,0,2-0,Win,Local
+Everton,7,7,0,5,Deportes La Serena,1,2,1-2,Loss,Visita
+Everton,8,8,1,6,Unión La Calera,1,1,1-1,Draw,Local
+Everton,9,9,0,6,Universidad Católica,0,6,0-6,Loss,Visita
+Everton,10,10,0,6,Palestino,1,2,1-2,Loss,Local
+Everton,11,11,3,9,Unión Española,3,0,3-0,Win,Visita
+Everton,12,12,1,10,Cobresal,2,2,2-2,Draw,Local
+Everton,13,13,1,11,Audax Italiano,1,1,1-1,Draw,Local
+Everton,14,14,3,14,Deportes Iquique,2,1,2-1,Win,Visita
+Everton,15,15,0,14,O'Higgins,0,1,0-1,Loss,Local
+Everton,16,16,1,15,Deportes Limache,0,0,0-0,Draw,Local
+Everton,17,17,3,18,Huachipato,4,1,4-1,Win,Local
+Everton,18,18,0,18,Ñublense,0,1,0-1,Loss,Visita
+Everton,19,19,1,19,Colo Colo,1,1,1-1,Draw,Local
+Everton,20,20,0,19,Coquimbo Unido,1,2,1-2,Loss,Visita
+Everton,21,21,0,19,Universidad de Chile,0,2,0-2,Loss,Visita
+Everton,22,22,3,22,Deportes La Serena,3,1,3-1,Win,Local
+Everton,23,23,0,22,Unión La Calera,0,1,0-1,Loss,Visita
+Everton,24,24,0,22,Universidad Católica,0,3,0-3,Loss,Local
+Everton,25,25,0,22,Palestino,1,2,1-2,Loss,Visita
+Everton,26,26,1,23,Unión Española,0,0,0-0,Draw,Local
+Everton,27,27,3,26,Cobresal,2,1,2-1,Win,Visita
+Everton,28,28,0,26,Audax Italiano,0,2,0-2,Loss,Visita
+Everton,29,29,0,26,Deportes Iquique,0,1,0-1,Loss,Local
+Deportes Limache,1,1,1,1,Everton,1,1,1-1,Draw,Local
+Deportes Limache,2,2,1,2,Ñublense,1,1,1-1,Draw,Visita
+Deportes Limache,3,3,0,2,Coquimbo Unido,1,2,1-2,Loss,Local
+Deportes Limache,4,4,0,2,Audax Italiano,1,3,1-3,Loss,Visita
+Deportes Limache,5,5,0,2,Huachipato,2,3,2-3,Loss,Local
+Deportes Limache,6,6,0,2,O'Higgins,1,3,1-3,Loss,Visita
+Deportes Limache,7,7,3,5,Deportes Iquique,2,0,2-0,Win,Local
+Deportes Limache,8,8,0,5,Universidad Católica,1,2,1-2,Loss,Visita
+Deportes Limache,9,9,0,5,Cobresal,1,3,1-3,Loss,Visita
+Deportes Limache,10,10,3,8,Colo Colo,1,0,1-0,Win,Local
+Deportes Limache,11,11,0,8,Palestino,0,1,0-1,Loss,Local
+Deportes Limache,12,12,3,11,Universidad de Chile,2,0,2-0,Win,Local
+Deportes Limache,13,14,0,11,Unión La Calera,0,1,0-1,Loss,Local
+Deportes Limache,14,15,1,12,Deportes La Serena,1,1,1-1,Draw,Visita
+Deportes Limache,15,16,1,13,Everton,0,0,0-0,Draw,Visita
+Deportes Limache,16,17,0,13,Ñublense,0,1,0-1,Loss,Local
+Deportes Limache,17,18,0,13,Coquimbo Unido,1,2,1-2,Loss,Visita
+Deportes Limache,18,19,3,16,Audax Italiano,4,0,4-0,Win,Local
+Deportes Limache,19,20,0,16,Huachipato,0,4,0-4,Loss,Visita
+Deportes Limache,20,21,1,17,O'Higgins,2,2,2-2,Draw,Local
+Deportes Limache,21,22,0,17,Deportes Iquique,1,2,1-2,Loss,Visita
+Deportes Limache,22,23,0,17,Universidad Católica,0,1,0-1,Loss,Local
+Deportes Limache,23,24,3,20,Cobresal,2,0,2-0,Win,Local
+Deportes Limache,24,25,1,21,Colo Colo,2,2,2-2,Draw,Visita
+Deportes Limache,25,27,0,21,Universidad de Chile,3,4,3-4,Loss,Visita
+Deportes Limache,26,28,3,24,Unión Española,1,0,1-0,Win,Local
+Deportes Limache,27,29,3,27,Unión La Calera,1,0,1-0,Win,Visita
+Unión Española,1,1,0,0,Unión La Calera,0,4,0-4,Loss,Visita
+Unión Española,2,2,0,0,Palestino,0,3,0-3,Loss,Local
+Unión Española,3,3,0,0,Deportes La Serena,0,1,0-1,Loss,Visita
+Unión Española,4,4,0,0,Universidad de Chile,0,2,0-2,Loss,Local
+Unión Española,5,5,3,3,Deportes Iquique,4,0,4-0,Win,Visita
+Unión Española,6,6,0,3,Universidad Católica,1,2,1-2,Loss,Local
+Unión Española,7,7,3,6,Ñublense,3,0,3-0,Win,Local
+Unión Española,8,8,0,6,Audax Italiano,0,2,0-2,Loss,Visita
+Unión Española,9,9,0,6,Huachipato,1,2,1-2,Loss,Visita
+Unión Española,10,10,0,6,Cobresal,0,1,0-1,Loss,Local
+Unión Española,11,11,0,6,Everton,0,3,0-3,Loss,Local
+Unión Española,12,12,0,6,Colo Colo,1,4,1-4,Loss,Visita
+Unión Española,13,14,0,6,O'Higgins,0,1,0-1,Loss,Visita
+Unión Española,14,15,0,6,Coquimbo Unido,0,2,0-2,Loss,Local
+Unión Española,15,16,3,9,Unión La Calera,3,1,3-1,Win,Local
+Unión Española,16,17,0,9,Palestino,0,1,0-1,Loss,Visita
+Unión Española,17,18,3,12,Deportes La Serena,1,0,1-0,Win,Local
+Unión Española,18,19,0,12,Universidad de Chile,1,4,1-4,Loss,Visita
+Unión Española,19,20,1,13,Deportes Iquique,2,2,2-2,Draw,Local
+Unión Española,20,21,0,13,Universidad Católica,0,2,0-2,Loss,Visita
+Unión Española,21,22,3,16,Ñublense,2,1,2-1,Win,Visita
+Unión Española,22,23,0,16,Audax Italiano,3,4,3-4,Loss,Local
+Unión Española,23,24,3,19,Huachipato,4,2,4-2,Win,Local
+Unión Española,24,25,0,19,Cobresal,0,1,0-1,Loss,Visita
+Unión Española,25,26,1,20,Everton,0,0,0-0,Draw,Visita
+Unión Española,26,27,0,20,Colo Colo,1,2,1-2,Loss,Local
+Unión Española,27,28,0,20,Deportes Limache,0,1,0-1,Loss,Visita
+Unión Española,28,29,0,20,O'Higgins,2,4,2-4,Loss,Local
+Universidad Católica,1,1,3,3,Audax Italiano,3,1,3-1,Win,Local
+Universidad Católica,2,2,0,3,Coquimbo Unido,0,1,0-1,Loss,Visita
+Universidad Católica,3,3,3,6,Deportes Iquique,1,0,1-0,Win,Local
+Universidad Católica,4,4,1,7,Ñublense,1,1,1-1,Draw,Visita
+Universidad Católica,5,5,3,10,Colo Colo,2,0,2-0,Win,Local
+Universidad Católica,6,6,3,13,Unión Española,2,1,2-1,Win,Visita
+Universidad Católica,7,7,1,14,Cobresal,1,1,1-1,Draw,Visita
+Universidad Católica,8,8,3,17,Deportes Limache,2,1,2-1,Win,Local
+Universidad Católica,9,9,3,20,Everton,6,0,6-0,Win,Local
+Universidad Católica,10,10,0,20,Universidad de Chile,0,1,0-1,Loss,Visita
+Universidad Católica,11,11,0,20,O'Higgins,0,2,0-2,Loss,Visita
+Universidad Católica,12,12,0,20,Deportes La Serena,1,3,1-3,Loss,Local
+Universidad Católica,13,13,1,21,Palestino,1,1,1-1,Draw,Visita
+Universidad Católica,14,14,3,24,Huachipato,1,0,1-0,Win,Local
+Universidad Católica,15,15,1,25,Unión La Calera,1,1,1-1,Draw,Visita
+Universidad Católica,16,16,1,26,Audax Italiano,1,1,1-1,Draw,Visita
+Universidad Católica,17,17,0,26,Coquimbo Unido,0,3,0-3,Loss,Local
+Universidad Católica,18,18,1,27,Deportes Iquique,2,2,2-2,Draw,Visita
+Universidad Católica,19,19,3,30,Ñublense,1,0,1-0,Win,Local
+Universidad Católica,20,20,3,33,Colo Colo,4,1,4-1,Win,Visita
+Universidad Católica,21,21,3,36,Unión Española,2,0,2-0,Win,Local
+Universidad Católica,22,22,3,39,Cobresal,2,1,2-1,Win,Local
+Universidad Católica,23,23,3,42,Deportes Limache,1,0,1-0,Win,Visita
+Universidad Católica,24,24,3,45,Everton,3,0,3-0,Win,Visita
+Universidad Católica,25,25,3,48,Universidad de Chile,1,0,1-0,Win,Local
+Universidad Católica,26,26,0,48,O'Higgins,0,2,0-2,Loss,Local
+Universidad Católica,27,27,3,51,Deportes La Serena,1,0,1-0,Win,Visita
+Universidad Católica,28,28,3,54,Palestino,2,1,2-1,Win,Local
+Universidad Católica,29,29,1,55,Huachipato,0,0,0-0,Draw,Visita
+Palestino,1,1,3,3,Cobresal,2,1,2-1,Win,Local
+Palestino,2,2,3,6,Unión Española,3,0,3-0,Win,Visita
+Palestino,3,3,0,6,Audax Italiano,0,2,0-2,Loss,Local
+Palestino,4,4,3,9,Deportes Iquique,3,1,3-1,Win,Visita
+Palestino,5,5,3,12,Ñublense,2,0,2-0,Win,Local
+Palestino,6,6,1,13,Colo Colo,1,1,1-1,Draw,Visita
+Palestino,7,7,3,16,Unión La Calera,1,0,1-0,Win,Local
+Palestino,8,8,0,16,O'Higgins,0,1,0-1,Loss,Visita
+Palestino,9,9,0,16,Universidad de Chile,2,3,2-3,Loss,Local
+Palestino,10,10,3,19,Everton,2,1,2-1,Win,Visita
+Palestino,11,11,3,22,Deportes Limache,1,0,1-0,Win,Visita
+Palestino,12,12,1,23,Coquimbo Unido,0,0,0-0,Draw,Visita
+Palestino,13,13,1,24,Universidad Católica,1,1,1-1,Draw,Local
+Palestino,14,14,3,27,Deportes La Serena,2,1,2-1,Win,Local
+Palestino,15,15,1,28,Huachipato,2,2,2-2,Draw,Visita
+Palestino,16,16,0,28,Cobresal,1,2,1-2,Loss,Visita
+Palestino,17,17,3,31,Unión Española,1,0,1-0,Win,Local
+Palestino,18,18,1,32,Audax Italiano,1,1,1-1,Draw,Visita
+Palestino,19,19,3,35,Deportes Iquique,2,0,2-0,Win,Local
+Palestino,20,20,0,35,Ñublense,0,1,0-1,Loss,Visita
+Palestino,21,21,1,36,Colo Colo,0,0,0-0,Draw,Local
+Palestino,22,22,3,39,Unión La Calera,2,1,2-1,Win,Visita
+Palestino,23,23,0,39,O'Higgins,1,2,1-2,Loss,Local
+Palestino,24,24,0,39,Universidad de Chile,1,2,1-2,Loss,Visita
+Palestino,25,25,3,42,Everton,2,1,2-1,Win,Local
+Palestino,26,27,0,42,Coquimbo Unido,1,2,1-2,Loss,Local
+Palestino,27,28,0,42,Universidad Católica,1,2,1-2,Loss,Visita
+Palestino,28,29,3,45,Deportes La Serena,3,0,3-0,Win,Visita
+O'Higgins,1,1,1,1,Huachipato,0,0,0-0,Draw,Local
+O'Higgins,2,2,3,4,Colo Colo,1,0,1-0,Win,Visita
+O'Higgins,3,4,1,5,Deportes La Serena,1,1,1-1,Draw,Local
+O'Higgins,4,5,1,6,Cobresal,0,0,0-0,Draw,Visita
+O'Higgins,5,6,3,9,Deportes Limache,3,1,3-1,Win,Local
+O'Higgins,6,7,0,9,Audax Italiano,0,1,0-1,Loss,Visita
+O'Higgins,7,8,3,12,Palestino,1,0,1-0,Win,Local
+O'Higgins,8,9,1,13,Deportes Iquique,2,2,2-2,Draw,Local
+O'Higgins,9,10,0,13,Coquimbo Unido,0,2,0-2,Loss,Visita
+O'Higgins,10,11,3,16,Universidad Católica,2,0,2-0,Win,Local
+O'Higgins,11,12,3,19,Ñublense,1,0,1-0,Win,Visita
+O'Higgins,12,13,0,19,Universidad de Chile,0,6,0-6,Loss,Visita
+O'Higgins,13,14,3,22,Unión Española,1,0,1-0,Win,Local
+O'Higgins,14,15,3,25,Everton,1,0,1-0,Win,Visita
+O'Higgins,15,16,0,25,Huachipato,1,2,1-2,Loss,Visita
+O'Higgins,16,17,1,26,Colo Colo,1,1,1-1,Draw,Local
+O'Higgins,17,18,3,29,Unión La Calera,1,0,1-0,Win,Local
+O'Higgins,18,19,1,30,Deportes La Serena,3,3,3-3,Draw,Visita
+O'Higgins,19,20,3,33,Cobresal,1,0,1-0,Win,Local
+O'Higgins,20,21,1,34,Deportes Limache,2,2,2-2,Draw,Visita
+O'Higgins,21,22,3,37,Audax Italiano,3,2,3-2,Win,Local
+O'Higgins,22,23,3,40,Palestino,2,1,2-1,Win,Visita
+O'Higgins,23,24,3,43,Deportes Iquique,3,2,3-2,Win,Visita
+O'Higgins,24,25,0,43,Coquimbo Unido,0,1,0-1,Loss,Local
+O'Higgins,25,26,3,46,Universidad Católica,2,0,2-0,Win,Visita
+O'Higgins,26,27,3,49,Ñublense,4,2,4-2,Win,Local
+O'Higgins,27,28,0,49,Universidad de Chile,0,1,0-1,Loss,Local
+O'Higgins,28,29,3,52,Unión Española,4,2,4-2,Win,Visita
+Deportes La serena,1,16,0,0,Colo Colo,1,2,1-2,Loss,Visita

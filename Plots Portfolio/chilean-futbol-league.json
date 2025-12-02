@@ -2,8 +2,8 @@
   "$schema": "https://vega.github.io/schema/vega/v6.json",
   "background": "#fdfcfa",
   "padding": 5,
-  "width": 600,
-  "height": 450,
+  "width": 800,
+  "height": 600,
   "title": {
     "text": "Chilean League 2025 - Title Race",
     "subtitle": "Cumulative points evolution by matchday",

@@ -16,7 +16,7 @@
   "data": [
     {
       "name": "source_0",
-      "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/FRED%20Loop/unemployment_rate.json",
+      "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/FRED%20Loop/Data/unemployment_rate.json",
       "format": {"property": "data", "type": "json", "parse": {"date": "date"}},
       "transform": [
         {

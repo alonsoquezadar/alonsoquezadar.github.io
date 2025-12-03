@@ -97,6 +97,14 @@ h3.small {
     line-height: 1.5;
 }
 
+/* FRED Grid */
+.chart-grid-fred {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
 /* Enlaces */
 pre {
     background: var(--background-light);

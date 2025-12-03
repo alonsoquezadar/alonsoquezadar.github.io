@@ -145,6 +145,25 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
     </div>
 </section>
 
+<section>
+    <div class="chart-description">
+        <h2>CC6: Loops - U.S. Labor Market Dashboard</h2>
+        <p>
+            Six economic indicators from the Federal Reserve (FRED) API, 
+            downloaded using Python loops and displayed using a JavaScript loop.
+            <a href="https://colab.research.google.com/drive/1JOd2HQS-Td4002XN390JTF5ebWJUgfBb?usp=sharing" target="_blank">View Python code</a>.
+        </p>
+        <div class="chart-grid-fred">
+            <figure id="chart-fred-1"></figure>
+            <figure id="chart-fred-2"></figure>
+            <figure id="chart-fred-3"></figure>
+            <figure id="chart-fred-4"></figure>
+            <figure id="chart-fred-5"></figure>
+            <figure id="chart-fred-6"></figure>
+        </div>
+    </div>
+</section>
+
     
     <!-- Do you want to add more sections? -->
         <!-- Try copying pasting the section above -->
@@ -168,11 +187,6 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
         let figure_11_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/chilean-futbol-league.json";
         let figure_12_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/facet-futbol-league.json"
 
-
-
-        
-        
-
         
         vegaEmbed('#Location1', figure_1_spec) // We're using the vegaEmbed function to put a graph in the element with id figure_1
         vegaEmbed('#Location3', figure_3_spec)
@@ -186,7 +200,24 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
         vegaEmbed('#Location11', figure_11_spec)
         vegaEmbed('#Location12', figure_12_spec)
 
+// ============================================
+// CC6: Embed 6 FRED charts using a loop
+// ============================================
 
+const fredCharts = [
+    "unemployment_rate",
+    "nonfarm_payrolls",
+    "initial_claims",
+    "job_openings",
+    "weekly_hours",
+    "hourly_earnings"
+];
+
+const fredBaseURL = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/main/Plots%20Portfolio/FRED%20Loop/Plots";
+
+for (let i = 0; i < fredCharts.length; i++) {
+    vegaEmbed(`#chart-fred-${i + 1}`, `${fredBaseURL}/${fredCharts[i]}.json`);
+}
 
 
 

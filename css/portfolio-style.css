@@ -101,7 +101,7 @@ h3.small {
 .chart-grid-fred {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 10px;
     margin-top: 15px;
 }
 

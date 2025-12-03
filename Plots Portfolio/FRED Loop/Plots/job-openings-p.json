@@ -1,0 +1,160 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "#fdfcfa",
+  "padding": 5,
+  "width": 400,
+  "height": 220,
+  "title": {
+    "text": "Job Openings",
+    "subtitle": "Available positions (thousands)",
+    "fontSize": 14,
+    "subtitleFontSize": 11,
+    "subtitleColor": "#666",
+    "frame": "group"
+  },
+  "style": "cell",
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/FRED%20Loop/Data/job_openings.json",
+      "format": {"property": "data", "type": "json", "parse": {"date": "date"}},
+      "transform": [
+        {
+          "type": "impute",
+          "field": "value",
+          "groupby": [],
+          "key": "date",
+          "method": "value",
+          "value": 0
+        },
+        {
+          "type": "stack",
+          "groupby": ["date"],
+          "field": "value",
+          "sort": {"field": [], "order": []},
+          "as": ["value_start", "value_end"],
+          "offset": "zero"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_marks",
+      "type": "area",
+      "style": ["area"],
+      "sort": {"field": "x"},
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "opacity": {"value": 0.7},
+          "orient": {"value": "vertical"},
+          "fill": {
+            "value": {
+              "x1": 1,
+              "y1": 1,
+              "x2": 1,
+              "y2": 0,
+              "gradient": "linear",
+              "stops": [
+                {"offset": 0, "color": "white"},
+                {"offset": 1, "color": "#2a9d8f"}
+              ]
+            }
+          },
+          "tooltip": {
+            "signal": "{\"Date\": timeFormat(datum[\"date\"], \"%B %Y\"), \"Openings (K)\": format(datum[\"value\"], \",.0f\")}"
+          },
+          "description": {
+            "signal": "\"date: \" + (timeFormat(datum[\"date\"], \"%Y\")) + \"; value: \" + (format(datum[\"value\"], \"~s\")) + \"; Date: \" + (timeFormat(datum[\"date\"], \"%B %Y\")) + \"; Openings (K): \" + (format(datum[\"value\"], \",.0f\"))"
+          },
+          "x": {"scale": "x", "field": "date"},
+          "y": {"scale": "y", "field": "value_end"},
+          "y2": {"scale": "y", "field": "value_start"},
+          "defined": {
+            "signal": "isValid(datum[\"date\"]) && isFinite(+datum[\"date\"]) && isValid(datum[\"value\"]) && isFinite(+datum[\"value\"])"
+          }
+        }
+      }
+    },
+    {
+      "name": "layer_1_marks",
+      "type": "line",
+      "style": ["line"],
+      "sort": {"field": "x"},
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "strokeWidth": {"value": 1.5},
+          "stroke": {"value": "#2a9d8f"},
+          "tooltip": {
+            "signal": "{\"Date\": timeFormat(datum[\"date\"], \"%B %Y\"), \"Openings (K)\": format(datum[\"value\"], \",.0f\")}"
+          },
+          "description": {
+            "signal": "\"date: \" + (timeFormat(datum[\"date\"], \"%Y\")) + \"; value: \" + (format(datum[\"value\"], \"~s\")) + \"; Date: \" + (timeFormat(datum[\"date\"], \"%B %Y\")) + \"; Openings (K): \" + (format(datum[\"value\"], \",.0f\"))"
+          },
+          "x": {"scale": "x", "field": "date"},
+          "y": {"scale": "y", "field": "value_end"},
+          "defined": {
+            "signal": "isValid(datum[\"date\"]) && isFinite(+datum[\"date\"]) && isValid(datum[\"value\"]) && isFinite(+datum[\"value\"])"
+          }
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "time",
+      "domain": {"data": "source_0", "field": "date"},
+      "range": [0, {"signal": "width"}]
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {"data": "source_0", "fields": ["value_start", "value_end"]},
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": true
+    }
+  ],
+  "axes": [
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": true,
+      "gridColor": "#e0e0e0",
+      "tickCount": 5,
+      "gridScale": "x",
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "format": "%Y",
+      "labelFontSize": 10,
+      "labelFlush": true,
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(width/40)"},
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "format": "~s",
+      "labelFontSize": 10,
+      "tickCount": 5,
+      "labelOverlap": true,
+      "zindex": 0
+    }
+  ],
+  "config": {"style": {"cell": {"stroke": null}}}
+}

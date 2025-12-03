@@ -1,0 +1,104 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "#fdfcfa",
+  "padding": 5,
+  "width": 400,
+  "height": 220,
+  "title": {
+    "text": "Average Hourly Earnings",
+    "subtitle": "Dollars per hour",
+    "fontSize": 14,
+    "subtitleFontSize": 11,
+    "subtitleColor": "#666",
+    "frame": "group"
+  },
+  "style": "cell",
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/FRED%20Loop/Data/hourly_earnings.json",
+      "format": {"property": "data", "type": "json", "parse": {"date": "date"}}
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "line",
+      "style": ["line"],
+      "sort": {"field": "x"},
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "strokeWidth": {"value": 2},
+          "stroke": {"value": "#00b4d8"},
+          "tooltip": {
+            "signal": "{\"Date\": timeFormat(datum[\"date\"], \"%B %Y\"), \"Hourly Wage\": format(datum[\"value\"], \"$.2f\")}"
+          },
+          "description": {
+            "signal": "\"date: \" + (timeFormat(datum[\"date\"], \"%Y\")) + \"; value: \" + (format(datum[\"value\"], \"$.0f\")) + \"; Date: \" + (timeFormat(datum[\"date\"], \"%B %Y\")) + \"; Hourly Wage: \" + (format(datum[\"value\"], \"$.2f\"))"
+          },
+          "x": {"scale": "x", "field": "date"},
+          "y": {"scale": "y", "field": "value"},
+          "defined": {
+            "signal": "isValid(datum[\"date\"]) && isFinite(+datum[\"date\"]) && isValid(datum[\"value\"]) && isFinite(+datum[\"value\"])"
+          }
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "time",
+      "domain": {"data": "source_0", "field": "date"},
+      "range": [0, {"signal": "width"}]
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {"data": "source_0", "field": "value"},
+      "range": [{"signal": "height"}, 0],
+      "zero": false,
+      "nice": true
+    }
+  ],
+  "axes": [
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": true,
+      "gridColor": "#e0e0e0",
+      "tickCount": 5,
+      "gridScale": "x",
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "format": "%Y",
+      "labelFontSize": 10,
+      "labelFlush": true,
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(width/40)"},
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "format": "$.0f",
+      "labelFontSize": 10,
+      "tickCount": 5,
+      "labelOverlap": true,
+      "zindex": 0
+    }
+  ],
+  "config": {"style": {"cell": {"stroke": null}}}
+}

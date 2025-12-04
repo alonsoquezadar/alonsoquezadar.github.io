@@ -1,0 +1,58 @@
+constituency_code,constituency_name,latitude,longitude,winner_name,party,party_abbrev,votes,vote_share,majority,turnout,result_summary,party_color
+S14000021,East Renfrewshire,55.74869,-4.36058,Blair McDougall,Labour,Lab,21935,43.7,8421,67.3,Lab gain from SNP,#E4003B
+S14000027,Na h-Eileanan an Iar,58.19939,-6.65722,Torcuil Crichton,Labour,Lab,6692,49.5,3836,63.4,Lab gain from SNP,#E4003B
+S14000045,Midlothian,55.82112,-3.11738,Kirsty McNeill,Labour,Lab,21480,48.6,8167,60.0,Lab gain from SNP,#E4003B
+S14000048,North Ayrshire and Arran,55.57807,-5.23906,Irene Campbell,Labour,Lab,16821,39.8,3551,58.6,Lab gain from SNP,#E4003B
+S14000051,Orkney and Shetland,60.50495,-1.37344,Alistair Carmichael,Liberal Democrat,LD,11392,55.1,7807,60.4,LD hold,#FAA61A
+S14000060,Aberdeen North,57.1902,-2.17989,Kirsty Blackman,Scottish National Party,SNP,14533,34.5,1760,55.4,SNP hold,#FDF38E
+S14000061,Aberdeen South,57.11908,-2.23894,Stephen Flynn,Scottish National Party,SNP,15213,32.8,3758,59.9,SNP hold,#FDF38E
+S14000062,Aberdeenshire North and Moray East,57.54308,-2.75607,Seamus Logan,Scottish National Party,SNP,13455,35.2,942,54.5,SNP gain from Con,#FDF38E
+S14000063,Airdrie and Shotts,55.84291,-3.86475,Kenneth Stevenson,Labour,Lab,18871,51.5,7547,52.2,Lab gain from SNP,#E4003B
+S14000064,Alloa and Grangemouth,56.15435,-3.78265,Brian Leishman,Labour,Lab,18039,43.8,6122,58.3,Lab gain from SNP,#E4003B
+S14000065,Angus and Perthshire Glens,56.69702,-3.59103,Dave Doogan,Scottish National Party,SNP,19142,40.4,4870,61.8,SNP hold,#FDF38E
+S14000066,Arbroath and Broughty Ferry,56.57525,-2.71002,Stephen Gethins,Scottish National Party,SNP,15581,35.3,859,57.9,SNP hold,#FDF38E
+S14000067,"Argyll, Bute and South Lochaber",56.28945,-5.22115,Brendan O'Hara,Scottish National Party,SNP,15582,34.7,6232,62.5,SNP hold,#FDF38E
+S14000068,Bathgate and Linlithgow,55.92001,-3.62753,Kirsteen Sullivan,Labour,Lab,19774,47.0,8323,58.3,Lab gain from SNP,#E4003B
+S14000069,"Caithness, Sutherland and Easter Ross",58.00812,-4.57679,Jamie Stone,Liberal Democrat,LD,22736,49.4,10489,61.7,LD gain from SNP,#FAA61A
+S14000070,Coatbridge and Bellshill,55.86847,-4.052,Frank McNally,Labour,Lab,19291,49.8,6344,53.3,Lab gain from SNP,#E4003B
+S14000071,Cowdenbeath and Kirkcaldy,56.07987,-3.27747,Melanie Ward,Labour,Lab,18662,45.7,7248,56.8,Lab gain from SNP,#E4003B
+S14000072,Cumbernauld and Kirkintilloch,55.95841,-4.01786,Katrina Murray,Labour,Lab,18513,45.2,4144,58.2,Lab gain from SNP,#E4003B
+S14000073,Dumfries and Galloway,54.9835,-4.30279,John Cooper,Conservative,Con,13527,29.6,930,58.3,Con hold,#0087DC
+S14000074,"Dumfriesshire, Clydesdale and Tweeddale",55.38097,-3.49461,David Mundell,Conservative,Con,14999,33.9,4242,61.5,Con hold,#0087DC
+S14000075,Dundee Central,56.47688,-3.00917,Chris Law,Scottish National Party,SNP,15544,40.0,675,52.3,SNP hold,#FDF38E
+S14000076,Dunfermline and Dollar,56.10983,-3.56928,Graeme Downie,Labour,Lab,20336,45.7,8241,61.2,Lab gain from SNP,#E4003B
+S14000077,East Kilbride and Strathaven,55.65761,-4.11131,Joani Reid,Labour,Lab,22682,48.6,9057,61.1,Lab gain from SNP,#E4003B
+S14000078,Edinburgh East and Musselburgh,55.94151,-3.1052,Chris Murray,Labour,Lab,18790,41.2,3715,59.8,Lab gain from SNP,#E4003B
+S14000079,Edinburgh North and Leith,55.96909,-3.21357,Tracy Gilbert,Labour,Lab,20805,42.1,7268,63.1,Lab gain from SNP,#E4003B
+S14000080,Edinburgh South,55.91481,-3.17081,Ian Murray,Labour,Lab,24976,53.3,17251,66.1,Lab hold,#E4003B
+S14000081,Edinburgh South West,55.88445,-3.30743,Scott Arthur,Labour,Lab,18663,40.9,6217,61.9,Lab gain from SNP,#E4003B
+S14000082,Edinburgh West,55.94799,-3.3318,Christine Jardine,Liberal Democrat,LD,26645,50.8,16470,68.6,LD hold,#FAA61A
+S14000083,Falkirk,55.97459,-3.78996,Euan Stainbank,Labour,Lab,18343,43.0,4996,57.9,Lab gain from SNP,#E4003B
+S14000084,Glasgow East,55.84353,-4.14454,John Grady,Labour,Lab,15543,43.9,3784,51.4,Lab gain from SNP,#E4003B
+S14000085,Glasgow North,55.8926,-4.27691,Martin Rhodes,Labour,Lab,14655,42.2,3539,51.4,Lab gain from SNP,#E4003B
+S14000086,Glasgow North East,55.8791,-4.15988,Maureen Burke,Labour,Lab,15639,45.9,4637,47.0,Lab gain from SNP,#E4003B
+S14000087,Glasgow South,55.8114,-4.2471,Gordon McKee,Labour,Lab,17696,41.8,4154,60.4,Lab gain from SNP,#E4003B
+S14000088,Glasgow South West,55.8523,-4.32056,Zubir Ahmed,Labour,Lab,15552,43.6,3285,51.8,Lab gain from SNP,#E4003B
+S14000089,Glasgow West,55.88739,-4.34159,Patricia Ferguson,Labour,Lab,18621,46.7,6446,57.8,Lab gain from SNP,#E4003B
+S14000090,Glenrothes and Mid Fife,56.17523,-3.15535,Richard Baker,Labour,Lab,15994,44.3,2954,51.1,Lab gain from SNP,#E4003B
+S14000091,Gordon and Buchan,57.39164,-2.44082,Harriet Cross,Conservative,Con,14418,32.9,878,63.0,Con hold,#0087DC
+S14000092,Hamilton and Clyde Valley,55.6735,-3.92338,Imogen Walker,Labour,Lab,21020,49.9,9472,55.8,Lab gain from SNP,#E4003B
+S14000093,Inverclyde and Renfrewshire West,55.89822,-4.75425,Martin McCluskey,Labour,Lab,18931,46.9,6371,57.5,Lab gain from SNP,#E4003B
+S14000094,"Inverness, Skye and West Ross-shire",57.30176,-4.70826,Angus MacDonald,Liberal Democrat,LD,18159,37.8,2160,61.7,LD gain from SNP,#FAA61A
+S14000095,Livingston,55.86311,-3.49042,Gregor Poynton,Labour,Lab,18324,40.9,3528,57.5,Lab gain from SNP,#E4003B
+S14000096,Lothian East,55.94219,-2.70441,Douglas Alexander,Labour,Lab,23555,49.0,13265,63.7,Lab gain from SNP,#E4003B
+S14000097,Mid Dunbartonshire,55.96601,-4.25665,Susan Murray,Liberal Democrat,LD,22349,42.4,9673,71.7,LD gain from SNP,#FAA61A
+S14000098,"Moray West, Nairn and Strathspey",57.28381,-3.80089,Graham Leadbitter,Scottish National Party,SNP,14961,32.1,1001,60.3,SNP hold,#FDF38E
+S14000099,"Motherwell, Wishaw and Carluke",55.75585,-3.75732,Pamela Nash,Labour,Lab,19168,49.1,7085,54.4,Lab gain from SNP,#E4003B
+S14000100,North East Fife,56.31724,-2.98891,Wendy Chamberlain,Liberal Democrat,LD,23384,54.7,13479,61.2,LD gain from SNP,#FAA61A
+S14000101,Paisley and Renfrewshire North,55.88397,-4.46579,Alison Taylor,Labour,Lab,19561,47.1,6333,58.4,Lab gain from SNP,#E4003B
+S14000102,Paisley and Renfrewshire South,55.81753,-4.5566,Johanna Baxter,Labour,Lab,19583,47.4,6527,57.7,Lab gain from SNP,#E4003B
+S14000103,Perth and Kinross-shire,56.31822,-3.95978,Pete Wishart,Scottish National Party,SNP,18928,37.8,4127,64.8,SNP hold,#FDF38E
+S14000104,Rutherglen,55.81361,-4.13298,Michael Shanks,Labour,Lab,21460,50.5,8767,58.5,Lab gain from SNP,#E4003B
+S14000105,Stirling and Strathallan,56.25542,-4.15483,Chris Kane,Labour,Lab,16856,33.9,1394,65.3,Lab gain from SNP,#E4003B
+S14000106,West Dunbartonshire,56.00009,-4.51758,Douglas McAllister,Labour,Lab,19312,48.8,6010,57.3,Lab gain from SNP,#E4003B
+S14000107,"Ayr, Carrick and Cumnock",55.30317,-4.53854,Elaine Stewart,Labour,Lab,14930,36.5,4154,58.2,Lab gain from SNP,#E4003B
+S14000108,"Berwickshire, Roxburgh and Selkirk",55.5122,-2.6961,John Lamont,Conservative,Con,18872,40.5,6599,60.9,Con hold,#0087DC
+S14000109,Central Ayrshire,55.52066,-4.55255,Alan Gemmell,Labour,Lab,18091,43.7,6869,59.7,Lab gain from SNP,#E4003B
+S14000110,Kilmarnock and Loudoun,55.57065,-4.29488,Lillian Jones,Labour,Lab,19055,44.9,5119,56.9,Lab gain from SNP,#E4003B
+S14000111,West Aberdeenshire and Kincardine,57.02114,-2.94731,Andrew Bowie,Conservative,Con,17428,35.6,3441,67.1,Con hold,#0087DC

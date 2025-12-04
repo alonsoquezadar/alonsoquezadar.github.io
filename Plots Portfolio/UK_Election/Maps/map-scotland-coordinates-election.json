@@ -1,0 +1,210 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "#ffffff",
+  "padding": 5,
+  "width": 800,
+  "height": 950,
+  "title": {
+    "text": "UK General election in Scotland",
+    "subtitle": "Parties by seats",
+    "fontSize": 16,
+    "subtitleFontSize": 12,
+    "subtitleColor": "#666",
+    "frame": "group"
+  },
+  "style": ["view", "cell"],
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://alonsoquezadar.github.io/Plots%20Portfolio/UK_Election/scotland_election_2024.geojson",
+      "format": {"property": "features", "type": "json"}
+    },
+    {
+      "name": "source_2",
+      "values": [
+        {"party": "Labour", "seats": 37, "color": "#E4003B", "y": 0},
+        {"party": "SNP", "seats": 9, "color": "#FDF38E", "y": 1},
+        {"party": "Lib Dem", "seats": 6, "color": "#FAA61A", "y": 2},
+        {"party": "Conservative", "seats": 5, "color": "#0087DC", "y": 3}
+      ]
+    },
+    {
+      "name": "source_1",
+      "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/UK_Election/scotland_election_2024_coordinates.csv",
+      "format": {"type": "csv", "delimiter": ","},
+      "transform": [
+        {
+          "type": "geopoint",
+          "projection": "projection",
+          "fields": ["longitude", "latitude"],
+          "as": ["layer_1_x", "layer_1_y"]
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"majority\"]) && isFinite(+datum[\"majority\"])"
+        }
+      ]
+    }
+  ],
+  "projections": [
+    {
+      "name": "projection",
+      "translate": {"signal": "[width / 2, height / 2]"},
+      "type": "mercator",
+      "center": [-4.5, 56.8],
+      "scale": 5500
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_marks",
+      "type": "shape",
+      "clip": true,
+      "style": ["geoshape"],
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "fill": {"value": "#e8e8e8"},
+          "stroke": {"value": "#999"},
+          "strokeWidth": {"value": 0.5},
+          "ariaRoleDescription": {"value": "geoshape"}
+        }
+      },
+      "transform": [{"type": "geoshape", "projection": "projection"}]
+    },
+    {
+      "name": "layer_1_marks",
+      "type": "symbol",
+      "clip": true,
+      "style": ["circle"],
+      "from": {"data": "source_1"},
+      "encode": {
+        "update": {
+          "opacity": {"value": 0.9},
+          "stroke": {"value": "#333"},
+          "strokeWidth": {"value": 0.5},
+          "fill": {"scale": "color", "field": "party"},
+          "tooltip": {
+            "signal": "{\"Constituency\": isValid(datum[\"constituency_name\"]) ? isArray(datum[\"constituency_name\"]) ? join(datum[\"constituency_name\"], '\\n') : datum[\"constituency_name\"] : \"\"+datum[\"constituency_name\"], \"MP\": isValid(datum[\"winner_name\"]) ? isArray(datum[\"winner_name\"]) ? join(datum[\"winner_name\"], '\\n') : datum[\"winner_name\"] : \"\"+datum[\"winner_name\"], \"Party\": isValid(datum[\"party\"]) ? isArray(datum[\"party\"]) ? join(datum[\"party\"], '\\n') : datum[\"party\"] : \"\"+datum[\"party\"], \"Majority\": format(datum[\"majority\"], \",\")}"
+          },
+          "ariaRoleDescription": {"value": "circle"},
+          "description": {
+            "signal": "\"longitude: \" + (format(datum[\"longitude\"], \"\")) + \"; latitude: \" + (format(datum[\"latitude\"], \"\")) + \"; party: \" + (isValid(datum[\"party\"]) ? isArray(datum[\"party\"]) ? join(datum[\"party\"], ' ') : datum[\"party\"] : \"\"+datum[\"party\"]) + \"; majority: \" + (format(datum[\"majority\"], \"\")) + \"; Constituency: \" + (isValid(datum[\"constituency_name\"]) ? isArray(datum[\"constituency_name\"]) ? join(datum[\"constituency_name\"], ' ') : datum[\"constituency_name\"] : \"\"+datum[\"constituency_name\"]) + \"; MP: \" + (isValid(datum[\"winner_name\"]) ? isArray(datum[\"winner_name\"]) ? join(datum[\"winner_name\"], ' ') : datum[\"winner_name\"] : \"\"+datum[\"winner_name\"]) + \"; Party: \" + (isValid(datum[\"party\"]) ? isArray(datum[\"party\"]) ? join(datum[\"party\"], ' ') : datum[\"party\"] : \"\"+datum[\"party\"]) + \"; Majority: \" + (format(datum[\"majority\"], \",\"))"
+          },
+          "x": {"field": "layer_1_x"},
+          "y": {"field": "layer_1_y"},
+          "size": {"scale": "size", "field": "majority"},
+          "shape": {"value": "circle"}
+        }
+      }
+    },
+    {
+      "name": "layer_2_layer_0_marks",
+      "type": "symbol",
+      "style": ["square"],
+      "from": {"data": "source_2"},
+      "encode": {
+        "update": {
+          "opacity": {"value": 0.7},
+          "size": {"value": 150},
+          "fill": {"field": "color"},
+          "ariaRoleDescription": {"value": "square"},
+          "description": {
+            "signal": "\"y: \" + (isValid(datum[\"y\"]) ? isArray(datum[\"y\"]) ? join(datum[\"y\"], ' ') : datum[\"y\"] : \"\"+datum[\"y\"]) + \"; color: \" + (isValid(datum[\"color\"]) ? isArray(datum[\"color\"]) ? join(datum[\"color\"], ' ') : datum[\"color\"] : \"\"+datum[\"color\"])"
+          },
+          "x": {"signal": "width", "mult": 0.5, "offset": -350},
+          "y": {"scale": "y", "field": "y", "offset": 50},
+          "shape": {"value": "square"}
+        }
+      }
+    },
+    {
+      "name": "layer_2_layer_1_marks",
+      "type": "text",
+      "style": ["text"],
+      "from": {"data": "source_2"},
+      "encode": {
+        "update": {
+          "align": {"value": "left"},
+          "fontSize": {"value": 12},
+          "fill": {"value": "black"},
+          "description": {
+            "signal": "\"y: \" + (isValid(datum[\"y\"]) ? isArray(datum[\"y\"]) ? join(datum[\"y\"], ' ') : datum[\"y\"] : \"\"+datum[\"y\"]) + \"; party: \" + (isValid(datum[\"party\"]) ? isArray(datum[\"party\"]) ? join(datum[\"party\"], ' ') : datum[\"party\"] : \"\"+datum[\"party\"])"
+          },
+          "x": {"signal": "width", "mult": 0.5, "offset": -330},
+          "y": {"scale": "y", "field": "y", "offset": 50},
+          "text": {
+            "signal": "isValid(datum[\"party\"]) ? datum[\"party\"] : \"\"+datum[\"party\"]"
+          },
+          "baseline": {"value": "middle"}
+        }
+      }
+    },
+    {
+      "name": "layer_2_layer_2_marks",
+      "type": "text",
+      "style": ["text"],
+      "from": {"data": "source_2"},
+      "encode": {
+        "update": {
+          "align": {"value": "right"},
+          "fontSize": {"value": 12},
+          "fontWeight": {"value": "bold"},
+          "fill": {"value": "black"},
+          "description": {
+            "signal": "\"y: \" + (isValid(datum[\"y\"]) ? isArray(datum[\"y\"]) ? join(datum[\"y\"], ' ') : datum[\"y\"] : \"\"+datum[\"y\"]) + \"; seats: \" + (format(datum[\"seats\"], \"\"))"
+          },
+          "x": {"signal": "width", "mult": 0.5, "offset": -240},
+          "y": {"scale": "y", "field": "y", "offset": 50},
+          "text": {"signal": "format(datum[\"seats\"], \"\")"},
+          "baseline": {"value": "middle"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": [
+        "Labour",
+        "Scottish National Party",
+        "Liberal Democrat",
+        "Conservative"
+      ],
+      "range": ["#E4003B", "#FDF38E", "#FAA61A", "#0087DC"]
+    },
+    {
+      "name": "size",
+      "type": "linear",
+      "domain": {"data": "source_1", "field": "majority"},
+      "range": [50, 400],
+      "zero": true
+    },
+    {
+      "name": "y",
+      "type": "point",
+      "domain": {"data": "source_2", "field": "y", "sort": true},
+      "range": [0, 80],
+      "padding": 0.5
+    }
+  ],
+  "legends": [
+    {
+      "title": "Majority",
+      "size": "size",
+      "symbolType": "circle",
+      "encode": {
+        "symbols": {
+          "update": {
+            "fill": {"value": "black"},
+            "stroke": {"value": "#333"},
+            "fillOpacity": {"value": 0.9},
+            "opacity": {"value": 0.9}
+          }
+        }
+      }
+    }
+  ],
+  "config": {"style": {"cell": {"stroke": null}}}
+}

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "#ffffff",
+  "padding": 5,
+  "width": 800,
+  "height": 800,
+  "title": {
+    "text": "Scotland 2024 General Election Results",
+    "subtitle": "Westminster Constituencies - July 4, 2024",
+    "fontSize": 20,
+    "subtitleFontSize": 14,
+    "anchor": "start"
+  },
+  "style": "view",
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://alonsoquezadar.github.io/Plots%20Portfolio/UK_Election/scotland_election_2024.geojson",
+      "format": {"property": "features", "type": "json", "parse": {}},
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "datum[\"properties\"] && datum[\"properties\"][\"party\"]",
+          "as": "properties.party"
+        },
+        {
+          "type": "formula",
+          "expr": "datum[\"properties\"] && datum[\"properties\"][\"constituency_name\"]",
+          "as": "properties.constituency_name"
+        },
+        {
+          "type": "formula",
+          "expr": "datum[\"properties\"] && datum[\"properties\"][\"winner_name\"]",
+          "as": "properties.winner_name"
+        },
+        {
+          "type": "formula",
+          "expr": "datum[\"properties\"] && datum[\"properties\"][\"vote_share\"]",
+          "as": "properties.vote_share"
+        },
+        {
+          "type": "formula",
+          "expr": "datum[\"properties\"] && datum[\"properties\"][\"majority\"]",
+          "as": "properties.majority"
+        },
+        {
+          "type": "formula",
+          "expr": "datum[\"properties\"] && datum[\"properties\"][\"turnout\"]",
+          "as": "properties.turnout"
+        },
+        {
+          "type": "formula",
+          "expr": "datum[\"properties\"] && datum[\"properties\"][\"result_summary\"]",
+          "as": "properties.result_summary"
+        }
+      ]
+    }
+  ],
+  "projections": [
+    {
+      "name": "projection",
+      "translate": {"signal": "[width / 2, height / 2]"},
+      "type": "mercator",
+      "center": [-4.5, 56.8],
+      "scale": 5500
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "shape",
+      "clip": true,
+      "style": ["geoshape"],
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#333"},
+          "strokeWidth": {"value": 0.5},
+          "fill": {"scale": "color", "field": "properties\\.party"},
+          "tooltip": {
+            "signal": "{\"Constituency\": isValid(datum[\"properties.constituency_name\"]) ? isArray(datum[\"properties.constituency_name\"]) ? join(datum[\"properties.constituency_name\"], '\\n') : datum[\"properties.constituency_name\"] : \"\"+datum[\"properties.constituency_name\"], \"MP\": isValid(datum[\"properties.winner_name\"]) ? isArray(datum[\"properties.winner_name\"]) ? join(datum[\"properties.winner_name\"], '\\n') : datum[\"properties.winner_name\"] : \"\"+datum[\"properties.winner_name\"], \"Party\": isValid(datum[\"properties.party\"]) ? isArray(datum[\"properties.party\"]) ? join(datum[\"properties.party\"], '\\n') : datum[\"properties.party\"] : \"\"+datum[\"properties.party\"], \"Vote Share (%)\": format(datum[\"properties.vote_share\"], \".1f\"), \"Majority\": format(datum[\"properties.majority\"], \",\"), \"Turnout (%)\": format(datum[\"properties.turnout\"], \".1f\"), \"Result\": isValid(datum[\"properties.result_summary\"]) ? isArray(datum[\"properties.result_summary\"]) ? join(datum[\"properties.result_summary\"], '\\n') : datum[\"properties.result_summary\"] : \"\"+datum[\"properties.result_summary\"]}"
+          },
+          "ariaRoleDescription": {"value": "geoshape"},
+          "description": {
+            "signal": "\"properties.party: \" + (isValid(datum[\"properties.party\"]) ? isArray(datum[\"properties.party\"]) ? join(datum[\"properties.party\"], ' ') : datum[\"properties.party\"] : \"\"+datum[\"properties.party\"]) + \"; Constituency: \" + (isValid(datum[\"properties.constituency_name\"]) ? isArray(datum[\"properties.constituency_name\"]) ? join(datum[\"properties.constituency_name\"], ' ') : datum[\"properties.constituency_name\"] : \"\"+datum[\"properties.constituency_name\"]) + \"; MP: \" + (isValid(datum[\"properties.winner_name\"]) ? isArray(datum[\"properties.winner_name\"]) ? join(datum[\"properties.winner_name\"], ' ') : datum[\"properties.winner_name\"] : \"\"+datum[\"properties.winner_name\"]) + \"; Party: \" + (isValid(datum[\"properties.party\"]) ? isArray(datum[\"properties.party\"]) ? join(datum[\"properties.party\"], ' ') : datum[\"properties.party\"] : \"\"+datum[\"properties.party\"]) + \"; Vote Share (%): \" + (format(datum[\"properties.vote_share\"], \".1f\")) + \"; Majority: \" + (format(datum[\"properties.majority\"], \",\")) + \"; Turnout (%): \" + (format(datum[\"properties.turnout\"], \".1f\")) + \"; Result: \" + (isValid(datum[\"properties.result_summary\"]) ? isArray(datum[\"properties.result_summary\"]) ? join(datum[\"properties.result_summary\"], ' ') : datum[\"properties.result_summary\"] : \"\"+datum[\"properties.result_summary\"])"
+          }
+        }
+      },
+      "transform": [{"type": "geoshape", "projection": "projection"}]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": [
+        "Labour",
+        "Scottish National Party",
+        "Liberal Democrat",
+        "Conservative"
+      ],
+      "range": ["#E4003B", "#FDF38E", "#FAA61A", "#0087DC"]
+    }
+  ],
+  "legends": [
+    {
+      "direction": "vertical",
+      "orient": "bottom-left",
+      "title": "Winning Party",
+      "fill": "color",
+      "symbolType": "circle",
+      "encode": {"symbols": {"update": {"stroke": {"value": "#333"}}}}
+    }
+  ],
+  "config": {"style": {"cell": {"stroke": null}}}
+}

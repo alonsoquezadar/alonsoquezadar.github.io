@@ -164,6 +164,19 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
     </div>
 </section>
 
+<section>
+    <div class="chart-description">
+        <h2>CC7: Maps</h2>
+        <p>
+            Scotland election results 2024
+        </p>
+        <div class="chart-grid-fred">
+        <figure id="Location13"></figure>
+        <figure id="Location14"></figure>
+        </div>
+    </div>
+</section>
+
     
     <!-- Do you want to add more sections? -->
         <!-- Try copying pasting the section above -->
@@ -185,7 +198,9 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
         let figure_9_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/replicate-pinera-plot.json";
         let figure_10_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/renewable-energy-api-graph.json";
         let figure_11_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/chilean-futbol-league.json";
-        let figure_12_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/facet-futbol-league.json"
+        let figure_12_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/facet-futbol-league.json";
+        let figure_13_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/UK_Election/Maps/map-scotland-election-2024.json";
+        let figure_14_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/UK_Election/Maps/map-scotland-coordinates-election.json"
 
         
         vegaEmbed('#Location1', figure_1_spec) // We're using the vegaEmbed function to put a graph in the element with id figure_1
@@ -199,6 +214,10 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
         vegaEmbed('#Location10', figure_10_spec)
         vegaEmbed('#Location11', figure_11_spec)
         vegaEmbed('#Location12', figure_12_spec)
+        vegaEmbed('#Location12', figure_13_spec)
+        vegaEmbed('#Location12', figure_14_spec)
+
+
 
 // ============================================
 // CC6: Embed 6 FRED charts using a loop

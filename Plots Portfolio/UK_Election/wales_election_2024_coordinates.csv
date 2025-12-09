@@ -1,0 +1,33 @@
+constituency_code,constituency_name,latitude,longitude,winner_name,party,party_abbrev,votes,vote_share,majority,turnout,result_summary,party_color
+W07000081,Aberafan Maesteg,51.5924,-3.70491,Stephen Kinnock,Labour,Lab,17838,49.9,10354,49.3,Lab hold,#E4003B
+W07000082,Alyn and Deeside,53.18051,-3.01375,Mark Tami,Labour,Lab,18395,42.4,8794,57.3,Lab hold,#E4003B
+W07000083,Bangor Aberconwy,53.14801,-3.70963,Claire Hughes,Labour,Lab,14008,33.6,4896,59.1,Lab gain from Con,#E4003B
+W07000084,Blaenau Gwent and Rhymney,51.74807,-3.26665,Nick Smith,Labour,Lab,16027,53.6,12183,42.7,Lab hold,#E4003B
+W07000085,"Brecon, Radnor and Cwm Tawe",52.10812,-3.44861,David Chadwick,Liberal Democrat,LD,13736,29.5,1472,63.7,LD gain from Con,#FAA61A
+W07000086,Bridgend,51.522,-3.57205,Chris Elmore,Labour,Lab,16516,39.9,8595,56.5,Lab gain from Con,#E4003B
+W07000087,Caerfyrddin,51.93731,-4.17124,Ann Davies,Plaid Cymru,PC,15520,34.0,4535,61.6,PC gain from Con,#005B54
+W07000088,Caerphilly,51.61686,-3.21692,Chris Evans,Labour,Lab,14538,38.0,6419,52.6,Lab hold,#E4003B
+W07000089,Cardiff East,51.51099,-3.12511,Jo Stevens,Labour,Lab,15833,40.5,9097,53.7,Lab hold,#E4003B
+W07000090,Cardiff North,51.53366,-3.1749,Anna McMorrin,Labour,Lab,20849,43.9,11207,66.4,Lab hold,#E4003B
+W07000091,Cardiff South and Penarth,51.4381,-3.19084,Stephen Doughty,Labour,Lab,17428,44.5,11767,53.6,Lab hold,#E4003B
+W07000092,Cardiff West,51.5079,-3.28287,Alex Barros-Curtis,Labour,Lab,16442,36.7,7019,59.1,Lab hold,#E4003B
+W07000093,Ceredigion Preseli,52.19991,-4.07753,Ben Lake,Plaid Cymru,PC,21738,46.9,14789,61.2,PC hold,#005B54
+W07000094,Clwyd East,53.15106,-3.24695,Becky Gittins,Labour,Lab,18484,38.7,4622,62.4,Lab gain from Con,#E4003B
+W07000095,Clwyd North,53.24496,-3.47593,Gill German,Labour,Lab,14794,35.5,1196,55.5,Lab gain from Con,#E4003B
+W07000096,Dwyfor Meirionnydd,52.87286,-3.75884,Liz Saville Roberts,Plaid Cymru,PC,21788,53.9,15876,55.3,PC hold,#005B54
+W07000097,Gower,51.60483,-4.09333,Tonia Antoniazzi,Labour,Lab,20480,43.4,11567,62.0,Lab hold,#E4003B
+W07000098,Llanelli,51.74722,-4.19532,Nia Griffith,Labour,Lab,12751,31.3,1504,57.0,Lab hold,#E4003B
+W07000099,Merthyr Tydfil and Aberdare,51.7389,-3.44704,Gerald Jones,Labour,Lab,15791,44.8,7447,47.3,Lab hold,#E4003B
+W07000100,Mid and South Pembrokeshire,51.77646,-4.75693,Henry Tufnell,Labour,Lab,16505,35.4,1878,59.0,Lab gain from Con,#E4003B
+W07000101,Monmouthshire,51.77828,-2.90281,Catherine Fookes,Labour,Lab,21010,41.3,3338,68.0,Lab gain from Con,#E4003B
+W07000102,Montgomeryshire and Glyndŵr,52.63363,-3.44547,Steve Witherden,Labour,Lab,12709,29.4,3815,58.4,Lab gain from Con,#E4003B
+W07000103,Neath and Swansea East,51.69724,-3.77311,Carolyn Harris,Labour,Lab,16797,41.8,6627,52.6,Lab hold,#E4003B
+W07000104,Newport East,51.58231,-2.89769,Jessica Morden,Labour,Lab,16370,42.5,9009,50.2,Lab hold,#E4003B
+W07000105,Newport West and Islwyn,51.64048,-3.10649,Ruth Jones,Labour,Lab,17409,41.5,8868,55.4,Lab hold,#E4003B
+W07000106,Pontypridd,51.66668,-3.38479,Alex Davies-Jones,Labour,Lab,16225,41.2,8402,51.8,Lab hold,#E4003B
+W07000107,Rhondda and Ogmore,51.63381,-3.50351,Chris Bryant,Labour,Lab,17118,47.8,7790,48.1,Lab hold,#E4003B
+W07000108,Swansea West,51.6386,-3.95702,Torsten Bell,Labour,Lab,14761,41.4,8515,48.0,Lab hold,#E4003B
+W07000109,Torfaen,51.69836,-3.05102,Nick Thomas-Symonds,Labour,Lab,15176,42.5,7322,49.8,Lab hold,#E4003B
+W07000110,Vale of Glamorgan,51.44808,-3.42174,Kanishka Narayan,Labour,Lab,17740,38.7,4216,61.5,Lab gain from Con,#E4003B
+W07000111,Wrexham,53.03127,-2.93642,Andrew Ranger,Labour,Lab,15836,39.2,5948,57.5,Lab gain from Con,#E4003B
+W07000112,Ynys Môn,53.27931,-4.32298,Llinos Medi,Plaid Cymru,PC,10590,32.5,637,61.4,PC gain from Con,#005B54

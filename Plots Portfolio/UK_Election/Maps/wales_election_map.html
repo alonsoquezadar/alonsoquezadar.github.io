@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Wales 2024 Election Results</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    #map { 
+      position: absolute; 
+      top: 0; 
+      bottom: 0; 
+      width: 100%; 
+    }
+    
+    .map-title {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      z-index: 1;
+    }
+    
+    .map-title h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+    
+    .map-title p {
+      font-size: 13px;
+      color: #666;
+    }
+    
+    .legend {
+      position: absolute;
+      bottom: 35px;
+      left: 15px;
+      background: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      z-index: 1;
+    }
+    
+    .legend h4 { 
+      margin: 0 0 12px 0; 
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    
+    .legend-item { 
+      display: flex; 
+      align-items: center; 
+      margin: 8px 0; 
+    }
+    
+    .legend-color { 
+      width: 18px; 
+      height: 18px; 
+      margin-right: 10px; 
+      border-radius: 4px; 
+      border: 1px solid rgba(0,0,0,0.2); 
+    }
+    
+    .legend-label {
+      color: #333;
+    }
+    
+    .legend-seats {
+      margin-left: auto;
+      font-weight: 600;
+      color: #1a1a1a;
+      padding-left: 15px;
+    }
+
+    .mapboxgl-popup-content {
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .popup-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+    }
+    
+    .popup-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 3px 0;
+      font-size: 13px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .popup-row:last-child {
+      border-bottom: none;
+    }
+    
+    .popup-label {
+      color: #666;
+    }
+    
+    .popup-value {
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+    
+    .popup-party {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<div class="map-title">
+  <h1>Wales 2024 General Election</h1>
+  <p>Westminster Constituencies · July 4, 2024</p>
+</div>
+
+<div class="legend">
+  <h4>Winning Party</h4>
+  <div class="legend-item">
+    <div class="legend-color" style="background: #E4003B;"></div>
+    <span class="legend-label">Labour</span>
+    <span class="legend-seats">27</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-color" style="background: #005B54;"></div>
+    <span class="legend-label">Plaid Cymru</span>
+    <span class="legend-seats">4</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-color" style="background: #FAA61A;"></div>
+    <span class="legend-label">Liberal Democrat</span>
+    <span class="legend-seats">1</span>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYWxvbnNvcXIiLCJhIjoiY21peXVsaWgxMGsxZjNkcXpmcDR0YWFheiJ9.4zGH1sjnHzOfYAwQchJ-mA';
+  
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v11',
+    center: [-3.5, 52.3],
+    zoom: 7,
+    minZoom: 6,
+    maxZoom: 12
+  });
+
+  // Add navigation controls
+  map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+  // Party colors
+  var partyColors = {
+    'Labour': '#E4003B',
+    'Plaid Cymru': '#005B54',
+    'Liberal Democrat': '#FAA61A'
+  };
+
+  map.on('load', function() {
+    // Add GeoJSON source
+    map.addSource('constituencies', {
+      type: 'geojson',
+      data: 'https://alonsoquezadar.github.io/Plots%20Portfolio/UK_Election/wales_election_2024.geojson'
+    });
+
+    // Add fill layer
+    map.addLayer({
+      id: 'constituency-fills',
+      type: 'fill',
+      source: 'constituencies',
+      paint: {
+        'fill-color': [
+          'match',
+          ['get', 'party'],
+          'Labour', '#E4003B',
+          'Plaid Cymru', '#005B54',
+          'Liberal Democrat', '#FAA61A',
+          '#999999'
+        ],
+        'fill-opacity': 0.75
+      }
+    });
+
+    // Add border layer
+    map.addLayer({
+      id: 'constituency-borders',
+      type: 'line',
+      source: 'constituencies',
+      paint: {
+        'line-color': '#333',
+        'line-width': 0.8
+      }
+    });
+
+    // Hover effect
+    map.on('mousemove', 'constituency-fills', function(e) {
+      map.getCanvas().style.cursor = 'pointer';
+      
+      if (e.features.length > 0) {
+        map.setPaintProperty('constituency-fills', 'fill-opacity', [
+          'case',
+          ['==', ['get', 'PCON24CD'], e.features[0].properties.PCON24CD],
+          0.9,
+          0.75
+        ]);
+      }
+    });
+
+    map.on('mouseleave', 'constituency-fills', function() {
+      map.getCanvas().style.cursor = '';
+      map.setPaintProperty('constituency-fills', 'fill-opacity', 0.75);
+    });
+
+    // Add popup on click
+    map.on('click', 'constituency-fills', function(e) {
+      var props = e.features[0].properties;
+      var partyColor = partyColors[props.party] || '#999';
+      
+      new mapboxgl.Popup({ offset: 10 })
+        .setLngLat(e.lngLat)
+        .setHTML(
+          '<div class="popup-title">' + props.constituency_name + '</div>' +
+          '<div class="popup-row"><span class="popup-label">MP</span><span class="popup-value">' + props.winner_name + '</span></div>' +
+          '<div class="popup-row"><span class="popup-label">Party</span><span class="popup-party" style="background: ' + partyColor + ';">' + props.party + '</span></div>' +
+          '<div class="popup-row"><span class="popup-label">Majority</span><span class="popup-value">' + Number(props.majority).toLocaleString() + '</span></div>' +
+          '<div class="popup-row"><span class="popup-label">Vote Share</span><span class="popup-value">' + props.vote_share + '%</span></div>' +
+          '<div class="popup-row"><span class="popup-label">Turnout</span><span class="popup-value">' + props.turnout + '%</span></div>'
+        )
+        .addTo(map);
+    });
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UK Wine Prices Over Time</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      min-height: 100vh;
+      padding: 32px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    .header h1 {
+      margin: 0 0 8px 0;
+      font-size: 28px;
+      font-weight: 800;
+      color: #1a1a2e;
+      letter-spacing: -0.5px;
+    }
+    .header p {
+      margin: 0;
+      color: #666;
+      font-size: 15px;
+    }
+    .legend {
+      display: flex;
+      gap: 24px;
+      margin: 24px 0 20px 0;
+      font-size: 13px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #666;
+    }
+    .legend-line {
+      width: 24px;
+      height: 3px;
+      background: #722f37;
+      border-radius: 2px;
+    }
+    .legend-area {
+      width: 24px;
+      height: 16px;
+      background: rgba(114, 47, 55, 0.15);
+      border-radius: 3px;
+    }
+    .chart-container {
+      width: 100%;
+      height: 450px;
+      margin-bottom: 32px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .stat-card {
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+    }
+    .stat-card.green { background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(34,197,94,0.03) 100%); border: 1px solid rgba(34,197,94,0.2); }
+    .stat-card.wine { background: linear-gradient(135deg, rgba(114,47,55,0.1) 0%, rgba(114,47,55,0.03) 100%); border: 1px solid rgba(114,47,55,0.2); }
+    .stat-card.amber { background: linear-gradient(135deg, rgba(245,158,11,0.1) 0%, rgba(245,158,11,0.03) 100%); border: 1px solid rgba(245,158,11,0.2); }
+    .stat-card.purple { background: linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(139,92,246,0.03) 100%); border: 1px solid rgba(139,92,246,0.2); }
+    .stat-label {
+      margin: 0;
+      font-size: 11px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .stat-value {
+      margin: 8px 0 4px 0;
+      font-size: 24px;
+      font-weight: 800;
+    }
+    .stat-value.green { color: #22c55e; }
+    .stat-value.wine { color: #722f37; }
+    .stat-value.amber { color: #f59e0b; }
+    .stat-value.purple { color: #8b5cf6; }
+    .stat-sublabel {
+      margin: 0;
+      font-size: 11px;
+      color: #999;
+    }
+    .insight-box {
+      margin-top: 24px;
+      padding: 20px;
+      background: linear-gradient(135deg, #722f37 0%, #8b3a44 100%);
+      border-radius: 16px;
+      color: white;
+    }
+    .insight-box h3 {
+      margin: 0 0 8px 0;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .insight-box p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+    .source-box {
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      font-size: 12px;
+      color: #888;
+    }
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 450px;
+      color: #666;
+      font-size: 16px;
+    }
+    @media (max-width: 768px) {
+      body { padding: 16px; }
+      .container { padding: 20px; }
+      .header h1 { font-size: 22px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .chart-container { height: 350px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🍷 UK Wine Prices Over Time</h1>
+      <p>ONS CPI Item 310315 (Bottle of Wine 70-75cl) · February 1994 – September 2024</p>
+    </div>
+    
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-line"></div>
+        <span>Mean Price</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-area"></div>
+        <span>Min-Max Range</span>
+      </div>
+    </div>
+    
+    <div class="chart-container">
+      <canvas id="chart"></canvas>
+    </div>
+    
+    <div class="stats-grid">
+      <div class="stat-card green">
+        <p class="stat-label">Starting Price</p>
+        <p class="stat-value green">£7.28</p>
+        <p class="stat-sublabel">Feb 1994</p>
+      </div>
+      <div class="stat-card wine">
+        <p class="stat-label">Current Price</p>
+        <p class="stat-value wine">£23.82</p>
+        <p class="stat-sublabel">Sep 2024</p>
+      </div>
+      <div class="stat-card amber">
+        <p class="stat-label">Total Increase</p>
+        <p class="stat-value amber">+227%</p>
+        <p class="stat-sublabel">30 years</p>
+      </div>
+      <div class="stat-card purple">
+        <p class="stat-label">Max Recorded</p>
+        <p class="stat-value purple">£75.00</p>
+        <p class="stat-sublabel">2022</p>
+      </div>
+    </div>
+    
+    <div class="insight-box">
+      <h3>💡 Key Insight</h3>
+      <p>The shaded area shows the price range (min to max) observed each month. Notice how the range dramatically expanded after 2019, with premium wines reaching £75 while budget options remained under £10 — indicating increased market segmentation.</p>
+    </div>
+    
+    <div class="source-box">
+      <strong>Source:</strong> Davies, R (2021), "Prices and inflation in the UK – A new dataset", Centre for Economic Performance, Occasional Paper 55, February.
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  
+  <script>
+    var DATA_URL = 'https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/wine_price_over_time.csv';
+    
+    Papa.parse(DATA_URL, {
+      download: true,
+      header: true,
+      complete: function(results) {
+        var data = results.data
+          .filter(function(row) { return row.date && row.price_mean; })
+          .map(function(row) {
+            return {
+              date: row.date,
+              year: row.date.substring(0, 4),
+              price_mean: parseFloat(row.price_mean),
+              price_min: parseFloat(row.price_min),
+              price_max: parseFloat(row.price_max),
+              observations: parseInt(row.observations)
+            };
+          })
+          .filter(function(row) { return !isNaN(row.price_mean); });
+        
+        // Sample every 6th point for cleaner display, but always include last point
+        var sampled = data.filter(function(_, i, arr) { 
+          return i % 6 === 0 || i === arr.length - 1; 
+        });
+        
+        createChart(sampled);
+      },
+      error: function(err) {
+        console.error('Error loading data:', err);
+        document.querySelector('.chart-container').innerHTML = '<p class="loading">Error loading data</p>';
+      }
+    });
+    
+    function createChart(data) {
+      var ctx = document.getElementById('chart').getContext('2d');
+      
+      // Create labels showing years at regular intervals
+      var labels = data.map(function(d) { 
+        return d.year;
+      });
+      var means = data.map(function(d) { return d.price_mean; });
+      var mins = data.map(function(d) { return d.price_min; });
+      var maxs = data.map(function(d) { return d.price_max; });
+      
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Max Price',
+              data: maxs,
+              fill: '+1',
+              backgroundColor: 'rgba(114, 47, 55, 0.15)',
+              borderColor: 'transparent',
+              pointRadius: 0,
+              tension: 0.3
+            },
+            {
+              label: 'Min Price',
+              data: mins,
+              fill: false,
+              backgroundColor: 'white',
+              borderColor: 'transparent',
+              pointRadius: 0,
+              tension: 0.3
+            },
+            {
+              label: 'Mean Price',
+              data: means,
+              fill: false,
+              borderColor: '#722f37',
+              borderWidth: 3,
+              pointRadius: 0,
+              pointHoverRadius: 6,
+              pointHoverBackgroundColor: '#722f37',
+              pointHoverBorderColor: 'white',
+              pointHoverBorderWidth: 2,
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            intersect: false,
+            mode: 'index'
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: 'white',
+              titleColor: '#1a1a2e',
+              titleFont: { weight: 'bold', size: 14 },
+              bodyColor: '#666',
+              bodyFont: { size: 13 },
+              borderColor: '#eee',
+              borderWidth: 1,
+              padding: 14,
+              boxPadding: 6,
+              usePointStyle: true,
+              callbacks: {
+                title: function(context) {
+                  var dataIndex = context[0].dataIndex;
+                  return data[dataIndex].date;
+                },
+                label: function(context) {
+                  var dataIndex = context.dataIndex;
+                  var d = data[dataIndex];
+                  if (context.datasetIndex === 2) {
+                    return [
+                      'Mean: £' + d.price_mean.toFixed(2),
+                      'Min: £' + d.price_min.toFixed(2),
+                      'Max: £' + d.price_max.toFixed(2),
+                      'Obs: ' + d.observations.toLocaleString()
+                    ];
+                  }
+                  return null;
+                }
+              },
+              filter: function(tooltipItem) {
+                return tooltipItem.datasetIndex === 2;
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                color: '#f0f0f0'
+              },
+              ticks: {
+                color: '#666',
+                font: { size: 11 },
+                maxRotation: 0,
+                minRotation: 0,
+                callback: function(value, index, ticks) {
+                  // Show every ~5th label to avoid crowding, but always show last
+                  if (index % 5 === 0 || index === ticks.length - 1) {
+                    return this.getLabelForValue(value);
+                  }
+                  return '';
+                }
+              }
+            },
+            y: {
+              min: 0,
+              max: 80,
+              grid: {
+                color: '#f0f0f0'
+              },
+              ticks: {
+                color: '#666',
+                font: { size: 12 },
+                callback: function(value) {
+                  return '£' + value;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elecciones Presidenciales Chile 2025 — Segunda Vuelta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        :root {
+            --kast-dark: #1a237e;
+            --kast-main: #283593;
+            --kast-light: #5c6bc0;
+            --kast-pale: #c5cae9;
+            --jara-dark: #b71c1c;
+            --jara-main: #c62828;
+            --jara-light: #ef5350;
+            --jara-pale: #ffcdd2;
+            --neutral: #78909c;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255,255,255,0.03);
+            --text-light: #e8eaf6;
+            --text-muted: #9fa8da;
+            --gold: #ffd54f;
+            --gold-dark: #ffb300;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(26, 35, 126, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(183, 28, 28, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 213, 79, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chile-flag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .flag-icon {
+            width: 24px;
+            height: 16px;
+            background: linear-gradient(to bottom, #fff 50%, #d52b1e 50%);
+            position: relative;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .flag-icon::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 33%;
+            height: 50%;
+            background: #0039a6;
+        }
+
+        .flag-icon::after {
+            content: '★';
+            position: absolute;
+            left: 2px;
+            top: -1px;
+            color: white;
+            font-size: 8px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--text-light) 0%, var(--gold) 50%, var(--text-light) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 200% center; }
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .national-results {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.06);
+            backdrop-filter: blur(20px);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            flex-wrap: wrap;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .candidate-result {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .candidate-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .candidate-avatar.jara {
+            background: linear-gradient(135deg, var(--jara-dark), var(--jara-main));
+            box-shadow: 0 4px 20px rgba(198, 40, 40, 0.4);
+        }
+
+        .candidate-avatar.kast {
+            background: linear-gradient(135deg, var(--kast-dark), var(--kast-main));
+            box-shadow: 0 4px 20px rgba(40, 53, 147, 0.4);
+        }
+
+        .winner-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--gold);
+            color: #1a1a1a;
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .candidate-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .candidate-info .party {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .candidate-votes {
+            text-align: right;
+        }
+
+        .percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .percentage.jara { color: var(--jara-light); }
+        .percentage.kast { color: var(--kast-light); }
+
+        .vote-count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .vs-divider {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--neutral);
+            opacity: 0.5;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        @media (max-width: 1200px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .national-results {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .candidate-votes {
+                text-align: center;
+            }
+            .vs-divider {
+                display: none;
+            }
+        }
+
+        .map-wrapper {
+            position: relative;
+        }
+
+        .map-container {
+            height: 700px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+            background: #0d1117;
+        }
+
+        .map-controls {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .control-btn {
+            padding: 0.75rem 1.25rem;
+            background: rgba(10, 10, 15, 0.9);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: var(--text-light);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .control-btn.active {
+            background: var(--gold);
+            color: #1a1a1a;
+            border-color: var(--gold);
+        }
+
+        .legend {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.95);
+            padding: 1.25rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+        }
+
+        .legend h4 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .gradient-bar {
+            width: 200px;
+            height: 12px;
+            border-radius: 6px;
+            background: linear-gradient(to right, 
+                var(--jara-dark) 0%, 
+                var(--jara-light) 25%, 
+                var(--neutral) 50%, 
+                var(--kast-light) 75%, 
+                var(--kast-dark) 100%);
+            margin-bottom: 0.5rem;
+        }
+
+        .legend-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .panel-badge {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255,213,79,0.15);
+            color: var(--gold);
+            border-radius: 20px;
+        }
+
+        .region-list {
+            max-height: 300px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.1) transparent;
+        }
+
+        .region-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .region-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .region-list::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+        }
+
+        .region-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .region-item:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .region-indicator {
+            width: 4px;
+            height: 32px;
+            border-radius: 2px;
+        }
+
+        .region-indicator.kast { background: var(--kast-light); }
+        .region-indicator.jara { background: var(--jara-light); }
+
+        .region-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .region-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .region-votes {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .region-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            margin-top: 0.4rem;
+            overflow: hidden;
+        }
+
+        .region-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .region-bar-fill.kast { background: var(--kast-light); }
+        .region-bar-fill.jara { background: var(--jara-light); }
+
+        .region-percentage {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.5rem;
+        }
+
+        .hover-panel {
+            min-height: 180px;
+        }
+
+        .hover-content {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .hover-placeholder {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .hover-comuna-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .hover-region-name {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .hover-results {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .hover-candidate {
+            text-align: center;
+        }
+
+        .hover-candidate-name {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.25rem;
+        }
+
+        .hover-candidate-pct {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .hover-candidate-votes {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .leaflet-control-zoom {
+            border: none !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
+        }
+
+        .leaflet-control-zoom a {
+            background: rgba(10, 10, 15, 0.95) !important;
+            color: var(--text-light) !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .leaflet-control-zoom a:hover {
+            background: rgba(255,255,255,0.1) !important;
+        }
+
+        .leaflet-control-attribution {
+            background: rgba(10, 10, 15, 0.8) !important;
+            color: var(--text-muted) !important;
+            font-size: 10px !important;
+        }
+
+        .leaflet-control-attribution a {
+            color: var(--gold) !important;
+        }
+
+        .custom-tooltip {
+            background: rgba(10, 10, 15, 0.95) !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            border-radius: 12px !important;
+            padding: 0.75rem 1rem !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important;
+            font-family: 'DM Sans', sans-serif !important;
+        }
+
+        .custom-tooltip::before {
+            display: none !important;
+        }
+
+        .tooltip-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .tooltip-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .tooltip-bar {
+            display: flex;
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .tooltip-bar-jara { background: var(--jara-light); }
+        .tooltip-bar-kast { background: var(--kast-light); }
+
+        .tooltip-values {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+        }
+
+        .tooltip-jara { color: var(--jara-light); }
+        .tooltip-kast { color: var(--kast-light); }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* Loading state */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            border-radius: 24px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            position: absolute;
+            margin-top: 80px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="noise-overlay"></div>
+
+    <div class="container">
+        <header>
+            <div class="chile-flag">
+                <div class="flag-icon"></div>
+                <span>República de Chile</span>
+            </div>
+            <h1>Elecciones Presidenciales 2025</h1>
+            <p class="subtitle">Segunda Vuelta — Resultados por Comuna y Región</p>
+        </header>
+
+        <div class="national-results">
+            <div class="candidate-result">
+                <div class="candidate-avatar jara">MJ</div>
+                <div class="candidate-info">
+                    <h3>Michelle Jara</h3>
+                    <span class="party">Frente Amplio</span>
+                </div>
+            </div>
+            <div class="candidate-votes">
+                <div class="percentage jara" id="national-jara-pct">--</div>
+                <div class="vote-count" id="national-jara-votes">Cargando...</div>
+            </div>
+
+            <div class="vs-divider">vs</div>
+
+            <div class="candidate-votes" style="text-align: left;">
+                <div class="percentage kast" id="national-kast-pct">--</div>
+                <div class="vote-count" id="national-kast-votes">Cargando...</div>
+            </div>
+            <div class="candidate-result">
+                <div class="candidate-info" style="text-align: right;">
+                    <h3>José Antonio Kast</h3>
+                    <span class="party">Partido Republicano</span>
+                </div>
+                <div class="candidate-avatar kast">
+                    JAK
+                    <span class="winner-badge">ELECTO</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-layout">
+            <div class="map-wrapper">
+                <div class="map-controls">
+                    <button class="control-btn active" id="btn-comunas">Comunas</button>
+                    <button class="control-btn" id="btn-regiones">Regiones</button>
+                </div>
+                <div class="map-container">
+                    <div id="map"></div>
+                    <div class="loading-overlay" id="loading">
+                        <div class="loading-spinner"></div>
+                        <div class="loading-text">Cargando mapa...</div>
+                    </div>
+                </div>
+                <div class="legend">
+                    <h4>Diferencia de Votación</h4>
+                    <div class="gradient-bar"></div>
+                    <div class="legend-labels">
+                        <span style="color: var(--jara-light);">← Jara +50%</span>
+                        <span>Empate</span>
+                        <span style="color: var(--kast-light);">Kast +50% →</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="panel hover-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Detalle</span>
+                        <span class="panel-badge">Hover</span>
+                    </div>
+                    <div class="hover-content" id="hover-content">
+                        <p class="hover-placeholder">Pasa el cursor sobre el mapa<br>para ver detalles</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Resultados por Región</span>
+                        <span class="panel-badge">16 regiones</span>
+                    </div>
+                    <div class="region-list" id="region-list"></div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Estadísticas Nacionales</span>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">346</div>
+                            <div class="stat-label">Comunas</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-participation">--</div>
+                            <div class="stat-label">Participación</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-total-votes">--</div>
+                            <div class="stat-label">Votos Totales</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-margin">--</div>
+                            <div class="stat-label">Margen Victoria</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Visualización de datos electorales • Datos: SERVEL Chile 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURACIÓN: Rutas a los archivos de datos
+        // ============================================
+        // Si tus archivos están en una carpeta "data", usa:
+        const DATA_PATH = './data/';
+        // Si están en la misma carpeta que index.html, usa:
+        // const DATA_PATH = './';
+        
+        const COMUNAS_FILE = DATA_PATH + 'comunas.geojson';
+        const REGIONES_FILE = DATA_PATH + 'regiones.geojson';
+        // ============================================
+
+        function getColor(pJara, pKast) {
+            const diff = pKast - pJara;
+            if (diff > 0.4) return '#1a237e';
+            if (diff > 0.3) return '#283593';
+            if (diff > 0.2) return '#3949ab';
+            if (diff > 0.1) return '#5c6bc0';
+            if (diff > 0.05) return '#7986cb';
+            if (diff > 0) return '#9fa8da';
+            if (diff > -0.05) return '#ef9a9a';
+            if (diff > -0.1) return '#e57373';
+            if (diff > -0.2) return '#ef5350';
+            if (diff > -0.3) return '#e53935';
+            if (diff > -0.4) return '#c62828';
+            return '#b71c1c';
+        }
+
+        function formatNumber(num) {
+            return new Intl.NumberFormat('es-CL').format(num);
+        }
+
+        function formatPercent(num) {
+            return (num * 100).toFixed(1) + '%';
+        }
+
+        const map = L.map('map', {
+            zoomControl: true,
+            attributionControl: true
+        }).setView([-33.45, -70.65], 4);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | &copy; <a href="https://carto.com/">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+
+        let comunasLayer = null;
+        let regionesLayer = null;
+        let currentView = 'comunas';
+
+        Promise.all([
+            fetch(COMUNAS_FILE).then(r => r.json()),
+            fetch(REGIONES_FILE).then(r => r.json())
+        ]).then(([comunasData, regionesData]) => {
+            
+            document.getElementById('loading').style.display = 'none';
+
+            let totalJara = 0, totalKast = 0, totalVotos = 0, totalValidos = 0;
+            comunasData.features.forEach(f => {
+                if (f.properties.jara) {
+                    totalJara += f.properties.jara;
+                    totalKast += f.properties.kast;
+                    totalVotos += f.properties.totalvotos;
+                    totalValidos += f.properties.validos;
+                }
+            });
+
+            document.getElementById('national-jara-pct').textContent = formatPercent(totalJara / totalValidos);
+            document.getElementById('national-kast-pct').textContent = formatPercent(totalKast / totalValidos);
+            document.getElementById('national-jara-votes').textContent = formatNumber(totalJara) + ' votos';
+            document.getElementById('national-kast-votes').textContent = formatNumber(totalKast) + ' votos';
+            document.getElementById('stat-total-votes').textContent = (totalVotos / 1000000).toFixed(1) + 'M';
+            document.getElementById('stat-margin').textContent = formatPercent((totalKast - totalJara) / totalValidos);
+            document.getElementById('stat-participation').textContent = '85.2%';
+
+            function comunaStyle(feature) {
+                const p = feature.properties;
+                if (!p.p_jara) {
+                    return {
+                        fillColor: '#2a2a2a',
+                        weight: 0.5,
+                        opacity: 0.5,
+                        color: '#444',
+                        fillOpacity: 0.5
+                    };
+                }
+                return {
+                    fillColor: getColor(p.p_jara, p.p_kast),
+                    weight: 0.8,
+                    opacity: 0.8,
+                    color: 'rgba(255,255,255,0.2)',
+                    fillOpacity: 0.85
+                };
+            }
+
+            function regionStyle(feature) {
+                const p = feature.properties;
+                if (!p.p_jara) {
+                    return {
+                        fillColor: '#2a2a2a',
+                        weight: 2,
+                        opacity: 0.8,
+                        color: '#555',
+                        fillOpacity: 0.6
+                    };
+                }
+                return {
+                    fillColor: getColor(p.p_jara, p.p_kast),
+                    weight: 2,
+                    opacity: 1,
+                    color: 'rgba(255,255,255,0.4)',
+                    fillOpacity: 0.8
+                };
+            }
+
+            function highlightFeature(e) {
+                const layer = e.target;
+                const p = layer.feature.properties;
+
+                layer.setStyle({
+                    weight: 3,
+                    color: '#ffd54f',
+                    fillOpacity: 0.95
+                });
+
+                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront();
+                }
+
+                if (p.p_jara) {
+                    const name = p.Comuna || p.Region;
+                    const regionName = p.Comuna ? (p.Region || '') : '';
+                    
+                    document.getElementById('hover-content').innerHTML = `
+                        <div class="hover-comuna-name">${name}</div>
+                        ${regionName ? `<div class="hover-region-name">${regionName}</div>` : '<div class="hover-region-name">Región</div>'}
+                        <div class="hover-results">
+                            <div class="hover-candidate">
+                                <div class="hover-candidate-name">Jara</div>
+                                <div class="hover-candidate-pct" style="color: var(--jara-light)">${formatPercent(p.p_jara)}</div>
+                                <div class="hover-candidate-votes">${formatNumber(p.jara)} votos</div>
+                            </div>
+                            <div class="hover-candidate">
+                                <div class="hover-candidate-name">Kast</div>
+                                <div class="hover-candidate-pct" style="color: var(--kast-light)">${formatPercent(p.p_kast)}</div>
+                                <div class="hover-candidate-votes">${formatNumber(p.kast)} votos</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            function resetHighlight(e) {
+                if (currentView === 'comunas') {
+                    comunasLayer.resetStyle(e.target);
+                } else {
+                    regionesLayer.resetStyle(e.target);
+                }
+                document.getElementById('hover-content').innerHTML = `
+                    <p class="hover-placeholder">Pasa el cursor sobre el mapa<br>para ver detalles</p>
+                `;
+            }
+
+            function onEachFeature(feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight
+                });
+
+                const p = feature.properties;
+                if (p.p_jara) {
+                    const name = p.Comuna || p.Region;
+                    layer.bindTooltip(`
+                        <div class="tooltip-title">${name}</div>
+                        <div class="tooltip-subtitle">${p.Comuna ? (p.Region || '') : 'Región'}</div>
+                        <div class="tooltip-bar">
+                            <div class="tooltip-bar-jara" style="width: ${p.p_jara * 100}%"></div>
+                            <div class="tooltip-bar-kast" style="width: ${p.p_kast * 100}%"></div>
+                        </div>
+                        <div class="tooltip-values">
+                            <span class="tooltip-jara">${formatPercent(p.p_jara)}</span>
+                            <span class="tooltip-kast">${formatPercent(p.p_kast)}</span>
+                        </div>
+                    `, {
+                        className: 'custom-tooltip',
+                        sticky: true
+                    });
+                }
+            }
+
+            comunasLayer = L.geoJSON(comunasData, {
+                style: comunaStyle,
+                onEachFeature: onEachFeature
+            }).addTo(map);
+
+            regionesLayer = L.geoJSON(regionesData, {
+                style: regionStyle,
+                onEachFeature: onEachFeature
+            });
+
+            map.fitBounds(comunasLayer.getBounds());
+
+            const regionList = document.getElementById('region-list');
+            const regionStats = {};
+            
+            comunasData.features.forEach(f => {
+                const region = f.properties.region || f.properties.Region;
+                if (!region || !f.properties.jara) return;
+                
+                if (!regionStats[region]) {
+                    regionStats[region] = { jara: 0, kast: 0, validos: 0 };
+                }
+                regionStats[region].jara += f.properties.jara;
+                regionStats[region].kast += f.properties.kast;
+                regionStats[region].validos += f.properties.validos;
+            });
+
+            const sortedRegions = Object.entries(regionStats)
+                .map(([name, data]) => ({
+                    name,
+                    ...data,
+                    pJara: data.jara / data.validos,
+                    pKast: data.kast / data.validos
+                }))
+                .sort((a, b) => b.pKast - a.pKast);
+
+            sortedRegions.forEach(region => {
+                const winner = region.pKast > region.pJara ? 'kast' : 'jara';
+                const winnerPct = winner === 'kast' ? region.pKast : region.pJara;
+                
+                const item = document.createElement('div');
+                item.className = 'region-item';
+                item.innerHTML = `
+                    <div class="region-indicator ${winner}"></div>
+                    <div class="region-info">
+                        <div class="region-name">${region.name}</div>
+                        <div class="region-votes">${formatNumber(region.validos)} votos válidos</div>
+                        <div class="region-bar">
+                            <div class="region-bar-fill ${winner}" style="width: ${winnerPct * 100}%"></div>
+                        </div>
+                    </div>
+                    <div class="region-percentage" style="color: var(--${winner}-light)">${formatPercent(winnerPct)}</div>
+                `;
+                regionList.appendChild(item);
+            });
+
+            document.getElementById('btn-comunas').addEventListener('click', function() {
+                if (currentView === 'comunas') return;
+                currentView = 'comunas';
+                this.classList.add('active');
+                document.getElementById('btn-regiones').classList.remove('active');
+                map.removeLayer(regionesLayer);
+                comunasLayer.addTo(map);
+            });
+
+            document.getElementById('btn-regiones').addEventListener('click', function() {
+                if (currentView === 'regiones') return;
+                currentView = 'regiones';
+                this.classList.add('active');
+                document.getElementById('btn-comunas').classList.remove('active');
+                map.removeLayer(comunasLayer);
+                regionesLayer.addTo(map);
+            });
+
+        }).catch(err => {
+            console.error('Error loading data:', err);
+            document.getElementById('loading').innerHTML = `
+                <div style="text-align: center; color: #ef5350;">
+                    <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">Error cargando datos</p>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">
+                        Verifica que los archivos estén en la carpeta correcta:<br>
+                        ${COMUNAS_FILE}<br>
+                        ${REGIONES_FILE}
+                    </p>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

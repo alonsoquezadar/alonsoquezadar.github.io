@@ -438,7 +438,7 @@
             color: #1a1a1a;
         }
 
-        /* Region List - New Style */
+        /* Region List */
         .region-list {
             max-height: 450px;
             overflow-y: auto;
@@ -491,65 +491,73 @@
             color: var(--text-muted);
         }
 
-        /* Dual bar chart */
+        /* Fixed width dual bar - 50% centered */
         .dual-bar-container {
             display: flex;
-            align-items: center;
-            gap: 0;
+            width: 100%;
             height: 24px;
-            margin-bottom: 0.5rem;
-        }
-
-        .bar-side {
-            height: 100%;
-            display: flex;
-            align-items: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            overflow: hidden;
             position: relative;
         }
 
-        .bar-side.left {
+        .dual-bar-container::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255,255,255,0.4);
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .bar-half {
             width: 50%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-half.left {
+            display: flex;
             justify-content: flex-end;
         }
 
-        .bar-side.right {
-            width: 50%;
+        .bar-half.right {
+            display: flex;
             justify-content: flex-start;
         }
 
         .bar-fill {
             height: 100%;
-            transition: width 0.5s ease;
             display: flex;
             align-items: center;
-            padding: 0 6px;
+            transition: width 0.5s ease;
+            position: relative;
         }
 
         .bar-fill.jara {
-            background: linear-gradient(to left, var(--jara-light), var(--jara-dark));
-            border-radius: 4px 0 0 4px;
+            background: linear-gradient(to left, var(--jara-light), var(--jara-main));
             justify-content: flex-start;
+            padding-left: 6px;
         }
 
         .bar-fill.kast {
-            background: linear-gradient(to right, var(--kast-light), var(--kast-dark));
-            border-radius: 0 4px 4px 0;
+            background: linear-gradient(to right, var(--kast-light), var(--kast-main));
             justify-content: flex-end;
+            padding-right: 6px;
         }
 
         .bar-pct {
             font-family: 'Playfair Display', serif;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             color: white;
             white-space: nowrap;
-        }
-
-        .center-line {
-            width: 2px;
-            height: 32px;
-            background: rgba(255,255,255,0.3);
-            flex-shrink: 0;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
 
         .region-votes-row {
@@ -557,6 +565,7 @@
             justify-content: space-between;
             font-size: 0.7rem;
             color: var(--text-muted);
+            margin-top: 0.5rem;
         }
 
         .region-votes-row .jara-votes {
@@ -597,7 +606,7 @@
         }
 
         .hover-panel {
-            min-height: 200px;
+            min-height: 180px;
         }
 
         .hover-content {
@@ -653,23 +662,25 @@
             color: var(--text-muted);
         }
 
-        .hover-dual-bar {
-            max-width: 280px;
-            margin: 0 auto;
-        }
-
-        .hover-bar-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.65rem;
+        .hover-valid-votes {
+            font-size: 0.75rem;
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.25rem;
+            margin-top: 0.5rem;
         }
 
-        .hover-bar-labels .jara { color: var(--jara-light); }
-        .hover-bar-labels .kast { color: var(--kast-light); }
+        .lock-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.7rem;
+            color: var(--gold);
+            margin-top: 0.75rem;
+        }
+
+        .lock-indicator svg {
+            width: 12px;
+            height: 12px;
+        }
 
         .leaflet-control-zoom {
             border: none !important;
@@ -790,21 +801,6 @@
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-
-        /* Locked state indicator */
-        .lock-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            font-size: 0.7rem;
-            color: var(--gold);
-            margin-top: 0.5rem;
-        }
-
-        .lock-indicator svg {
-            width: 12px;
-            height: 12px;
-        }
     </style>
 </head>
 <body>
@@ -823,10 +819,10 @@
 
         <div class="national-results">
             <div class="candidate-result">
-                <div class="candidate-avatar jara">MJ</div>
+                <div class="candidate-avatar jara">JJ</div>
                 <div class="candidate-info">
-                    <h3>Michelle Jara</h3>
-                    <span class="party">Frente Amplio</span>
+                    <h3>Jeannette Jara</h3>
+                    <span class="party">Partido Comunista</span>
                 </div>
             </div>
             <div class="candidate-votes">
@@ -966,10 +962,8 @@
         function updateHoverPanel(p, isLocked = false) {
             if (!p || !p.p_jara) return;
             
-            const name = p.Comuna || p.Region || p.region_name || 'Región';
+            const name = p.Comuna || p.Region || p.region_display || p.region_name || 'Región';
             const regionName = p.Comuna ? (p.region || p.Region || '') : '';
-            const jaraBarWidth = (p.p_jara / (p.p_jara + p.p_kast)) * 100;
-            const kastBarWidth = 100 - jaraBarWidth;
             
             document.getElementById('hover-content').innerHTML = `
                 <div class="hover-comuna-name">${name}</div>
@@ -986,26 +980,7 @@
                         <div class="hover-candidate-votes">${formatNumber(p.kast)} votos</div>
                     </div>
                 </div>
-                <div class="hover-dual-bar">
-                    <div class="hover-bar-labels">
-                        <span class="jara">Jara</span>
-                        <span class="kast">Kast</span>
-                    </div>
-                    <div class="dual-bar-container">
-                        <div class="bar-side left">
-                            <div class="bar-fill jara" style="width: ${p.p_jara * 100}%">
-                                ${p.p_jara > 0.15 ? `<span class="bar-pct">${formatPercent(p.p_jara)}</span>` : ''}
-                            </div>
-                        </div>
-                        <div class="center-line"></div>
-                        <div class="bar-side right">
-                            <div class="bar-fill kast" style="width: ${p.p_kast * 100}%">
-                                ${p.p_kast > 0.15 ? `<span class="bar-pct">${formatPercent(p.p_kast)}</span>` : ''}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-muted);">
+                <div class="hover-valid-votes">
                     Votos válidos: ${formatNumber(p.validos)}
                 </div>
                 ${isLocked ? `
@@ -1019,7 +994,6 @@
                 ` : ''}
             `;
 
-            // Update badge
             const badge = document.getElementById('lock-badge');
             if (isLocked) {
                 badge.textContent = 'Fijado';
@@ -1031,7 +1005,7 @@
         }
 
         function resetHoverPanel() {
-            if (lockedFeature) return; // Don't reset if locked
+            if (lockedFeature) return;
             
             document.getElementById('hover-content').innerHTML = `
                 <p class="hover-placeholder">Pasa el cursor sobre el mapa<br>para ver detalles<br><br><em style="font-size: 0.8rem;">Click para fijar la selección</em></p>
@@ -1124,9 +1098,7 @@
                 const layer = e.target;
                 const p = layer.feature.properties;
 
-                // Don't change highlight if we have a locked selection (unless it's the locked one)
                 if (lockedLayer && lockedLayer !== layer) {
-                    // Just update panel without changing styles
                     return;
                 }
 
@@ -1146,7 +1118,7 @@
             }
 
             function resetHighlight(e) {
-                if (lockedLayer === e.target) return; // Don't reset locked layer
+                if (lockedLayer === e.target) return;
                 
                 if (currentView === 'comunas') {
                     comunasLayer.resetStyle(e.target);
@@ -1163,7 +1135,6 @@
                 const layer = e.target;
                 const p = layer.feature.properties;
 
-                // If clicking the same locked feature, unlock it
                 if (lockedLayer === layer) {
                     lockedFeature = null;
                     lockedLayer = null;
@@ -1176,7 +1147,6 @@
                     return;
                 }
 
-                // Reset previous locked layer
                 if (lockedLayer) {
                     if (currentView === 'comunas') {
                         comunasLayer.resetStyle(lockedLayer);
@@ -1185,7 +1155,6 @@
                     }
                 }
 
-                // Lock new selection
                 lockedFeature = p;
                 lockedLayer = layer;
 
@@ -1213,7 +1182,7 @@
 
                 const p = feature.properties;
                 if (p.p_jara) {
-                    const name = p.Comuna || p.Region;
+                    const name = p.Comuna || p.Region || p.region_display;
                     layer.bindTooltip(`
                         <div class="tooltip-title">${name}</div>
                         <div class="tooltip-subtitle">${p.Comuna ? (p.region || p.Region || '') : 'Región'}</div>
@@ -1244,7 +1213,7 @@
 
             map.fitBounds(comunasLayer.getBounds());
 
-            // Build region list with new design
+            // Build region list with fixed 50% centered bars
             const regionList = document.getElementById('region-list');
             const regionStats = {};
             
@@ -1270,6 +1239,17 @@
                 .sort((a, b) => b.pKast - a.pKast);
 
             sortedRegions.forEach(region => {
+                // Calculate bar widths relative to 50%
+                // If Jara has 45%, the red bar fills 90% of the left half (45/50 = 0.9)
+                // If Kast has 55%, the blue bar fills 100% of right half AND 10% overflow (shown as crossing center)
+                
+                const jaraWidth = Math.min(region.pJara * 2, 1) * 100; // Scale to 50% = 100% of half
+                const kastWidth = Math.min(region.pKast * 2, 1) * 100;
+                
+                // Overflow when > 50%
+                const jaraOverflow = region.pJara > 0.5 ? ((region.pJara - 0.5) * 2) * 100 : 0;
+                const kastOverflow = region.pKast > 0.5 ? ((region.pKast - 0.5) * 2) * 100 : 0;
+                
                 const item = document.createElement('div');
                 item.className = 'region-item';
                 item.innerHTML = `
@@ -1278,16 +1258,17 @@
                         <span class="region-total-votes">${formatNumber(region.validos)} votos</span>
                     </div>
                     <div class="dual-bar-container">
-                        <div class="bar-side left">
-                            <div class="bar-fill jara" style="width: ${region.pJara * 100}%">
-                                ${region.pJara > 0.2 ? `<span class="bar-pct">${formatPercent(region.pJara)}</span>` : ''}
+                        <div class="bar-half left">
+                            ${kastOverflow > 0 ? `<div class="bar-fill kast" style="width: ${kastOverflow}%; border-radius: 4px 0 0 4px;"></div>` : ''}
+                            <div class="bar-fill jara" style="width: ${Math.min(region.pJara, 0.5) * 200}%;">
+                                ${region.pJara >= 0.15 ? `<span class="bar-pct">${formatPercent(region.pJara)}</span>` : ''}
                             </div>
                         </div>
-                        <div class="center-line"></div>
-                        <div class="bar-side right">
-                            <div class="bar-fill kast" style="width: ${region.pKast * 100}%">
-                                ${region.pKast > 0.2 ? `<span class="bar-pct">${formatPercent(region.pKast)}</span>` : ''}
+                        <div class="bar-half right">
+                            <div class="bar-fill kast" style="width: ${Math.min(region.pKast, 0.5) * 200}%;">
+                                ${region.pKast >= 0.15 ? `<span class="bar-pct">${formatPercent(region.pKast)}</span>` : ''}
                             </div>
+                            ${jaraOverflow > 0 ? `<div class="bar-fill jara" style="width: ${jaraOverflow}%; border-radius: 0 4px 4px 0;"></div>` : ''}
                         </div>
                     </div>
                     <div class="region-votes-row">
@@ -1298,7 +1279,6 @@
                 regionList.appendChild(item);
             });
 
-            // Clear lock when switching views
             function clearLock() {
                 if (lockedLayer) {
                     if (currentView === 'comunas') {
@@ -1332,7 +1312,6 @@
                 regionesLayer.addTo(map);
             });
 
-            // Click on badge to unlock
             document.getElementById('lock-badge').addEventListener('click', function() {
                 if (lockedFeature) {
                     clearLock();
@@ -1345,7 +1324,7 @@
                 <div style="text-align: center; color: #ef5350;">
                     <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">Error cargando datos</p>
                     <p style="font-size: 0.8rem; color: var(--text-muted);">
-                        Verifica que los archivos estén en la carpeta correcta:<br>
+                        Verifica que los archivos estén en la ubicación correcta:<br>
                         ${COMUNAS_FILE}<br>
                         ${REGIONES_FILE}
                     </p>

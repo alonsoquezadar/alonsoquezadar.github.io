@@ -726,6 +726,7 @@
             font-weight: 600;
             font-size: 1rem;
             margin-bottom: 0.25rem;
+            color: #e0e0e0;
         }
 
         .tooltip-subtitle {
@@ -1239,34 +1240,36 @@
                 .sort((a, b) => b.pKast - a.pKast);
 
             sortedRegions.forEach(region => {
-                // Calculate bar widths relative to 50%
-                // If Jara has 45%, the red bar fills 90% of the left half (45/50 = 0.9)
-                // If Kast has 55%, the blue bar fills 100% of right half AND 10% overflow (shown as crossing center)
+                // Bar visualization: 100% = valid votes, 50% mark at center
+                // Each half represents 50% of valid votes
+                // Jara bar grows from center to left, Kast from center to right
+                // If > 50%, the bar crosses to the other side
                 
-                const jaraWidth = Math.min(region.pJara * 2, 1) * 100; // Scale to 50% = 100% of half
-                const kastWidth = Math.min(region.pKast * 2, 1) * 100;
+                // Width within own half (max 100% of half = 50% of votes)
+                const jaraInOwnHalf = Math.min(region.pJara, 0.5) / 0.5 * 100;
+                const kastInOwnHalf = Math.min(region.pKast, 0.5) / 0.5 * 100;
                 
-                // Overflow when > 50%
-                const jaraOverflow = region.pJara > 0.5 ? ((region.pJara - 0.5) * 2) * 100 : 0;
-                const kastOverflow = region.pKast > 0.5 ? ((region.pKast - 0.5) * 2) * 100 : 0;
+                // Overflow into other half (if > 50%)
+                const jaraOverflow = region.pJara > 0.5 ? (region.pJara - 0.5) / 0.5 * 100 : 0;
+                const kastOverflow = region.pKast > 0.5 ? (region.pKast - 0.5) / 0.5 * 100 : 0;
                 
                 const item = document.createElement('div');
                 item.className = 'region-item';
                 item.innerHTML = `
                     <div class="region-item-header">
                         <span class="region-name">${region.name}</span>
-                        <span class="region-total-votes">${formatNumber(region.validos)} votos</span>
+                        <span class="region-total-votes">${formatNumber(region.validos)} votos válidos</span>
                     </div>
                     <div class="dual-bar-container">
                         <div class="bar-half left">
                             ${kastOverflow > 0 ? `<div class="bar-fill kast" style="width: ${kastOverflow}%; border-radius: 4px 0 0 4px;"></div>` : ''}
-                            <div class="bar-fill jara" style="width: ${Math.min(region.pJara, 0.5) * 200}%;">
-                                ${region.pJara >= 0.15 ? `<span class="bar-pct">${formatPercent(region.pJara)}</span>` : ''}
+                            <div class="bar-fill jara" style="width: ${jaraInOwnHalf}%;">
+                                ${region.pJara >= 0.12 ? `<span class="bar-pct">${formatPercent(region.pJara)}</span>` : ''}
                             </div>
                         </div>
                         <div class="bar-half right">
-                            <div class="bar-fill kast" style="width: ${Math.min(region.pKast, 0.5) * 200}%;">
-                                ${region.pKast >= 0.15 ? `<span class="bar-pct">${formatPercent(region.pKast)}</span>` : ''}
+                            <div class="bar-fill kast" style="width: ${kastInOwnHalf}%;">
+                                ${region.pKast >= 0.12 ? `<span class="bar-pct">${formatPercent(region.pKast)}</span>` : ''}
                             </div>
                             ${jaraOverflow > 0 ? `<div class="bar-fill jara" style="width: ${jaraOverflow}%; border-radius: 0 4px 4px 0;"></div>` : ''}
                         </div>

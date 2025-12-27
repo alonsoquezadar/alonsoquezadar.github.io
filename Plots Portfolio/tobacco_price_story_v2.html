@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Rising Cost of Rolling | UK Tobacco 1996-2024</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --smoke-dark: #0f0d0b;
+            --smoke-medium: #1a1714;
+            --smoke-light: #8b7355;
+            --ember: #e85d3b;
+            --ember-glow: #ff7a54;
+            --ember-deep: #c43d1e;
+            --ash: #b8a99a;
+            --paper: #f5f0e8;
+            --gold: #d4a855;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: var(--smoke-dark);
+            color: var(--paper);
+            line-height: 1.6;
+        }
+
+        /* Fixed Chart Container */
+        .chart-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--smoke-dark);
+        }
+
+        .chart-wrapper {
+            width: 90%;
+            max-width: 1000px;
+            height: 70vh;
+            position: relative;
+        }
+
+        /* Scrolling Story Panels */
+        .story-container {
+            position: relative;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .story-panel {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem;
+            pointer-events: auto;
+        }
+
+        .story-card {
+            background: linear-gradient(145deg, rgba(26, 23, 20, 0.95), rgba(15, 13, 11, 0.98));
+            border: 1px solid rgba(139, 115, 85, 0.3);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 380px;
+            margin-left: 5%;
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .story-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .story-card.right {
+            margin-left: auto;
+            margin-right: 5%;
+        }
+
+        .story-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--ember);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .story-number.gold {
+            color: var(--gold);
+        }
+
+        .story-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--paper);
+            margin-bottom: 1rem;
+        }
+
+        .story-text {
+            font-size: 1.05rem;
+            color: var(--ash);
+            font-weight: 300;
+        }
+
+        .story-text strong {
+            color: var(--paper);
+            font-weight: 600;
+        }
+
+        /* Hero Panel */
+        .hero-panel {
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            pointer-events: auto;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--paper) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--smoke-light);
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 3rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ember);
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: var(--ash);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--smoke-light);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Chart Styles */
+        .axis-label {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 12px;
+            fill: var(--ash);
+        }
+
+        .axis line, .axis path {
+            stroke: rgba(139, 115, 85, 0.25);
+        }
+
+        .axis text {
+            fill: var(--ash);
+            font-size: 11px;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .grid line {
+            stroke: rgba(139, 115, 85, 0.1);
+        }
+
+        .price-line {
+            fill: none;
+            stroke: var(--ember);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .price-area {
+            fill: url(#priceGradient);
+        }
+
+        .change-bar {
+            transition: opacity 0.3s ease;
+        }
+
+        .change-bar.dimmed {
+            opacity: 0.2;
+        }
+
+        .data-point {
+            fill: var(--smoke-dark);
+            stroke: var(--ember);
+            stroke-width: 2.5;
+            transition: all 0.2s ease;
+        }
+
+        .data-point.active {
+            fill: var(--ember);
+            r: 10;
+            filter: drop-shadow(0 0 8px rgba(232, 93, 59, 0.6));
+        }
+
+        .data-point.dimmed {
+            opacity: 0.3;
+        }
+
+        .year-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            fill: var(--paper);
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .year-label.visible {
+            opacity: 1;
+        }
+
+        .price-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            fill: var(--ember);
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .price-label.visible {
+            opacity: 1;
+        }
+
+        .change-label {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 1rem;
+            fill: var(--gold);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .change-label.visible {
+            opacity: 1;
+        }
+
+        .annotation-line {
+            stroke: var(--gold);
+            stroke-width: 1;
+            stroke-dasharray: 4, 4;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .annotation-line.visible {
+            opacity: 0.7;
+        }
+
+        .annotation-text {
+            font-size: 11px;
+            fill: var(--gold);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .annotation-text.visible {
+            opacity: 1;
+        }
+
+        /* Progress Indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--ember);
+            z-index: 100;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Final Panel */
+        .final-panel {
+            background: linear-gradient(to bottom, transparent, var(--smoke-dark) 30%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 20;
+        }
+
+        .final-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--paper);
+            margin-bottom: 2rem;
+        }
+
+        .final-comparison {
+            display: flex;
+            gap: 4rem;
+            margin: 2rem 0 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .comparison-item {
+            text-align: center;
+        }
+
+        .comparison-year {
+            font-size: 1rem;
+            color: var(--smoke-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+        }
+
+        .comparison-price.old {
+            color: var(--smoke-light);
+        }
+
+        .comparison-price.new {
+            color: var(--ember);
+        }
+
+        .comparison-arrow {
+            font-size: 3rem;
+            color: var(--gold);
+            align-self: center;
+        }
+
+        .final-text {
+            max-width: 600px;
+            color: var(--ash);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .data-source {
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: rgba(139, 115, 85, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .story-card {
+                max-width: 90%;
+                margin: 0 auto;
+                padding: 1.5rem;
+            }
+            
+            .story-card.right {
+                margin: 0 auto;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .final-comparison {
+                gap: 2rem;
+            }
+
+            .comparison-price {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progress"></div>
+    
+    <!-- Fixed Chart Background -->
+    <div class="chart-fixed">
+        <div class="chart-wrapper" id="main-chart"></div>
+    </div>
+
+    <!-- Scrolling Story -->
+    <div class="story-container">
+        <!-- Hero -->
+        <section class="story-panel hero-panel" data-step="intro">
+            <div class="hero-content">
+                <h1 class="hero-title">The Rising Cost of Rolling</h1>
+                <p class="hero-subtitle">28 years of UK tobacco prices, one story</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">£3.51</span>
+                        <span class="hero-stat-label">1996 Price</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">£22.46</span>
+                        <span class="hero-stat-label">2024 Price</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">+540%</span>
+                        <span class="hero-stat-label">Total Rise</span>
+                    </div>
+                </div>
+                <div class="scroll-hint">SCROLL TO EXPLORE THE STORY</div>
+            </div>
+        </section>
+
+        <!-- Story 1: The Beginning -->
+        <section class="story-panel" data-step="1996">
+            <div class="story-card">
+                <div class="story-number">£3.51</div>
+                <h2 class="story-title">Where It All Began</h2>
+                <p class="story-text">In <strong>1996</strong>, a 30g pack of hand-rolling tobacco cost just £3.51. A daily habit that was accessible to almost everyone.</p>
+            </div>
+        </section>
+
+        <!-- Story 2: Steady Climb -->
+        <section class="story-panel" data-step="2000-2010">
+            <div class="story-card right">
+                <div class="story-number gold">4-6%</div>
+                <h2 class="story-title">The Steady Climb</h2>
+                <p class="story-text">Through the <strong>2000s</strong>, prices rose steadily at 4-6% per year. By 2010, the price had nearly doubled to <strong>£6.29</strong>.</p>
+            </div>
+        </section>
+
+        <!-- Story 3: 2011 Shock -->
+        <section class="story-panel" data-step="2011">
+            <div class="story-card">
+                <div class="story-number">+13.4%</div>
+                <h2 class="story-title">The First Shock</h2>
+                <p class="story-text"><strong>2011</strong> brought the first major jolt — a 13.4% increase in a single year. The government's tobacco duty escalator kicked into high gear.</p>
+            </div>
+        </section>
+
+        <!-- Story 4: 2017 -->
+        <section class="story-panel" data-step="2017">
+            <div class="story-card right">
+                <div class="story-number">+22.3%</div>
+                <h2 class="story-title">The Big One</h2>
+                <p class="story-text"><strong>2017</strong> — the single largest price jump in 28 years. In one year, prices leapt from £9.68 to <strong>£11.83</strong>. New tax policies hit hard.</p>
+            </div>
+        </section>
+
+        <!-- Story 5: 2020 -->
+        <section class="story-panel" data-step="2020">
+            <div class="story-card">
+                <div class="story-number gold">+1.4%</div>
+                <h2 class="story-title">The Pandemic Pause</h2>
+                <p class="story-text"><strong>2020</strong> brought an unexpected lull — just 1.4% increase. The smallest rise in the entire dataset, as the world dealt with other priorities.</p>
+            </div>
+        </section>
+
+        <!-- Story 6: Recent Surge -->
+        <section class="story-panel" data-step="2022-2024">
+            <div class="story-card right">
+                <div class="story-number">12-15%</div>
+                <h2 class="story-title">The Recent Surge</h2>
+                <p class="story-text">Since 2022, aggressive increases have returned: <strong>12.4%</strong>, <strong>14.0%</strong>, and <strong>15.0%</strong> in consecutive years. The upward pressure shows no signs of easing.</p>
+            </div>
+        </section>
+
+        <!-- Story 7: Today -->
+        <section class="story-panel" data-step="2024">
+            <div class="story-card">
+                <div class="story-number">£22.46</div>
+                <h2 class="story-title">Where We Are Today</h2>
+                <p class="story-text">In <strong>2024</strong>, that same 30g pack costs £22.46. What once cost pocket change now requires serious consideration.</p>
+            </div>
+        </section>
+
+        <!-- Spacer for final view -->
+        <section class="story-panel" data-step="full" style="min-height: 50vh;"></section>
+    </div>
+
+    <!-- Final Section -->
+    <section class="final-panel">
+        <h2 class="final-title">28 Years. One Relentless Trend.</h2>
+        <div class="final-comparison">
+            <div class="comparison-item">
+                <div class="comparison-year">1996</div>
+                <div class="comparison-price old">£3.51</div>
+            </div>
+            <div class="comparison-arrow">→</div>
+            <div class="comparison-item">
+                <div class="comparison-year">2024</div>
+                <div class="comparison-price new">£22.46</div>
+            </div>
+        </div>
+        <p class="final-text">
+            The price of hand-rolling tobacco has increased by <strong>540%</strong> since 1996, averaging <strong>7% per year</strong>. 
+            Tax policy, public health initiatives, and economic pressures have transformed a once-cheap habit into a significant expense — 
+            and the trend shows no signs of reversing.
+        </p>
+        <p class="data-source">Data: 49,070 price observations across 12 UK regions • 1996-2024</p>
+    </section>
+
+    <script>
+        // Data
+        const yearlyData = [
+            {year: 1996, price: 3.51, change: null},
+            {year: 1997, price: 3.53, change: 0.56},
+            {year: 1998, price: 3.67, change: 3.88},
+            {year: 1999, price: 3.78, change: 2.93},
+            {year: 2000, price: 4.05, change: 7.21},
+            {year: 2001, price: 4.26, change: 5.26},
+            {year: 2002, price: 4.39, change: 3.01},
+            {year: 2003, price: 4.52, change: 2.94},
+            {year: 2004, price: 4.71, change: 4.24},
+            {year: 2005, price: 4.93, change: 4.74},
+            {year: 2006, price: 5.19, change: 5.19},
+            {year: 2007, price: 5.45, change: 5.04},
+            {year: 2008, price: 5.68, change: 4.25},
+            {year: 2009, price: 5.88, change: 3.52},
+            {year: 2010, price: 6.29, change: 6.99},
+            {year: 2011, price: 7.14, change: 13.41},
+            {year: 2012, price: 7.84, change: 9.91},
+            {year: 2013, price: 8.34, change: 6.28},
+            {year: 2014, price: 8.81, change: 5.66},
+            {year: 2015, price: 9.18, change: 4.17},
+            {year: 2016, price: 9.68, change: 5.45},
+            {year: 2017, price: 11.83, change: 22.31},
+            {year: 2018, price: 13.03, change: 10.13},
+            {year: 2019, price: 14.14, change: 8.53},
+            {year: 2020, price: 14.34, change: 1.38},
+            {year: 2021, price: 15.23, change: 6.22},
+            {year: 2022, price: 17.12, change: 12.38},
+            {year: 2023, price: 19.52, change: 14.04},
+            {year: 2024, price: 22.46, change: 15.04}
+        ];
+
+        // Chart setup
+        const container = document.getElementById('main-chart');
+        const margin = { top: 60, right: 80, bottom: 80, left: 70 };
+        let width, height, svg, g, x, y, yChange, line, area;
+
+        function initChart() {
+            container.innerHTML = '';
+            
+            width = container.clientWidth - margin.left - margin.right;
+            height = container.clientHeight - margin.top - margin.bottom;
+
+            svg = d3.select('#main-chart')
+                .append('svg')
+                .attr('width', container.clientWidth)
+                .attr('height', container.clientHeight);
+
+            // Gradient
+            const defs = svg.append('defs');
+            const gradient = defs.append('linearGradient')
+                .attr('id', 'priceGradient')
+                .attr('x1', '0%').attr('y1', '0%')
+                .attr('x2', '0%').attr('y2', '100%');
+            gradient.append('stop').attr('offset', '0%').attr('stop-color', '#e85d3b').attr('stop-opacity', 0.3);
+            gradient.append('stop').attr('offset', '100%').attr('stop-color', '#e85d3b').attr('stop-opacity', 0);
+
+            g = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            // Scales
+            x = d3.scaleLinear()
+                .domain([1996, 2024])
+                .range([0, width]);
+
+            y = d3.scaleLinear()
+                .domain([0, 25])
+                .range([height, 0]);
+
+            yChange = d3.scaleLinear()
+                .domain([0, 25])
+                .range([height * 0.3, 0]);
+
+            // Grid
+            g.append('g')
+                .attr('class', 'grid')
+                .selectAll('line')
+                .data([5, 10, 15, 20, 25])
+                .enter()
+                .append('line')
+                .attr('x1', 0)
+                .attr('x2', width)
+                .attr('y1', d => y(d))
+                .attr('y2', d => y(d));
+
+            // Area
+            area = d3.area()
+                .x(d => x(d.year))
+                .y0(height)
+                .y1(d => y(d.price))
+                .curve(d3.curveMonotoneX);
+
+            g.append('path')
+                .datum(yearlyData)
+                .attr('class', 'price-area')
+                .attr('d', area);
+
+            // Line
+            line = d3.line()
+                .x(d => x(d.year))
+                .y(d => y(d.price))
+                .curve(d3.curveMonotoneX);
+
+            g.append('path')
+                .datum(yearlyData)
+                .attr('class', 'price-line')
+                .attr('d', line);
+
+            // Change bars (background)
+            const barWidth = width / yearlyData.length * 0.6;
+            g.selectAll('.change-bar')
+                .data(yearlyData.filter(d => d.change !== null))
+                .enter()
+                .append('rect')
+                .attr('class', 'change-bar')
+                .attr('x', d => x(d.year) - barWidth/2)
+                .attr('y', d => height - yChange(0) + yChange(d.change))
+                .attr('width', barWidth)
+                .attr('height', d => yChange(0) - yChange(d.change))
+                .attr('fill', d => d.change > 10 ? '#e85d3b' : 'rgba(139, 115, 85, 0.4)')
+                .attr('rx', 2)
+                .attr('opacity', 0.5);
+
+            // Data points
+            g.selectAll('.data-point')
+                .data(yearlyData)
+                .enter()
+                .append('circle')
+                .attr('class', 'data-point')
+                .attr('cx', d => x(d.year))
+                .attr('cy', d => y(d.price))
+                .attr('r', 6);
+
+            // Axes
+            g.append('g')
+                .attr('class', 'axis')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(width > 600 ? 10 : 5));
+
+            g.append('g')
+                .attr('class', 'axis')
+                .call(d3.axisLeft(y).tickFormat(d => '£' + d).ticks(5));
+
+            // Labels
+            g.append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('y', -50)
+                .attr('x', -height / 2)
+                .attr('text-anchor', 'middle')
+                .text('Average Price (£)');
+
+            g.append('text')
+                .attr('class', 'axis-label')
+                .attr('x', width / 2)
+                .attr('y', height + 45)
+                .attr('text-anchor', 'middle')
+                .text('Year');
+
+            // Dynamic labels
+            g.append('text')
+                .attr('class', 'year-label')
+                .attr('id', 'year-label')
+                .attr('x', width - 10)
+                .attr('y', 30)
+                .attr('text-anchor', 'end');
+
+            g.append('text')
+                .attr('class', 'price-label')
+                .attr('id', 'price-label')
+                .attr('x', width - 10)
+                .attr('y', 70)
+                .attr('text-anchor', 'end');
+
+            g.append('text')
+                .attr('class', 'change-label')
+                .attr('id', 'change-label')
+                .attr('x', width - 10)
+                .attr('y', 100)
+                .attr('text-anchor', 'end');
+        }
+
+        // Update chart based on story step
+        function updateChart(step) {
+            const points = g.selectAll('.data-point');
+            const bars = g.selectAll('.change-bar');
+            const yearLabel = d3.select('#year-label');
+            const priceLabel = d3.select('#price-label');
+            const changeLabel = d3.select('#change-label');
+
+            // Reset all
+            points.classed('active', false).classed('dimmed', false);
+            bars.classed('dimmed', false);
+            yearLabel.classed('visible', false);
+            priceLabel.classed('visible', false);
+            changeLabel.classed('visible', false);
+
+            if (step === 'intro' || step === 'full') {
+                // Show everything
+                return;
+            }
+
+            if (step === '1996') {
+                highlightYear(1996);
+            } else if (step === '2000-2010') {
+                highlightRange(2000, 2010);
+            } else if (step === '2011') {
+                highlightYear(2011, true);
+            } else if (step === '2017') {
+                highlightYear(2017, true);
+            } else if (step === '2020') {
+                highlightYear(2020, true);
+            } else if (step === '2022-2024') {
+                highlightRange(2022, 2024, true);
+            } else if (step === '2024') {
+                highlightYear(2024);
+            }
+        }
+
+        function highlightYear(year, showChange = false) {
+            const data = yearlyData.find(d => d.year === year);
+            
+            g.selectAll('.data-point')
+                .classed('dimmed', d => d.year !== year)
+                .classed('active', d => d.year === year);
+
+            g.selectAll('.change-bar')
+                .classed('dimmed', d => d.year !== year);
+
+            d3.select('#year-label')
+                .text(year)
+                .classed('visible', true);
+
+            d3.select('#price-label')
+                .text('£' + data.price.toFixed(2))
+                .classed('visible', true);
+
+            if (showChange && data.change) {
+                d3.select('#change-label')
+                    .text((data.change > 0 ? '+' : '') + data.change.toFixed(1) + '% YoY')
+                    .classed('visible', true);
+            }
+        }
+
+        function highlightRange(startYear, endYear, showChange = false) {
+            g.selectAll('.data-point')
+                .classed('dimmed', d => d.year < startYear || d.year > endYear)
+                .classed('active', d => d.year >= startYear && d.year <= endYear);
+
+            g.selectAll('.change-bar')
+                .classed('dimmed', d => d.year < startYear || d.year > endYear);
+
+            d3.select('#year-label')
+                .text(startYear + '–' + endYear)
+                .classed('visible', true);
+
+            const rangeData = yearlyData.filter(d => d.year >= startYear && d.year <= endYear);
+            const avgChange = d3.mean(rangeData, d => d.change);
+            
+            if (showChange) {
+                d3.select('#change-label')
+                    .text('Avg: +' + avgChange.toFixed(1) + '% YoY')
+                    .classed('visible', true);
+            }
+
+            const lastPrice = rangeData[rangeData.length - 1].price;
+            d3.select('#price-label')
+                .text('£' + lastPrice.toFixed(2))
+                .classed('visible', true);
+        }
+
+        // Intersection Observer for story panels
+        function setupScrollTriggers() {
+            const panels = document.querySelectorAll('.story-panel');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const card = entry.target.querySelector('.story-card');
+                    if (entry.isIntersecting) {
+                        if (card) card.classList.add('visible');
+                        const step = entry.target.dataset.step;
+                        updateChart(step);
+                    } else {
+                        if (card) card.classList.remove('visible');
+                    }
+                });
+            }, { 
+                threshold: 0.5,
+                rootMargin: '-10% 0px -10% 0px'
+            });
+
+            panels.forEach(panel => observer.observe(panel));
+        }
+
+        // Progress bar
+        function updateProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        // Initialize
+        initChart();
+        setupScrollTriggers();
+        window.addEventListener('scroll', updateProgress);
+        window.addEventListener('resize', () => {
+            initChart();
+        });
+    </script>
+</body>
+</html>

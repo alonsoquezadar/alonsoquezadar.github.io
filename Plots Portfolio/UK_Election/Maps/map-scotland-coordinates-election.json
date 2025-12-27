@@ -7,10 +7,10 @@
   "title": {
     "text": "Scotland 2024 General Election: Parties by seats",
     "subtitle": "",
-    "fontSize": 16,
+    "fontSize": 20,
     "subtitleFontSize": 12,
     "subtitleColor": "#666",
-    "frame": "group"
+    "anchor": "start"
   },
   "style": ["view", "cell"],
   "data": [

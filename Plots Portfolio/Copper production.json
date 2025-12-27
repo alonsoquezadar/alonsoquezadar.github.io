@@ -9,8 +9,8 @@
     "color": "#000000",
     "subtitleColor": "#000000"
   },
-  "height": 300,
-  "width": 500,
+  "height": 400,
+  "width": 600,
   "background": "#ffffff",
   "data": {
     "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/Produccio%CC%81n%20de%20Cobre%20Chile%20lead.csv",

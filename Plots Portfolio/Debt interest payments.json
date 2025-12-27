@@ -18,8 +18,8 @@
     "color":"rgba(128,0,0,.8)",
     "size":20},
 
-  "height":300,
-  "width":300,
+  "height":600,
+  "width":400,
  
   "encoding": {
     "x": {

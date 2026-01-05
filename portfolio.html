@@ -228,6 +228,21 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
     </div>
 </section>
 
+<section>
+    <div class="chart-description">
+        <h2>CC9c: Regression analysis</h2>
+        <p>
+            Life expectancy vs. GDP per capita, 2023. The period life expectancy at birth, in a given year. GDP per capita is adjusted for inflation and differences in living costs between countries.
+        </p>
+        <p>
+            <strong>Model:</strong> Life Expectancy = 23.45 + 11.93 × log₁₀(GDP per capita)<br>
+            <strong>R² = 0.736</strong> — 73.6% of variation in life expectancy is explained by GDP per capita.<br>
+            <strong>Slope:</strong> 11.93 (95% CI: 10.92–12.94, p < 0.001) — a 10× increase in GDP is associated with ~12 additional years of life expectancy.
+        </p>
+        <figure id="Location15"></figure>
+    </div>
+</section>
+
     
     <!-- Do you want to add more sections? -->
         <!-- Try copying pasting the section above -->
@@ -251,7 +266,8 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
         let figure_11_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/chilean-futbol-league.json";
         let figure_12_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/facet-futbol-league.json";
         let figure_13_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/UK_Election/Maps/map-scotland-election-2024.json";
-        let figure_14_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/UK_Election/Maps/map-scotland-coordinates-election.json"
+        let figure_14_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/UK_Election/Maps/map-scotland-coordinates-election.json";
+        let figure_15_spec = "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/loggdp_lifeexp.json"
 
         
         vegaEmbed('#Location1', figure_1_spec) // We're using the vegaEmbed function to put a graph in the element with id figure_1
@@ -267,6 +283,7 @@ The improved visualization uses a logarithmic scale, adds peer comparisons and r
         vegaEmbed('#Location12', figure_12_spec)
         vegaEmbed('#Location13', figure_13_spec)
         vegaEmbed('#Location14', figure_14_spec)
+        vegaEmbed('#Location15', figure_15_spec)
 
 
 

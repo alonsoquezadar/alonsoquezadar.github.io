@@ -1,0 +1,243 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "white",
+  "padding": 5,
+  "width": 700,
+  "height": 500,
+  "title": {
+    "text": "Life Expectancy vs GDP per Capita (2023)",
+    "subtitle": "Data: UN World Population Prospects & World Bank via Our World in Data",
+    "fontSize": 18,
+    "frame": "group"
+  },
+  "style": "cell",
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/alonsoquezadar/alonsoquezadar.github.io/refs/heads/main/Plots%20Portfolio/Datasets/life-expectancy-un-vs-gdp-per-capita-wb.csv",
+      "format": {"type": "csv", "delimiter": ","},
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "toNumber(datum['GDP per capita, PPP (constant 2021 international $)'])",
+          "as": "gdp"
+        },
+        {
+          "type": "formula",
+          "expr": "toNumber(datum['Life expectancy - Sex: all - Age: 0 - Variant: estimates'])",
+          "as": "life_expectancy"
+        },
+        {
+          "type": "formula",
+          "expr": "toNumber(datum['Population (historical)'])",
+          "as": "population"
+        },
+        {
+          "type": "filter",
+          "expr": "datum.gdp > 0 && datum.life_expectancy > 0 && datum.population > 0"
+        },
+        {"type": "formula", "expr": "log(datum.gdp)/log(10)", "as": "log_gdp"}
+      ]
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"log_gdp\"]) && isFinite(+datum[\"log_gdp\"]) && isValid(datum[\"life_expectancy\"]) && isFinite(+datum[\"life_expectancy\"]) && isValid(datum[\"population\"]) && isFinite(+datum[\"population\"])"
+        }
+      ]
+    },
+    {
+      "name": "data_1",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "regression",
+          "x": "log_gdp",
+          "y": "life_expectancy",
+          "as": ["log_gdp", "life_expectancy"]
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_marks",
+      "type": "symbol",
+      "style": ["circle"],
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "opacity": {"value": 0.7},
+          "stroke": {"value": "#333"},
+          "strokeWidth": {"value": 0.5},
+          "fill": {"scale": "color", "field": "World region according to OWID"},
+          "tooltip": {
+            "signal": "{\"Country\": isValid(datum[\"Entity\"]) ? isArray(datum[\"Entity\"]) ? join(datum[\"Entity\"], '\\n') : datum[\"Entity\"] : \"\"+datum[\"Entity\"], \"Year\": format(datum[\"Year\"], \"\"), \"Life Expectancy\": format(datum[\"life_expectancy\"], \".1f\"), \"GDP per capita\": format(datum[\"gdp\"], \"$,.0f\"), \"Population\": format(datum[\"population\"], \",.0f\"), \"Region\": isValid(datum[\"World region according to OWID\"]) ? isArray(datum[\"World region according to OWID\"]) ? join(datum[\"World region according to OWID\"], '\\n') : datum[\"World region according to OWID\"] : \"\"+datum[\"World region according to OWID\"]}"
+          },
+          "ariaRoleDescription": {"value": "circle"},
+          "description": {
+            "signal": "\"log_gdp: \" + (format(datum[\"log_gdp\"], \"\")) + \"; life_expectancy: \" + (format(datum[\"life_expectancy\"], \"\")) + \"; World region according to OWID: \" + (isValid(datum[\"World region according to OWID\"]) ? isArray(datum[\"World region according to OWID\"]) ? join(datum[\"World region according to OWID\"], ' ') : datum[\"World region according to OWID\"] : \"\"+datum[\"World region according to OWID\"]) + \"; population: \" + (format(datum[\"population\"], \".2s\")) + \"; Country: \" + (isValid(datum[\"Entity\"]) ? isArray(datum[\"Entity\"]) ? join(datum[\"Entity\"], ' ') : datum[\"Entity\"] : \"\"+datum[\"Entity\"]) + \"; Year: \" + (format(datum[\"Year\"], \"\")) + \"; Life Expectancy: \" + (format(datum[\"life_expectancy\"], \".1f\")) + \"; GDP per capita: \" + (format(datum[\"gdp\"], \"$,.0f\")) + \"; Population: \" + (format(datum[\"population\"], \",.0f\")) + \"; Region: \" + (isValid(datum[\"World region according to OWID\"]) ? isArray(datum[\"World region according to OWID\"]) ? join(datum[\"World region according to OWID\"], ' ') : datum[\"World region according to OWID\"] : \"\"+datum[\"World region according to OWID\"])"
+          },
+          "x": {"scale": "x", "field": "log_gdp"},
+          "y": {"scale": "y", "field": "life_expectancy"},
+          "size": {"scale": "size", "field": "population"},
+          "shape": {"value": "circle"}
+        }
+      }
+    },
+    {
+      "name": "layer_1_marks",
+      "type": "line",
+      "style": ["line"],
+      "sort": {"field": "x"},
+      "from": {"data": "data_1"},
+      "encode": {
+        "update": {
+          "strokeWidth": {"value": 2.5},
+          "stroke": {"value": "#333"},
+          "description": {
+            "signal": "\"log_gdp: \" + (format(datum[\"log_gdp\"], \"\")) + \"; life_expectancy: \" + (format(datum[\"life_expectancy\"], \"\"))"
+          },
+          "x": {"scale": "x", "field": "log_gdp"},
+          "y": {"scale": "y", "field": "life_expectancy"},
+          "defined": {
+            "signal": "isValid(datum[\"log_gdp\"]) && isFinite(+datum[\"log_gdp\"]) && isValid(datum[\"life_expectancy\"]) && isFinite(+datum[\"life_expectancy\"])"
+          }
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": [2.8, 5.2],
+      "range": [0, {"signal": "width"}],
+      "nice": true,
+      "zero": false
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": [50, 90],
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": false
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": [
+        "Africa",
+        "Asia",
+        "Europe",
+        "North America",
+        "South America",
+        "Oceania"
+      ],
+      "range": [
+        "#e41a1c",
+        "#ff7f00",
+        "#4363d8",
+        "#3cb44b",
+        "#ffe119",
+        "#911eb4"
+      ]
+    },
+    {
+      "name": "size",
+      "type": "linear",
+      "domain": {"data": "data_0", "field": "population"},
+      "range": [20, 1500],
+      "zero": true
+    }
+  ],
+  "axes": [
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": true,
+      "gridOpacity": 0.3,
+      "values": [3, 3.5, 4, 4.5, 5],
+      "gridScale": "y",
+      "tickCount": {"signal": "ceil(width/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": true,
+      "gridOpacity": 0.3,
+      "gridScale": "x",
+      "tickCount": {"signal": "ceil(height/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "title": "GDP per capita, log scale (PPP, constant 2021 USD)",
+      "values": [3, 3.5, 4, 4.5, 5],
+      "labelFlush": true,
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(width/40)"},
+      "encode": {
+        "labels": {
+          "update": {
+            "text": {"signal": "'$' + format(pow(10, datum.value), ',.0f')"}
+          }
+        }
+      },
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "Life expectancy at birth (years)",
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "zindex": 0
+    }
+  ],
+  "legends": [
+    {
+      "title": "Region",
+      "fill": "color",
+      "symbolType": "circle",
+      "encode": {
+        "symbols": {
+          "update": {"stroke": {"value": "#333"}, "opacity": {"value": 0.7}}
+        }
+      }
+    },
+    {
+      "format": ".2s",
+      "labelOffset": 4,
+      "symbolFillColor": "#888",
+      "symbolOpacity": 0.7,
+      "symbolStrokeColor": "#333",
+      "symbolStrokeWidth": 0.5,
+      "title": "Population",
+      "values": [10000000, 100000000, 500000000, 1000000000],
+      "size": "size",
+      "symbolType": "circle"
+    }
+  ],
+  "config": {"style": {"cell": {"stroke": null}}}
+}

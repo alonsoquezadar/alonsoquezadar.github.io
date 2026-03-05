@@ -155,7 +155,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 6rem 4rem;
+            padding: 5rem 3rem;
             position: relative;
             overflow: hidden;
         }
@@ -259,8 +259,8 @@
         
         /* Sections */
         section {
-            padding: 5rem 4rem;
-            max-width: 1400px;
+            padding: 3.5rem 2rem;
+            max-width: 1100px;
             margin: 0 auto;
         }
         
@@ -347,7 +347,7 @@
             .grid-2, .grid-3 { grid-template-columns: 1fr; }
             .hero { flex-direction: column; padding: 6rem 2rem 3rem; }
             .hero-visual { position: static; width: 100%; transform: none; margin-top: 2rem; }
-            section { padding: 2.5rem 1.5rem; }
+            section { padding: 2rem 1.25rem; }
             .nav-links { display: none; }
             .section-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
         }
@@ -756,11 +756,11 @@
             <span></span>
         </button>
         <div class="nav-links" id="nav-links">
-            <a href="#about">About</a>
             <a href="#dominance">Global Producers</a>
             <a href="#companies">Mining Companies</a>
             <a href="#patterns">Production Dynamics</a>
             <a href="#exports">Export Destinations</a>
+            <a href="#about">About</a>
         </div>
     </nav>
     
@@ -769,7 +769,7 @@
         <div class="hero-content">
             <p class="hero-eyebrow">Candidate number: 69267</p>
             <h1>The World Runs on <span>Chilean Copper</span></h1>
-            <p class="hero-text">For two decades, Chile has dominated global copper production—fueling electric vehicles, renewable energy, and the digital revolution. This is the story behind the world's largest copper producer.</p>
+            <p class="hero-text">Chile has led global copper production since 1990, supplying the metal that powers electric vehicles, power grids, and data centers. This dashboard maps 22 years of production, company performance, and export data behind that position.</p>
             
             <div class="kpi-strip">
                 <div class="kpi-item">
@@ -802,30 +802,32 @@
             </div>
         </div>
     </header>
-    
+
     <section id="about">
         <div class="section-header">
             <div>
                 <h2 class="section-title">About This Project</h2>
-                <p class="section-subtitle">Data sources, methodology, and conclusions</p>
             </div>
         </div>
-        
-        <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
-            <strong style="color: #f5f0e8;">Aims of the Project.</strong> This project aims to create a comprehensive, well-designed data visualization dashboard that consolidates publicly available information about Chile's copper industry into a single, accessible resource. The goal is to provide anyone interested in the sector—investors, researchers, journalists, or students—with a clear overview of production trends, market dynamics, and export patterns. Beyond accessibility, the project seeks to demonstrate Chile's critical role in global copper supply, where the country has maintained its position as the world's leading producer for over two decades, currently accounting for 24% of global mine production.
-        </p>
-        
-        <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
-            <strong style="color: #f5f0e8;">Data Sources and Access.</strong> The primary data source is COCHILCO (Chilean Copper Commission), Chile's official government agency for copper statistics. Excel files were manually downloaded from their public <a href="https://www.cochilco.cl:4040/boletin-web/" target="_blank" style="color: #B87333; text-decoration: underline;">database</a>, including monthly production by company (2003-2024), annual production by mine, exports by destination (2010-2024), copper prices, and GDP contribution data. World production figures were obtained from the International Copper Study Group (ICSG), also manually downloaded. Data processing was performed using Python with pandas for cleaning, aggregation, and statistical calculations. The visualization dashboard was built using D3.js for interactive charts. AI assistance (Claude) was used extensively throughout the development process—for data transformation scripts, D3.js code generation, design iteration, and analytical insights.
-        </p>
-        
-        <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
-            <strong style="color: #f5f0e8;">Challenges in Data Cleaning and Analysis.</strong> The primary challenge was integrating multiple datasets with different structures, time ranges, and granularities into a coherent narrative. COCHILCO files varied in format—some organized by company, others by mine—requiring careful mapping to avoid double-counting (e.g., Codelco operates multiple mines that needed aggregation). Export data only began in 2010, while production data extended to 2003, creating timeline inconsistencies. Congo's emergence as a major producer posed another challenge: USGS data was needed to supplement COCHILCO figures, which only tracked traditional competitors.
-        </p>
-        
+
         <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2.5rem;">
-            <strong style="color: #f5f0e8;">Conclusions.</strong> The dashboard reveals four key insights about Chile's copper industry. First, private mining companies—led by BHP's Escondida—have become the engine of Chilean production, accounting for 75% of output while state-owned Codelco has stagnated, hitting a 25-year production low in 2023 due to aging infrastructure, declining ore grades, and delayed investments. Second, major disruptions significantly impact national output: the 2017 Escondida strike shut down the world's largest copper mine completely for over a month. Third, Chile faces concentration risk in its export markets—China's share surged from 33% in 2010 to 54% in 2024. Finally, despite remaining the world's top producer, Chile's global market share has declined from 36% to 24% as competitors like Congo emerged from virtually zero to becoming the second-largest producer. These trends suggest Chile's copper dominance, while still substantial, faces structural challenges requiring significant investment and diversification.
+            This dashboard draws on 22 years of public data from <strong style="color: #f5f0e8;">COCHILCO</strong> (Chilean Copper Commission) and the <strong style="color: #f5f0e8;">ICSG</strong> (International Copper Study Group) to map Chile's position in global copper. It covers production trends, company performance, export concentration, and GDP contribution in one interactive view — built for investors, researchers, and students tracking an industry that funds half of Chile's export income and shapes global supply for electric vehicles, power grids, and digital infrastructure.
         </p>
+
+        <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2.5rem;">
+            <div style="border-left: 3px solid var(--copper-medium); padding-left: 1.25rem;">
+                <p style="font-family: 'Roboto', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem;">⛏️ Private capital is outpacing state production</p>
+                <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1rem; line-height: 1.8; margin: 0;">BHP's Escondida delivered 1.28 million tonnes in 2024. Codelco's eight divisions combined: 1.33 million. Chile's state producer has lost ground for a decade: ore grade decline, delayed capital projects, aging infrastructure. The gap is closing from the wrong direction.</p>
+            </div>
+            <div style="border-left: 3px solid var(--accent-peru); padding-left: 1.25rem;">
+                <p style="font-family: 'Roboto', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem;">🌍 Chile isn't producing less. Everyone else is producing more</p>
+                <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1rem; line-height: 1.8; margin: 0;">Global output grew from 13M to 23M tonnes since 2003. The DRC went from near-zero to 3.3M tonnes in 15 years, on ore grades four times richer than Chile's. Chile's share fell from 33% to 24% in a decade — not because of a crisis, but because the rest of the world moved faster.</p>
+            </div>
+            <div style="border-left: 3px solid var(--accent-china); padding-left: 1.25rem;">
+                <p style="font-family: 'Roboto', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem;">🇨🇳 54% of Chilean copper goes to one country</p>
+                <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1rem; line-height: 1.8; margin: 0;">In 2010, that figure was 33%. China now accounts for 60% of global refined copper consumption. Chile needs China far more than China needs Chile. The DRC and Peru give Beijing alternatives. If China slows or diversifies its sourcing, Chile has no comparable replacement buyer.</p>
+            </div>
+        </div>
     </section>
     
     <section id="dominance">
@@ -836,17 +838,25 @@
             </div>
         </div>
         
+        <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 0.75rem;">
+            Global copper mine production grew from 4 million to 23 million tonnes between 1960 and 2024, a sixfold increase powered first by postwar electrification, then by China's industrial surge, and now by the energy transition. Each new technology wave demands more copper per unit than the last:
+        </p>
+        <ul style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.25rem; padding-left: 1.5rem;">
+            <li>A battery EV requires 2.5–3.6× more copper than a combustion engine car</li>
+            <li>An offshore wind turbine needs 8 tonnes per megawatt</li>
+            <li>A single 1 GW AI data center can absorb 50,000 tonnes</li>
+        </ul>
         <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2.5rem;">
-            Global copper mine production has expanded from 4 to 23 million tonnes since 1960—a 6x increase driven by surging demand for electrification and renewable energy. Chile remains the undisputed leader, but the landscape has fundamentally changed. Congo emerged from virtually nothing to become the world's second-largest producer, while Peru tripled its output. Today, these three nations alone account for half of all mined copper on Earth. This section explores how the industry grew and who the key players are.
+            Chile still leads at 5.5 million tonnes and 24% of global output, but the competitive landscape has shifted. The DRC, fueled by Chinese-backed projects like Ivanhoe's Kamoa-Kakula on ore grades four times richer than Chile's, went from near-zero to 3.3 million tonnes in 15 years and is now the world's second-largest producer. Peru holds third at 2.7 million tonnes. Chile's share dropped from 33% to 24% in a decade, not because it produces less, but because every other producer grew faster.
         </p>
         
         <div class="card" style="margin-bottom: 1.5rem; font-family: 'Roboto', sans-serif;">
             <div class="card-header" style="flex-direction: column; align-items: flex-start; gap: 4px;">
                 <span class="card-title" style="font-family: 'Roboto', sans-serif;">World Copper Mine Production</span>
-                <span style="color: #a09890; font-size: 13px; font-weight: 400; font-family: 'Roboto', sans-serif;">Global mine production, million metric tonnes of copper, 1960-2024</span>
+                <span style="color: #a09890; font-size: 13px; font-weight: 400; font-family: 'Roboto', sans-serif;">Global mine production, million metric tonnes of copper, 1960–2024</span>
                 <span style="color: #706860; font-size: 11px; font-weight: 400; font-style: italic; font-family: 'Roboto', sans-serif;">Source: International Copper Study Group (ICSG). 2024 data is preliminary.</span>
             </div>
-            <div id="world-mine-chart" style="height: 320px;"></div>
+            <div id="world-mine-chart" style="height: 400px;"></div>
         </div>
         
         <div class="card" style="margin-bottom: 1.5rem; font-family: 'Roboto', sans-serif;">
@@ -917,9 +927,16 @@
             </div>
         </div>
         
-        <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2.5rem;">
-            Chile's copper industry is dominated by private mining companies, which account for 76% of national production, while state-owned Codelco contributes the remaining 24%. The crown jewel of private mining is <strong style="color: #4a9eff;">Escondida</strong>—the world's largest copper mine. Discovered in 1981 in the Atacama Desert, its name means "hidden" in Spanish, as the ore body was buried under hundreds of meters of rock. Today, Escondida is operated by BHP (57.5%) with Rio Tinto (30%) and Japanese consortium JECO (12.5%) as partners, producing over 1 million tonnes annually. <strong style="color: #B87333;">Codelco</strong>, the state giant, hit a 25-year production low in 2023 (1.424M tonnes) due to aging mines, a 2021 landslide, and delayed projects—the company is now executing a $40B+ investment plan to modernize its century-old operations and reverse the decline. <strong style="color: #2ecc71;">Antofagasta Minerals</strong>, controlled by the Luksic family, produced 664,000 tonnes in 2024 and is investing $7.5B including a $4.4B expansion at Centinela. <strong style="color: #f39c12;">Collahuasi</strong>, a joint venture between Anglo American, Glencore, and Mitsui (44/44/12), produced 559,000 tonnes and is building a $1B+ desalination plant to reach 600,000 tonnes by 2027. <strong style="color: #9b59b6;">Anglo American</strong> operates Los Bronces and holds 44% of Collahuasi—the company announced a merger with Teck Resources to form a top-5 global copper producer.
+        <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 0.75rem;">
+            Chile's copper industry is 76% private and 24% state-owned Codelco. Five companies shape the picture:
         </p>
+        <ul style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2.5rem; padding-left: 1.5rem;">
+            <li><strong style="color: #f5f0e8;">Escondida (BHP 57.5%, Rio Tinto 30%, JECO 12.5%)</strong>: the world's largest copper mine, discovered on March 14, 1981, in the Atacama Desert. The ore body sat buried under 300 meters of barren rock with no surface expression, hence the name "hidden." It produced 1.28 million tonnes in 2024, a 10-year high driven by feed grades of 1.03%, just 50,000 tonnes short of all eight Codelco divisions combined</li>
+            <li><strong style="color: #f5f0e8;">Codelco</strong>: state-owned giant that hit a 25-year production low of 1.42 million tonnes in 2023, dragged down by ore grade decline at century-old mines, a delayed underground conversion at El Teniente, and a ball mill failure at Andina. Output recovered to only 1.44 million in 2024. The company spends $5 billion per year on four structural projects, targeting 1.7 million tonnes by 2030</li>
+            <li><strong style="color: #f5f0e8;">Antofagasta Minerals (Luksic family)</strong>: produced 664,000 tonnes in 2024 and broke ground on a $4.4 billion second concentrator at Centinela, adding 170,000 copper-equivalent tonnes per year from 2027</li>
+            <li><strong style="color: #f5f0e8;">Collahuasi (Anglo American 44%, Glencore 44%, Mitsui 12%)</strong>: produced 559,000 tonnes in 2024 and is completing a 194 km desalination pipeline, targeting 600,000 tonnes by 2027</li>
+            <li><strong style="color: #f5f0e8;">Anglo Teck</strong>: the $53 billion merger between Anglo American and Teck Resources, approved by shareholders in September 2025. The combined company targets over 70% copper revenue exposure, subject to regulatory approvals in Chile, the EU, and China</li>
+        </ul>
         
         <div class="card" style="font-family: 'Roboto', sans-serif;">
             <div class="card-header" style="flex-direction: column; align-items: flex-start; gap: 4px;">
@@ -972,9 +989,15 @@
             </div>
         </div>
         
-        <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2.5rem;">
-            Copper mining follows predictable seasonal patterns shaped by Chile's southern hemisphere calendar—production dips in <strong style="color: #4a9eff;">February</strong> (summer maintenance + shorter month) and peaks in <strong style="color: #B87333;">December</strong> (year-end push). But these rhythms are punctuated by disruptions: labor strikes, operational failures, and safety incidents. The <strong style="color: #e74c3c;">2017 Escondida strike</strong>—the longest in Chilean mining history—shut down the world's largest copper mine for 44 days, erasing over 200,000 tonnes from annual output. Understanding these patterns helps anticipate supply risks in a market increasingly dependent on Chilean copper.
+        <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 0.75rem;">
+            Chilean copper output follows a predictable seasonal pattern: production dips in <strong style="color: #f5f0e8;">February</strong> (summer maintenance and a shorter month) and peaks in <strong style="color: #f5f0e8;">December</strong> as operators close out the year. Disruptions cut across those rhythms. Chile's 24% share of global supply means any stoppage moves world markets. The biggest shocks since 2003:
         </p>
+        <ul style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2.5rem; padding-left: 1.5rem;">
+            <li><strong style="color: #f5f0e8;">2017 Escondida strike</strong>: the longest in Chilean private mining history. 2,500 workers walked out demanding a 7% pay raise and a $38,000 bonus. The stoppage ran 43 days, cost BHP over $700 million, and ended without a deal; workers invoked a rarely used labor code provision to extend their old contract 18 months</li>
+            <li><strong style="color: #f5f0e8;">August 2024 Escondida strike</strong>: a five-day stoppage at the world's largest copper mine, disrupting output during a high-grade production window</li>
+            <li><strong style="color: #f5f0e8;">March 2024 Radomiro Tomic accident</strong>: a fatal accident halted Codelco's mine, erasing 28,000 tonnes of output</li>
+            <li><strong style="color: #f5f0e8;">2023 Cerro Colorado closure</strong>: BHP permanently closed the mine, the largest shutdown in Chile in two decades, forced by water scarcity in the Atacama</li>
+        </ul>
         
         <div class="card" style="font-family: 'Roboto', sans-serif;">
             <div class="card-header" style="flex-direction: column; align-items: flex-start; gap: 4px;">
@@ -993,8 +1016,7 @@
             <div id="heatmap" style="height: 420px;"></div>
         </div>
         
-        <div class="grid-2" style="margin-top: 1.5rem;">
-            <div class="card" style="font-family: 'Roboto', sans-serif;">
+        <div class="card" style="margin-top: 1.5rem; font-family: 'Roboto', sans-serif;">
                 <div class="card-header" style="flex-direction: column; align-items: flex-start; gap: 4px;">
                     <span class="card-title" style="font-family: 'Roboto', sans-serif;">Seasonal Pattern</span>
                     <span style="color: #a09890; font-size: 13px; font-weight: 400; font-family: 'Roboto', sans-serif;">Average monthly copper production, thousand metric tonnes, 2003-2024</span>
@@ -1002,55 +1024,6 @@
                 </div>
                 <div id="seasonal-chart" style="height: 220px;"></div>
                 <div class="tooltip-sub" style="margin-top: 0.5rem;">February lowest (short month + summer maintenance), December highest (year-end push)</div>
-            </div>
-            <div class="card" style="font-family: 'Roboto', sans-serif;">
-                <div class="card-header" style="flex-direction: column; align-items: flex-start; gap: 4px;">
-                    <span class="card-title" style="font-family: 'Roboto', sans-serif;">Major Supply Disruptions</span>
-                    <span style="color: #a09890; font-size: 13px; font-weight: 400; font-family: 'Roboto', sans-serif;">Key events that impacted Chilean copper production</span>
-                </div>
-                <div style="margin-top: 1rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                        <div>
-                            <span style="color: #f5f0e8; font-weight: 600;">⚡ Escondida Strike</span>
-                            <div style="color: #706860; font-size: 11px; margin-top: 2px;">44-day stoppage, longest in Chilean mining history</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <span style="color: var(--text-secondary); font-size: 12px;">Feb-Mar 2017</span>
-                            <div style="color: #e74c3c; font-size: 11px; font-weight: 600;">-200K tonnes</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                        <div>
-                            <span style="color: #f5f0e8; font-weight: 600;">🔧 Escondida Ore Grade Issues</span>
-                            <div style="color: #706860; font-size: 11px; margin-top: 2px;">Declining ore quality and operational challenges</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <span style="color: var(--text-secondary); font-size: 12px;">2011</span>
-                            <div style="color: #e74c3c; font-size: 11px; font-weight: 600;">-285K tonnes YoY</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                        <div>
-                            <span style="color: #f5f0e8; font-weight: 600;">🔧 Collahuasi Operational Crisis</span>
-                            <div style="color: #706860; font-size: 11px; margin-top: 2px;">Work stoppages, heavy rains, and fatal accidents</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <span style="color: var(--text-secondary); font-size: 12px;">2012</span>
-                            <div style="color: #e74c3c; font-size: 11px; font-weight: 600;">-37.8% YoY</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0;">
-                        <div>
-                            <span style="color: #f5f0e8; font-weight: 600;">⛏️ Codelco Fatal Accidents</span>
-                            <div style="color: #706860; font-size: 11px; margin-top: 2px;">Safety stoppages at Radomiro Tomic</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <span style="color: var(--text-secondary); font-size: 12px;">Mar 2024</span>
-                            <div style="color: #e74c3c; font-size: 11px; font-weight: 600;">-28K tonnes</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         
         <div class="card" style="margin-top: 1.5rem; font-family: 'Roboto', sans-serif;">
@@ -1061,7 +1034,7 @@
             </div>
             <div id="rolling-trend-chart" style="height: 320px;"></div>
             <p style="font-family: 'Roboto', sans-serif; color: #a09890; font-size: 12px; line-height: 1.6; margin: 1rem 0 0 0; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
-                Chile's copper production peaked at <strong style="color: #2ecc71;">563.5</strong> thousand metric tonnes in December 2024—the highest monthly output in 22 years. The 2017 trough reflects the 44-day Escondida strike. Despite strong seasonality, annual output has remained relatively flat since 2018, hovering around 5.4-5.7 million tonnes, constrained by declining ore grades at mature deposits.
+                Chile's copper production hit <strong style="color: #2ecc71;">563,400 tonnes in December 2024</strong>, the highest monthly output on record. That closed out two years of decline: output fell to 5.33 million tonnes in 2022 and 5.25 million in 2023, squeezed by ore grades that dropped from 1.27% in 2000 to 0.74% in 2023, water scarcity in the Atacama, and Codelco's operational struggles. The 2024 rebound to 5.51 million tonnes came from two sources: Escondida, where higher feed grades lifted output 16% to 1.28 million tonnes, and Teck's Quebrada Blanca Phase 2, which ramped from 63,000 tonnes in its first partial year to 208,000 in 2024.
             </p>
         </div>
         
@@ -1073,7 +1046,7 @@
             </div>
             <div id="yoy-chart" style="height: 320px;"></div>
             <p style="font-family: 'Roboto', sans-serif; color: #a09890; font-size: 12px; line-height: 1.6; margin: 1rem 0 0 0; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
-                2024 began below the historical average, with the first three quarters tracking near the lower bound of the 22-year range. However, production surged in the final quarter—October through December—culminating in a record-breaking December (563.5 thousand tonnes) that pushed annual output to 5.5 million tonnes, recovering Chile's position after two years of decline.
+                2024 started below the historical average, with the first three quarters tracking near the 22-year lower bound. Output accelerated sharply in Q4: Escondida jumped 51% year-over-year in December to 133,600 tonnes as richer feed grades flowed through the concentrator. Codelco posted 172,700 tonnes in December, up 21.6%. Quebrada Blanca Phase 2 hit a record 60,700 tonnes in Q4 alone, triple its early ramp-up rate. The late-year push brought the annual total to 5.51 million tonnes, ending a three-year slide from 5.83 million in 2018.
             </p>
         </div>
         
@@ -1085,7 +1058,7 @@
             </div>
             <div id="histogram-chart" style="height: 400px;"></div>
             <p style="font-family: 'Roboto', sans-serif; color: #a09890; font-size: 12px; line-height: 1.6; margin: 1rem 0 0 0; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05);">
-                BHP's Escondida shows a clearly higher mean than Codelco's flagship operations, revealing consistently superior performance. Escondida's distribution centers around 95 thousand tonnes monthly versus Codelco's 70 thousand tonnes—a 36% productivity gap that underscores the efficiency advantage of modern private mining over aging state-owned infrastructure.
+                Escondida's monthly output centers around 95,000 tonnes versus 70,000 for Codelco's operations, a 36% gap. Ore grade drives most of the difference: Escondida's feed grade reached 1.03% in H2 2024, while Chile's national average has fallen to 0.74%. Escondida also built desalination capacity early, bypassing the water constraints that throttled northern operators. Codelco carries an additional handicap: several mines are mid-transition from open-pit to underground extraction, raising costs and cutting throughput. In 2024, one BHP mine nearly matched all eight Codelco divisions combined.
             </p>
         </div>
     </section>
@@ -1098,9 +1071,21 @@
             </div>
         </div>
         
-        <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2.5rem;">
-            Chile's copper exports have undergone a dramatic geographic shift over the past 15 years. In 2010, <strong style="color: #e74c3c;">China</strong> accounted for 33% of Chilean copper exports—already significant, but balanced by strong European and Japanese demand. By 2020, that share had surged to 56%, making Chile increasingly dependent on a single market. This concentration reflects China's extraordinary industrialization and urbanization, which consumed over half the world's copper for construction, power grids, and manufacturing. The relationship is symbiotic but asymmetric: Chile needs China more than China needs Chile, as alternative suppliers in Peru and Congo have expanded rapidly. Meanwhile, <strong style="color: #4a9eff;">the United States</strong> emerged as a surprising gainer, climbing from 6th to 3rd place as American manufacturers sought to secure supply chains closer to home.
+        <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 0.75rem;">
+            In 2010, China took 33% of Chile's copper exports, balanced by strong Japanese and European demand. By 2024, that share reached 54%; for raw concentrates, China takes over two-thirds. Chile needs China more than China needs Chile, and the DRC and Peru now give Beijing alternatives. A trade dispute or demand slowdown doesn't hurt miners alone; it hits the national budget. Two numbers frame the exposure:
         </p>
+        <ul style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.25rem; padding-left: 1.5rem;">
+            <li>Chile's total copper export revenue reached roughly <strong style="color: #f5f0e8;">$50 billion in 2024</strong>, half the country's entire export income</li>
+            <li>China consumes <strong style="color: #f5f0e8;">60% of global refined copper</strong>, driven by power grid expansion, 22 million EVs added between 2018 and 2024, and 280 gigawatts of renewables built in 2023 alone</li>
+        </ul>
+        <p style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 0.75rem;">
+            The United States is the second-largest destination. Chile shipped 586,400 tonnes to the US in 2024, covering 72% of American copper imports. Three policy drivers explain the shift:
+        </p>
+        <ul style="font-family: 'Roboto', sans-serif; color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2.5rem; padding-left: 1.5rem;">
+            <li><strong style="color: #f5f0e8;">Inflation Reduction Act</strong>: $369 billion in clean energy investment, favoring copper from free-trade-agreement partners</li>
+            <li><strong style="color: #f5f0e8;">CHIPS Act</strong>: semiconductor factory construction wave requiring copper-intensive infrastructure</li>
+            <li><strong style="color: #f5f0e8;">Bipartisan Infrastructure Law</strong>: $1.2 trillion program heavily weighted toward electrical grid and transport upgrades</li>
+        </ul>
         
         <div class="grid-2">
             <div class="card" style="font-family: 'Roboto', sans-serif;">
@@ -1122,6 +1107,8 @@
         </div>
     </section>
     
+
+
     <script>
         // Data
         const data = {
@@ -1768,151 +1755,336 @@
         function createWorldMineChart() {
             const container = d3.select('#world-mine-chart');
             container.selectAll('*').remove();
-            
+
             const width = container.node().getBoundingClientRect().width;
-            const height = 320;
-            const margin = {top: 20, right: 60, bottom: 40, left: 50};
-            const innerWidth = width - margin.left - margin.right;
-            const innerHeight = height - margin.top - margin.bottom;
-            
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const height = 400;
+            const margin = {top: 48, right: 88, bottom: 44, left: 76};
+            const innerWidth  = width  - margin.left - margin.right;
+            const innerHeight = height - margin.top  - margin.bottom;
+
+            const svg = container.append('svg')
+                .attr('width', width).attr('height', height);
+
+            const defs = svg.append('defs');
+
+            // ── Gradient for area fill ──
+            const areaGrad = defs.append('linearGradient')
+                .attr('id', 'wm-area-grad')
+                .attr('x1','0%').attr('y1','0%').attr('x2','0%').attr('y2','100%');
+            areaGrad.append('stop').attr('offset','0%')
+                .attr('stop-color','#B87333').attr('stop-opacity', 0.35);
+            areaGrad.append('stop').attr('offset','100%')
+                .attr('stop-color','#B87333').attr('stop-opacity', 0.02);
+
+            // ── Chile share gradient (secondary) ──
+            const shareGrad = defs.append('linearGradient')
+                .attr('id', 'wm-share-grad')
+                .attr('x1','0%').attr('y1','0%').attr('x2','0%').attr('y2','100%');
+            shareGrad.append('stop').attr('offset','0%')
+                .attr('stop-color','#D4A574').attr('stop-opacity', 0.18);
+            shareGrad.append('stop').attr('offset','100%')
+                .attr('stop-color','#D4A574').attr('stop-opacity', 0.0);
+
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
-            
+
             const prodData = data.worldMineProduction;
-            
-            const x = d3.scaleLinear()
-                .domain([1960, 2024])
-                .range([0, innerWidth]);
-            
-            const y = d3.scaleLinear()
-                .domain([0, 25000])
-                .range([innerHeight, 0]);
-            
-            // Grid lines
+
+            // ── Chile share data ──
+            // Step 1: anchor points for 1960-2002 (sparse) + computed from worldProduction for 2003-2024
+            const shareAnchors = {1960:18,1965:16,1970:13,1975:14,1980:15,1985:17,1990:20,1995:27,2000:34,2001:34,2002:33};
+            const chileShareMap = {};
+
+            // Fill 1960-2002 by linearly interpolating between anchor years
+            const anchorYears = Object.keys(shareAnchors).map(Number).sort((a,b)=>a-b);
+            for (let yr = 1960; yr <= 2002; yr++) {
+                if (shareAnchors[yr] !== undefined) {
+                    chileShareMap[yr] = shareAnchors[yr];
+                } else {
+                    // find surrounding anchors
+                    const lo = anchorYears.filter(a => a <= yr).pop();
+                    const hi = anchorYears.filter(a => a > yr)[0];
+                    if (lo !== undefined && hi !== undefined) {
+                        const t = (yr - lo) / (hi - lo);
+                        chileShareMap[yr] = shareAnchors[lo] + t * (shareAnchors[hi] - shareAnchors[lo]);
+                    } else if (lo !== undefined) {
+                        chileShareMap[yr] = shareAnchors[lo];
+                    }
+                }
+            }
+
+            // Fill 2003-2024 from actual worldProduction data
+            data.worldProduction.forEach(d => {
+                const world = prodData.find(w => w.year === d.year);
+                if (world) chileShareMap[d.year] = (d.Chile / world.value) * 100;
+            });
+
+            const shareData = prodData.map(d => ({
+                year: d.year,
+                share: chileShareMap[d.year] ?? null
+            })).filter(d => d.share !== null);
+
+            // ── Scales ──
+            const x  = d3.scaleLinear().domain([1960, 2024]).range([0, innerWidth]);
+            const y  = d3.scaleLinear().domain([0, 26000]).range([innerHeight, 0]);
+            // y2 domain must mirror y exactly so ticks land on the same grid pixels.
+            // Left ticks: 0, 5000, 10000, 15000, 20000, 25000 (step 5000).
+            // Map those pixel positions back through the Chile share scale so
+            // y2 ticks appear at 0, ~10, ~19, ~29, ~38, ~48 — kept as 0–50
+            // but forced to use the SAME pixel range as y.
+            const y2 = d3.scaleLinear().domain([0, 50]).range([innerHeight, 0]);
+
+            // ── Era bands ──
+            const eras = [
+                { x1: 1960, x2: 1989, label: 'Post-war\nindustrialisation', color: 'rgba(255,255,255,0.025)' },
+                { x1: 1990, x2: 2012, label: 'China surge',          color: 'rgba(184,115,51,0.04)' },
+                { x1: 2013, x2: 2024, label: 'Energy transition',    color: 'rgba(45,168,153,0.04)' },
+            ];
+
+            eras.forEach(era => {
+                g.append('rect')
+                    .attr('x', x(era.x1)).attr('y', 0)
+                    .attr('width', x(era.x2 + 1) - x(era.x1))
+                    .attr('height', innerHeight)
+                    .attr('fill', era.color);
+
+                // era separator line
+                if (era.x1 > 1960) {
+                    g.append('line')
+                        .attr('x1', x(era.x1)).attr('x2', x(era.x1))
+                        .attr('y1', 0).attr('y2', innerHeight)
+                        .attr('stroke', 'rgba(255,255,255,0.1)')
+                        .attr('stroke-dasharray', '3,4');
+                }
+
+                // era label — split on newline
+                const lines = era.label.split('\n');
+                const labelX = x(era.x1) + (x(era.x2 + 1) - x(era.x1)) / 2;
+                lines.forEach((line, i) => {
+                    g.append('text')
+                        .attr('x', labelX)
+                        .attr('y', -14 + i * 13)
+                        .attr('text-anchor', 'middle')
+                        .attr('fill', 'rgba(160,152,144,0.7)')
+                        .attr('font-size', '10px')
+                        .attr('letter-spacing', '0.06em')
+                        .text(line.toUpperCase());
+                });
+            });
+
+            // ── Horizontal grid ──
+            // Define explicit left ticks so both the grid and the right-axis alignment
+            // derive from the same source values — no D3 auto-selection discrepancy.
+            const leftTickValues = [0, 5000, 10000, 15000, 20000, 25000];
             g.append('g').attr('class', 'grid')
-                .call(d3.axisLeft(y).tickSize(-innerWidth).tickFormat('').ticks(5))
-                .selectAll('line').attr('stroke', 'rgba(255,255,255,0.05)');
-            
-            // Area gradient
-            const gradient = svg.append('defs').append('linearGradient')
-                .attr('id', 'world-mine-gradient')
-                .attr('x1', '0%').attr('y1', '0%').attr('x2', '0%').attr('y2', '100%');
-            gradient.append('stop').attr('offset', '0%').attr('stop-color', '#B87333').attr('stop-opacity', 0.6);
-            gradient.append('stop').attr('offset', '100%').attr('stop-color', '#B87333').attr('stop-opacity', 0.05);
-            
-            // Area
-            const area = d3.area()
+                .call(d3.axisLeft(y).tickValues(leftTickValues).tickSize(-innerWidth).tickFormat(''))
+                .selectAll('line').attr('stroke','rgba(255,255,255,0.055)');
+            g.select('.grid .domain').remove();
+
+            // ── Chile share area (secondary, drawn first so it's behind) ──
+            const shareArea = d3.area()
+                .defined(d => d.share !== null)
+                .x(d => x(d.year))
+                .y0(innerHeight)
+                .y1(d => y2(d.share))
+                .curve(d3.curveMonotoneX);
+
+            g.append('path')
+                .datum(shareData)
+                .attr('fill', 'url(#wm-share-grad)')
+                .attr('d', shareArea);
+
+            const shareLine = d3.line()
+                .defined(d => d.share !== null)
+                .x(d => x(d.year))
+                .y(d => y2(d.share))
+                .curve(d3.curveMonotoneX);
+
+            g.append('path')
+                .datum(shareData)
+                .attr('fill', 'none')
+                .attr('stroke', '#D4A574')
+                .attr('stroke-width', 1.5)
+                .attr('stroke-dasharray', '4,3')
+                .attr('opacity', 0.7)
+                .attr('d', shareLine);
+
+            // ── Production area ──
+            const areaGen = d3.area()
                 .x(d => x(d.year))
                 .y0(innerHeight)
                 .y1(d => y(d.value))
                 .curve(d3.curveMonotoneX);
-            
+
             g.append('path')
                 .datum(prodData)
-                .attr('fill', 'url(#world-mine-gradient)')
-                .attr('d', area);
-            
-            // Line
-            const line = d3.line()
+                .attr('fill', 'url(#wm-area-grad)')
+                .attr('d', areaGen);
+
+            // ── Production line (animated draw) ──
+            const lineGen = d3.line()
                 .x(d => x(d.year))
                 .y(d => y(d.value))
                 .curve(d3.curveMonotoneX);
-            
-            g.append('path')
+
+            const linePath = g.append('path')
                 .datum(prodData)
                 .attr('fill', 'none')
                 .attr('stroke', '#B87333')
                 .attr('stroke-width', 2.5)
-                .attr('d', line);
-            
-            // Current value marker
-            const current = prodData[prodData.length - 1];
-            g.append('circle')
-                .attr('cx', x(current.year))
-                .attr('cy', y(current.value))
-                .attr('r', 6)
-                .attr('fill', '#B87333')
-                .attr('stroke', '#fff')
-                .attr('stroke-width', 2);
-            g.append('text')
-                .attr('x', x(current.year) - 5)
-                .attr('y', y(current.value) - 12)
-                .attr('text-anchor', 'end')
-                .attr('fill', '#B87333')
-                .attr('font-size', '12px')
-                .attr('font-weight', '700')
-                .text(`${(current.value / 1000).toFixed(1)}M`);
-            
-            // Axes
-            g.append('g')
+                .attr('d', lineGen);
+
+            const totalLength = linePath.node().getTotalLength();
+            linePath
+                .attr('stroke-dasharray', `${totalLength} ${totalLength}`)
+                .attr('stroke-dashoffset', totalLength)
+                .transition().duration(1800).ease(d3.easeCubicInOut)
+                .attr('stroke-dashoffset', 0);
+
+            // ── Key milestone annotation ──
+            const milestones = [
+                { year: 2013, label: 'Congo enters\ntop 5', align: 'middle', below: false },
+            ];
+
+            milestones.forEach(m => {
+                const d = prodData.find(p => p.year === m.year);
+                if (!d) return;
+                const cx = x(m.year);
+                const cy = y(d.value);
+
+                g.append('circle')
+                    .attr('cx', cx).attr('cy', cy).attr('r', 4)
+                    .attr('fill', '#B87333').attr('stroke','#1a1a28').attr('stroke-width', 2);
+
+                g.append('line')
+                    .attr('x1', cx).attr('x2', cx)
+                    .attr('y1', cy - 5).attr('y2', cy - 28)
+                    .attr('stroke','rgba(184,115,51,0.4)').attr('stroke-width',1);
+
+                const lines = m.label.split('\n');
+                lines.forEach((line, i) => {
+                    g.append('text')
+                        .attr('x', cx).attr('y', cy - 32 - (lines.length - 1 - i) * 12)
+                        .attr('text-anchor', m.align)
+                        .attr('fill','#a09890').attr('font-size','10px')
+                        .text(line);
+                });
+            });
+
+            // ── Axes ──
+            const xAxis = g.append('g')
                 .attr('transform', `translate(0,${innerHeight})`)
-                .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(10))
-                .selectAll('text').attr('fill', '#a09890').attr('font-size', '10px');
-            
-            g.append('g')
-                .call(d3.axisLeft(y).ticks(5).tickFormat(d => (d / 1000).toFixed(0)))
-                .selectAll('text').attr('fill', '#a09890').attr('font-size', '10px');
-            
-            // Interactive elements
-            const verticalLine = g.append('line')
+                .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(8));
+            xAxis.selectAll('text').attr('fill','#a09890').attr('font-size','10px');
+            xAxis.select('.domain').attr('stroke','rgba(255,255,255,0.1)');
+            xAxis.selectAll('.tick line').attr('stroke','rgba(255,255,255,0.1)');
+
+            const yAxis = g.append('g')
+                .call(d3.axisLeft(y).tickValues(leftTickValues).tickFormat(d => d === 0 ? '' : `${d/1000}M`));
+            yAxis.selectAll('text').attr('fill','#a09890').attr('font-size','10px');
+            yAxis.select('.domain').remove();
+            yAxis.selectAll('.tick line').attr('stroke','rgba(255,255,255,0.1)');
+
+            // Left Y-axis label
+            g.append('text')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -innerHeight / 2)
+                .attr('y', -62)
+                .attr('text-anchor', 'middle')
+                .attr('fill', '#a09890')
+                .attr('font-size', '10px')
+                .attr('letter-spacing', '0.04em')
+                .text('Million metric tonnes of copper');
+
+            // Right axis — labels sit at the exact same pixels as the left grid lines.
+            // leftTickValues has 6 entries → map to 0%, 10%, 20%, 30%, 40%, 50%.
+            const rightLabels = ['0%', '10%', '20%', '30%', '40%', '50%'];
+            const y2AxisG = g.append('g').attr('transform', `translate(${innerWidth},0)`);
+            leftTickValues.forEach((t, i) => {
+                if (i === 0) return; // skip 0% label at the bottom axis line
+                y2AxisG.append('text')
+                    .attr('x', 8)
+                    .attr('y', y(t) + 3.5)
+                    .attr('fill','#D4A574').attr('font-size','10px').attr('opacity',0.75)
+                    .text(rightLabels[i]);
+            });
+
+            // Right Y-axis label
+            g.append('text')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -innerHeight / 2)
+                .attr('y', innerWidth + 74)
+                .attr('text-anchor', 'middle')
+                .attr('fill', '#D4A574')
+                .attr('font-size', '10px')
+                .attr('letter-spacing', '0.04em')
+                .attr('opacity', 0.8)
+                .text('Chile share of world production (%)');
+
+            // ── Legend — upper-left inside chart ──
+            const legend = g.append('g').attr('transform', 'translate(10, 10)');
+            legend.append('rect')
+                .attr('x', -6).attr('y', -4)
+                .attr('width', 380).attr('height', 24)
+                .attr('fill', 'rgba(10,10,18,0.65)')
+                .attr('rx', 5);
+            legend.append('line').attr('x1',2).attr('x2',20).attr('y1',8).attr('y2',8)
+                .attr('stroke','#B87333').attr('stroke-width',2.5);
+            legend.append('text').attr('x',26).attr('y',12)
+                .attr('fill','#a09890').attr('font-size','10px').text('World production (Mt)');
+            legend.append('line').attr('x1',162).attr('x2',180).attr('y1',8).attr('y2',8)
+                .attr('stroke','#D4A574').attr('stroke-width',1.5)
+                .attr('stroke-dasharray','4,3').attr('opacity',0.8);
+            legend.append('text').attr('x',186).attr('y',12)
+                .attr('fill','#D4A574').attr('font-size','10px').attr('opacity',0.9).text('Chile share of world production %');
+
+            // ── Interactive crosshair ──
+            const vLine = g.append('line')
                 .attr('y1', 0).attr('y2', innerHeight)
-                .attr('stroke', '#fff').attr('stroke-width', 1)
-                .attr('stroke-dasharray', '4,4').attr('opacity', 0);
-            
-            const hoverDot = g.append('circle')
-                .attr('r', 7).attr('fill', '#B87333')
-                .attr('stroke', '#fff').attr('stroke-width', 2).attr('opacity', 0);
-            
-            // Tooltip box
-            const tooltipBox = g.append('g').attr('class', 'tooltip-box').attr('opacity', 0);
-            tooltipBox.append('rect')
-                .attr('fill', 'rgba(10,10,18,0.95)')
-                .attr('stroke', 'rgba(184,115,51,0.3)')
-                .attr('rx', 8).attr('width', 140).attr('height', 70);
-            const tooltipContent = tooltipBox.append('g').attr('transform', 'translate(12, 20)');
-            
-            tooltipContent.append('text').attr('class', 'tooltip-year')
-                .attr('fill', '#B87333').attr('font-size', '13px').attr('font-weight', '700');
-            tooltipContent.append('text').attr('class', 'tooltip-value')
-                .attr('y', 22).attr('fill', '#f5f0e8').attr('font-size', '16px').attr('font-weight', '700');
-            tooltipContent.append('text').attr('class', 'tooltip-growth')
-                .attr('y', 42).attr('fill', '#a09890').attr('font-size', '11px');
-            
-            // Overlay
+                .attr('stroke','rgba(255,255,255,0.25)').attr('stroke-width',1)
+                .attr('pointer-events','none').attr('opacity',0);
+
+            const hoverDot = g.append('circle').attr('r',5)
+                .attr('fill','#B87333').attr('stroke','#1a1a28').attr('stroke-width',2)
+                .attr('pointer-events','none').attr('opacity',0);
+
+            const ttg = g.append('g').attr('opacity',0).attr('pointer-events','none');
+            const ttrect = ttg.append('rect')
+                .attr('fill','rgba(10,10,18,0.95)')
+                .attr('stroke','rgba(184,115,51,0.35)')
+                .attr('rx',6).attr('width',148).attr('height',66);
+            const ttYear  = ttg.append('text').attr('x',12).attr('y',20)
+                .attr('fill','#B87333').attr('font-size','12px').attr('font-weight','700');
+            const ttVal   = ttg.append('text').attr('x',12).attr('y',38)
+                .attr('fill','#f5f0e8').attr('font-size','15px').attr('font-weight','700');
+            const ttShare = ttg.append('text').attr('x',12).attr('y',56)
+                .attr('fill','#D4A574').attr('font-size','10px');
+
             g.append('rect')
                 .attr('width', innerWidth).attr('height', innerHeight)
-                .attr('fill', 'none').attr('pointer-events', 'all')
+                .attr('fill','none').attr('pointer-events','all')
                 .on('mousemove touchmove', function(event) {
                     event.preventDefault();
                     const [mx] = d3.pointer(event);
                     const year = Math.round(x.invert(mx));
                     const clampedYear = Math.max(1960, Math.min(2024, year));
-                    
-                    const dataPoint = prodData.find(d => d.year === clampedYear);
-                    if (!dataPoint) return;
-                    
+                    const dp = prodData.find(d => d.year === clampedYear);
+                    if (!dp) return;
                     const xPos = x(clampedYear);
-                    const yPos = y(dataPoint.value);
-                    
-                    verticalLine.attr('x1', xPos).attr('x2', xPos).attr('opacity', 0.5);
-                    hoverDot.attr('cx', xPos).attr('cy', yPos).attr('opacity', 1);
-                    
-                    // Calculate growth since 1960
-                    const base = prodData[0].value;
-                    const growth = ((dataPoint.value - base) / base) * 100;
-                    
-                    tooltipContent.select('.tooltip-year').text(clampedYear);
-                    tooltipContent.select('.tooltip-value').text(`${(dataPoint.value / 1000).toFixed(2)} Million`);
-                    tooltipContent.select('.tooltip-growth').text(`+${growth.toFixed(0)}% since 1960`);
-                    
-                    let tooltipX = xPos + 15;
-                    if (tooltipX + 140 > innerWidth) tooltipX = xPos - 155;
-                    tooltipBox.attr('transform', `translate(${tooltipX}, ${Math.max(10, yPos - 35)})`).attr('opacity', 1);
+                    const yPos = y(dp.value);
+                    vLine.attr('x1',xPos).attr('x2',xPos).attr('opacity',1);
+                    hoverDot.attr('cx',xPos).attr('cy',yPos).attr('opacity',1);
+                    ttYear.text(clampedYear);
+                    ttVal.text(`${(dp.value/1000).toFixed(2)} Mt`);
+                    const share = chileShareMap[clampedYear];
+                    ttShare.text(share ? `Chile share: ${share.toFixed(1)}%` : '');
+                    let ttX = xPos + 12;
+                    if (ttX + 148 > innerWidth) ttX = xPos - 160;
+                    ttg.attr('transform', `translate(${ttX},${Math.max(5,yPos-36)})`).attr('opacity',1);
                 })
-                .on('mouseleave touchend', function() {
-                    verticalLine.attr('opacity', 0);
-                    hoverDot.attr('opacity', 0);
-                    tooltipBox.attr('opacity', 0);
+                .on('mouseleave touchend', () => {
+                    vLine.attr('opacity',0);
+                    hoverDot.attr('opacity',0);
+                    ttg.attr('opacity',0);
                 });
         }
         

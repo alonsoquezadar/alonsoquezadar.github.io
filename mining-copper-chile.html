@@ -2003,9 +2003,8 @@
         // Hero - Top 5 producers bar chart
         function createHeroChart() {
             const container = d3.select('#hero-chart');
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 400;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 400;
             const margin = { top: 40, right: 30, bottom: 20, left: 60 };
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
@@ -2059,9 +2058,8 @@
             const container = d3.select('#top-producers-chart');
             container.selectAll('*').remove();
 
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 280;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 280;
             const margin = { top: 20, right: 60, bottom: 20, left: 50 };
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
@@ -2109,9 +2107,8 @@
         // Sparklines
         function createSparkline(containerId, dataArr, color) {
             const container = d3.select(containerId);
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 50;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 50;
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
             const x = d3.scaleLinear().domain([0, dataArr.length - 1]).range([0, width]);
@@ -2126,9 +2123,8 @@
             const container = d3.select('#world-mine-chart');
             container.selectAll('*').remove();
 
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 400;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 400;
             const margin = { top: 48, right: 88, bottom: 44, left: 76 };
             const innerWidth = width - margin.left - margin.right;
             const innerHeight = height - margin.top - margin.bottom;
@@ -2462,9 +2458,8 @@
         // Share race chart
         function createShareRaceChart() {
             const container = d3.select('#share-race-chart');
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 350;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 350;
             const margin = { top: 20, right: 110, bottom: 40, left: 60 };
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
@@ -2732,7 +2727,7 @@
 
             const containerWidth = container.node().getBoundingClientRect().width;
             const width = Math.max(containerWidth, 300);
-            const height = rect.height > 50 ? rect.height : 400;
+            const height = 400;
             const margin = { top: 40, right: 30, bottom: 50, left: 60 };
 
             const svg = container.append('svg')
@@ -2959,9 +2954,8 @@
         // Sankey Diagram - Mine to Company flow
         function createSankeyChart() {
             const container = d3.select('#sankey-chart');
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 720;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 720;
             const margin = { top: 30, right: 220, bottom: 50, left: 200 };
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
@@ -3256,9 +3250,8 @@
 
         function createCompanyTrendsChart() {
             const container = d3.select('#company-trends-chart');
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 320;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 320;
             const margin = { top: 20, right: 120, bottom: 40, left: 50 };
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
@@ -3420,9 +3413,8 @@
             const container = d3.select('#mine-breakdown-chart');
             container.selectAll('*').remove();
 
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 450;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 450;
             const margin = { top: 30, right: 150, bottom: 50, left: 60 };
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
@@ -3619,9 +3611,8 @@
         // Codelco trend
         function createCodelcoTrend() {
             const container = d3.select('#codelco-trend-chart');
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 280;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 280;
             const margin = { top: 20, right: 30, bottom: 40, left: 50 };
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
@@ -3658,9 +3649,8 @@
             const container = d3.select('#ridgeline-chart');
             container.selectAll('*').remove();
 
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 650;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 650;
             const margin = { top: 40, right: 40, bottom: 50, left: 90 };
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
@@ -3889,9 +3879,8 @@
             const container = d3.select('#rolling-trend-chart');
             container.selectAll('*').remove();
 
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 320;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 320;
             const margin = { top: 20, right: 60, bottom: 40, left: 50 };
             const innerWidth = width - margin.left - margin.right;
             const innerHeight = height - margin.top - margin.bottom;
@@ -4102,9 +4091,8 @@
             const container = d3.select('#yoy-chart');
             container.selectAll('*').remove();
 
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 320;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 320;
             const margin = { top: 20, right: 80, bottom: 40, left: 50 };
             const innerWidth = width - margin.left - margin.right;
             const innerHeight = height - margin.top - margin.bottom;
@@ -4374,9 +4362,8 @@
             const container = d3.select('#heatmap');
             container.selectAll('*').remove();
 
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 420;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 420;
             const margin = { top: 40, right: 80, bottom: 50, left: 55 };
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
@@ -4570,9 +4557,8 @@
             const container = d3.select('#histogram-chart');
             container.selectAll('*').remove();
 
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 400;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 400;
             const margin = { top: 60, right: 30, bottom: 60, left: 60 };
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
@@ -4813,9 +4799,8 @@
 
         function createSeasonalChart() {
             const container = d3.select('#seasonal-chart');
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 220;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 220;
             const margin = { top: 30, right: 20, bottom: 30, left: 40 };
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
@@ -4866,9 +4851,8 @@
         function createExportsChart() {
             const container = d3.select('#exports-chart');
             container.selectAll('*').remove();
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 380;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 380;
 
             const svg = container.append('svg').attr('width', width).attr('height', height);
 
@@ -4968,9 +4952,8 @@
         function createChinaGrowthChart() {
             const container = d3.select('#china-growth-chart');
             container.selectAll('*').remove();
-            const rect = container.node().getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height > 50 ? rect.height : 380;
+            const width = container.node().getBoundingClientRect().width;
+            const height = 380;
             const margin = { top: 35, right: 110, bottom: 20, left: 110 };
             const innerWidth = width - margin.left - margin.right;
             const innerHeight = height - margin.top - margin.bottom;
@@ -5157,33 +5140,16 @@
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                // Redraw all responsive charts
-                const charts = [
-                    { id: 'hero-chart', fn: createHeroChart },
-                    { id: 'world-mine-chart', fn: createWorldMineChart },
-                    { id: 'share-race-chart', fn: createShareRaceChart },
-                    { id: 'sankey-chart', fn: createSankeyChart },
-                    { id: 'gdp-stacked-chart', fn: () => createGDPStackedChart(document.querySelector('.company-btn.active')?.textContent || 'Codelco') },
-                    { id: 'company-trends-chart', fn: createCompanyTrendsChart },
-                    { id: 'top-producers-chart', fn: createTopProducersChart },
-                    { id: 'heatmap', fn: () => createHeatmap(document.querySelector('.heat-btn.active')?.dataset.key || 'total') },
-                    { id: 'histogram-chart', fn: createHistogramChart },
-                    { id: 'seasonal-chart', fn: createSeasonalChart },
-                    { id: 'exports-chart', fn: createExportsChart },
-                    { id: 'china-growth-chart', fn: createChinaGrowthChart },
-                    { id: 'rolling-trend-chart', fn: createRollingTrendChart },
-                    { id: 'yoy-chart', fn: createYoYChart }
-                ];
-
-                charts.forEach(chart => {
-                    if (document.getElementById(chart.id)) {
-                        d3.select('#' + chart.id).selectAll('*').remove();
-                        if (typeof chart.fn === 'function') chart.fn();
-                    }
-                });
-
-                if (document.getElementById('small-multiples-chart')) {
-                    createSmallMultiplesChart(document.querySelector('.company-btn.active')?.textContent || 'all');
+                // Redraw responsive charts
+                if (document.getElementById('share-race-chart')) {
+                    d3.select('#share-race-chart').selectAll('*').remove();
+                    createShareRaceChart();
+                }
+                if (document.getElementById('rolling-trend-chart')) {
+                    createRollingTrendChart();
+                }
+                if (document.getElementById('yoy-chart')) {
+                    createYoYChart();
                 }
             }, 250);
         });

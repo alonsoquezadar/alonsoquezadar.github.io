@@ -358,20 +358,14 @@
             .nav-brand { font-size: 1rem; }
             
             /* Hero */
-            .hero { 
-                min-height: auto; 
-                padding: 5rem 1rem 2rem; 
-            }
+            .hero { min-height: auto; padding: 5rem 1rem 2rem; }
             .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; }
             .hero-text { font-size: 0.95rem; margin-bottom: 1.5rem; }
             .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.2em; }
             .hero-chart { height: 280px; }
             
             /* KPI Strip - Stack on mobile */
-            .kpi-strip { 
-                flex-direction: column; 
-                gap: 1px;
-            }
+            .kpi-strip { flex-direction: column; gap: 1px; }
             .kpi-item { 
                 padding: 0.75rem 1rem; 
                 display: flex;
@@ -388,28 +382,35 @@
             .section-title { font-size: 1.5rem; }
             .section-subtitle { font-size: 0.85rem; }
             
-            /* Cards */
+            /* Layout Optimization: Cards & Grids */
+            .grid-2, .grid-3, .grid-4, .grid-5 { 
+                grid-template-columns: 1fr; 
+                gap: 1.5rem; 
+            }
             .card { 
-                padding: 1rem; 
+                padding: 1.5rem !important; 
                 border-radius: 12px;
+                margin-bottom: 1.25rem;
             }
             .card-header { 
                 flex-direction: column; 
                 align-items: flex-start; 
                 gap: 0.5rem; 
             }
-            .card-title { font-size: 0.85rem; }
-            .card-badge { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
             
-            /* Grids */
-            .grid-2, .grid-3, .grid-4, .grid-5 { 
-                grid-template-columns: 1fr; 
-                gap: 1rem;
-            }
+            /* Mobile Readability: Typography Enhancements */
+            .axis text { font-size: 12px !important; }
+            .tooltip { font-size: 14px !important; padding: 1rem; max-width: 280px; }
+            .tooltip-title { font-size: 16px !important; }
+            .tooltip-value { font-size: 18px !important; }
+            .tooltip-sub { font-size: 13px !important; }
+            .card-title { font-size: 1.1rem; }
+            .card-header span { font-size: 12px !important; }
+            .insight-text { font-size: 14px !important; line-height: 1.6; }
             
-            /* Chart heights - reduce on mobile */
+            /* Chart heights */
             #share-race-chart { height: 350px !important; }
-            #sankey-chart { height: 400px !important; }
+            #sankey-chart { height: 450px !important; }
             #gdp-stacked-chart { height: 300px !important; }
             #company-trends-chart { height: 300px !important; }
             #heatmap { height: 350px !important; }
@@ -420,32 +421,42 @@
             #exports-chart { height: 300px !important; }
             #china-growth-chart { height: 300px !important; }
             
-            /* Heatmap controls */
-            .heatmap-controls {
-                flex-wrap: wrap;
-                gap: 0.25rem;
-            }
-            .heat-btn {
-                font-size: 0.65rem !important;
-                padding: 0.3rem 0.5rem !important;
-            }
-            
-            /* Company buttons */
-            .company-btn {
-                font-size: 0.7rem !important;
-                padding: 0.4rem 0.6rem !important;
-            }
-            
-            /* Insight boxes */
-            .insight-box, .insight-text {
-                font-size: 0.8rem !important;
-            }
-            
-            /* Tooltip adjustments */
-            .tooltip-sub { font-size: 0.75rem; }
-            
-            /* Small multiples - show 1 column */
+            /* Controls */
+            .heatmap-controls { flex-wrap: wrap; gap: 0.25rem; }
+            .heat-btn { font-size: 12px !important; padding: 0.4rem 0.6rem !important; }
+            .company-btn { font-size: 12px !important; padding: 0.5rem 0.7rem !important; }
             #small-multiples-chart { min-height: auto !important; }
+            
+            /* Ridgeline / Sankey special handling */
+            #ridgeline-chart { height: auto !important; min-height: 500px; }
+            #sankey-chart { min-height: 500px; }
+            
+            /* SVG responsive override */
+            svg { max-width: 100%; height: auto; }
+            
+            /* Hero chart mobile */
+            .hero-chart { height: 260px; }
+            .hero-content h1 { font-size: 1.8rem; line-height: 1.2; }
+            
+            /* Legend text shrink */
+            .legend text, .axis text { font-size: 10px !important; }
+            
+            /* Company trends legend */
+            #company-trends-chart text { font-size: 10px; }
+            
+            /* Bump chart labels */
+            #china-growth-chart text { font-size: 10px; }
+            
+            /* Prevent horizontal overflow */
+            .card, section, .grid-2, .grid-3 {
+                overflow-x: hidden;
+            }
+            
+            /* Make card subtitles wrap */
+            .card-header span {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1633,14 +1644,35 @@
         }
         function hideTooltip() { tooltip.style('opacity', 0); }
         
+        // ── Responsive helpers ──
+        function isMobile() { return window.innerWidth <= 768; }
+        function isSmall()  { return window.innerWidth <= 480; }
+        
+        function responsiveMargin(desktop, mobile) {
+            return isMobile() ? mobile : desktop;
+        }
+        
+        function responsiveSVG(container, width, height) {
+            return container.append('svg')
+                .attr('viewBox', `0 0 ${width} ${height}`)
+                .attr('preserveAspectRatio', 'xMidYMid meet')
+                .style('width', '100%')
+                .style('height', 'auto');
+        }
+        
+        function fontSize(desktop, mobile) {
+            return isMobile() ? (mobile || Math.max(desktop - 2, 8)) + 'px' : desktop + 'px';
+        }
+        
         // Hero - Top 5 producers bar chart
         function createHeroChart() {
             const container = d3.select('#hero-chart');
+            container.selectAll('*').remove();
             const width = container.node().getBoundingClientRect().width;
-            const height = 400;
-            const margin = {top: 40, right: 30, bottom: 20, left: 60};
+            const height = isMobile() ? 320 : 400;
+            const margin = isMobile() ? {top: 35, right: 20, bottom: 15, left: 45} : {top: 40, right: 30, bottom: 20, left: 60};
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             const topCountries = [
@@ -1695,7 +1727,7 @@
             const height = 280;
             const margin = {top: 20, right: 60, bottom: 20, left: 50};
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             const topCountries = [
@@ -1743,7 +1775,7 @@
             const width = container.node().getBoundingClientRect().width;
             const height = 50;
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const x = d3.scaleLinear().domain([0, dataArr.length - 1]).range([0, width]);
             const y = d3.scaleLinear().domain([d3.min(dataArr) * 0.9, d3.max(dataArr) * 1.1]).range([height - 5, 5]);
             
@@ -1762,45 +1794,38 @@
             const innerWidth  = width  - margin.left - margin.right;
             const innerHeight = height - margin.top  - margin.bottom;
 
+            // RESPONSIVE UPDATE: Use viewBox instead of fixed dimensions
             const svg = container.append('svg')
-                .attr('width', width).attr('height', height);
+                .attr('viewBox', `0 0 ${width} ${height}`)
+                .attr('preserveAspectRatio', 'xMidYMid meet')
+                .style('width', '100%')
+                .style('height', 'auto');
 
             const defs = svg.append('defs');
 
-            // ── Gradient for area fill ──
             const areaGrad = defs.append('linearGradient')
                 .attr('id', 'wm-area-grad')
                 .attr('x1','0%').attr('y1','0%').attr('x2','0%').attr('y2','100%');
-            areaGrad.append('stop').attr('offset','0%')
-                .attr('stop-color','#B87333').attr('stop-opacity', 0.35);
-            areaGrad.append('stop').attr('offset','100%')
-                .attr('stop-color','#B87333').attr('stop-opacity', 0.02);
+            areaGrad.append('stop').attr('offset','0%').attr('stop-color','#B87333').attr('stop-opacity', 0.35);
+            areaGrad.append('stop').attr('offset','100%').attr('stop-color','#B87333').attr('stop-opacity', 0.02);
 
-            // ── Chile share gradient (secondary) ──
             const shareGrad = defs.append('linearGradient')
                 .attr('id', 'wm-share-grad')
                 .attr('x1','0%').attr('y1','0%').attr('x2','0%').attr('y2','100%');
-            shareGrad.append('stop').attr('offset','0%')
-                .attr('stop-color','#D4A574').attr('stop-opacity', 0.18);
-            shareGrad.append('stop').attr('offset','100%')
-                .attr('stop-color','#D4A574').attr('stop-opacity', 0.0);
+            shareGrad.append('stop').attr('offset','0%').attr('stop-color','#D4A574').attr('stop-opacity', 0.18);
+            shareGrad.append('stop').attr('offset','100%').attr('stop-color','#D4A574').attr('stop-opacity', 0.0);
 
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
-
             const prodData = data.worldMineProduction;
 
-            // ── Chile share data ──
-            // Step 1: anchor points for 1960-2002 (sparse) + computed from worldProduction for 2003-2024
             const shareAnchors = {1960:18,1965:16,1970:13,1975:14,1980:15,1985:17,1990:20,1995:27,2000:34,2001:34,2002:33};
             const chileShareMap = {};
-
-            // Fill 1960-2002 by linearly interpolating between anchor years
             const anchorYears = Object.keys(shareAnchors).map(Number).sort((a,b)=>a-b);
+            
             for (let yr = 1960; yr <= 2002; yr++) {
                 if (shareAnchors[yr] !== undefined) {
                     chileShareMap[yr] = shareAnchors[yr];
                 } else {
-                    // find surrounding anchors
                     const lo = anchorYears.filter(a => a <= yr).pop();
                     const hi = anchorYears.filter(a => a > yr)[0];
                     if (lo !== undefined && hi !== undefined) {
@@ -1812,28 +1837,17 @@
                 }
             }
 
-            // Fill 2003-2024 from actual worldProduction data
             data.worldProduction.forEach(d => {
                 const world = prodData.find(w => w.year === d.year);
                 if (world) chileShareMap[d.year] = (d.Chile / world.value) * 100;
             });
 
-            const shareData = prodData.map(d => ({
-                year: d.year,
-                share: chileShareMap[d.year] ?? null
-            })).filter(d => d.share !== null);
+            const shareData = prodData.map(d => ({ year: d.year, share: chileShareMap[d.year] ?? null })).filter(d => d.share !== null);
 
-            // ── Scales ──
             const x  = d3.scaleLinear().domain([1960, 2024]).range([0, innerWidth]);
             const y  = d3.scaleLinear().domain([0, 26000]).range([innerHeight, 0]);
-            // y2 domain must mirror y exactly so ticks land on the same grid pixels.
-            // Left ticks: 0, 5000, 10000, 15000, 20000, 25000 (step 5000).
-            // Map those pixel positions back through the Chile share scale so
-            // y2 ticks appear at 0, ~10, ~19, ~29, ~38, ~48 — kept as 0–50
-            // but forced to use the SAME pixel range as y.
             const y2 = d3.scaleLinear().domain([0, 50]).range([innerHeight, 0]);
 
-            // ── Era bands ──
             const eras = [
                 { x1: 1960, x2: 1989, label: 'Post-war\nindustrialisation', color: 'rgba(255,255,255,0.025)' },
                 { x1: 1990, x2: 2012, label: 'China surge',          color: 'rgba(184,115,51,0.04)' },
@@ -1841,224 +1855,81 @@
             ];
 
             eras.forEach(era => {
-                g.append('rect')
-                    .attr('x', x(era.x1)).attr('y', 0)
-                    .attr('width', x(era.x2 + 1) - x(era.x1))
-                    .attr('height', innerHeight)
-                    .attr('fill', era.color);
-
-                // era separator line
+                g.append('rect').attr('x', x(era.x1)).attr('y', 0).attr('width', x(era.x2 + 1) - x(era.x1)).attr('height', innerHeight).attr('fill', era.color);
                 if (era.x1 > 1960) {
-                    g.append('line')
-                        .attr('x1', x(era.x1)).attr('x2', x(era.x1))
-                        .attr('y1', 0).attr('y2', innerHeight)
-                        .attr('stroke', 'rgba(255,255,255,0.1)')
-                        .attr('stroke-dasharray', '3,4');
+                    g.append('line').attr('x1', x(era.x1)).attr('x2', x(era.x1)).attr('y1', 0).attr('y2', innerHeight).attr('stroke', 'rgba(255,255,255,0.1)').attr('stroke-dasharray', '3,4');
                 }
-
-                // era label — split on newline
                 const lines = era.label.split('\n');
                 const labelX = x(era.x1) + (x(era.x2 + 1) - x(era.x1)) / 2;
                 lines.forEach((line, i) => {
-                    g.append('text')
-                        .attr('x', labelX)
-                        .attr('y', -14 + i * 13)
-                        .attr('text-anchor', 'middle')
-                        .attr('fill', 'rgba(160,152,144,0.7)')
-                        .attr('font-size', '10px')
-                        .attr('letter-spacing', '0.06em')
-                        .text(line.toUpperCase());
+                    g.append('text').attr('x', labelX).attr('y', -14 + i * 13).attr('text-anchor', 'middle').attr('fill', 'rgba(160,152,144,0.7)').attr('font-size', '10px').attr('letter-spacing', '0.06em').text(line.toUpperCase());
                 });
             });
 
-            // ── Horizontal grid ──
-            // Define explicit left ticks so both the grid and the right-axis alignment
-            // derive from the same source values — no D3 auto-selection discrepancy.
             const leftTickValues = [0, 5000, 10000, 15000, 20000, 25000];
-            g.append('g').attr('class', 'grid')
-                .call(d3.axisLeft(y).tickValues(leftTickValues).tickSize(-innerWidth).tickFormat(''))
-                .selectAll('line').attr('stroke','rgba(255,255,255,0.055)');
+            g.append('g').attr('class', 'grid').call(d3.axisLeft(y).tickValues(leftTickValues).tickSize(-innerWidth).tickFormat('')).selectAll('line').attr('stroke','rgba(255,255,255,0.055)');
             g.select('.grid .domain').remove();
 
-            // ── Chile share area (secondary, drawn first so it's behind) ──
-            const shareArea = d3.area()
-                .defined(d => d.share !== null)
-                .x(d => x(d.year))
-                .y0(innerHeight)
-                .y1(d => y2(d.share))
-                .curve(d3.curveMonotoneX);
+            const shareArea = d3.area().defined(d => d.share !== null).x(d => x(d.year)).y0(innerHeight).y1(d => y2(d.share)).curve(d3.curveMonotoneX);
+            g.append('path').datum(shareData).attr('fill', 'url(#wm-share-grad)').attr('d', shareArea);
 
-            g.append('path')
-                .datum(shareData)
-                .attr('fill', 'url(#wm-share-grad)')
-                .attr('d', shareArea);
+            const shareLine = d3.line().defined(d => d.share !== null).x(d => x(d.year)).y(d => y2(d.share)).curve(d3.curveMonotoneX);
+            g.append('path').datum(shareData).attr('fill', 'none').attr('stroke', '#D4A574').attr('stroke-width', 1.5).attr('stroke-dasharray', '4,3').attr('opacity', 0.7).attr('d', shareLine);
 
-            const shareLine = d3.line()
-                .defined(d => d.share !== null)
-                .x(d => x(d.year))
-                .y(d => y2(d.share))
-                .curve(d3.curveMonotoneX);
+            const areaGen = d3.area().x(d => x(d.year)).y0(innerHeight).y1(d => y(d.value)).curve(d3.curveMonotoneX);
+            g.append('path').datum(prodData).attr('fill', 'url(#wm-area-grad)').attr('d', areaGen);
 
-            g.append('path')
-                .datum(shareData)
-                .attr('fill', 'none')
-                .attr('stroke', '#D4A574')
-                .attr('stroke-width', 1.5)
-                .attr('stroke-dasharray', '4,3')
-                .attr('opacity', 0.7)
-                .attr('d', shareLine);
-
-            // ── Production area ──
-            const areaGen = d3.area()
-                .x(d => x(d.year))
-                .y0(innerHeight)
-                .y1(d => y(d.value))
-                .curve(d3.curveMonotoneX);
-
-            g.append('path')
-                .datum(prodData)
-                .attr('fill', 'url(#wm-area-grad)')
-                .attr('d', areaGen);
-
-            // ── Production line (animated draw) ──
-            const lineGen = d3.line()
-                .x(d => x(d.year))
-                .y(d => y(d.value))
-                .curve(d3.curveMonotoneX);
-
-            const linePath = g.append('path')
-                .datum(prodData)
-                .attr('fill', 'none')
-                .attr('stroke', '#B87333')
-                .attr('stroke-width', 2.5)
-                .attr('d', lineGen);
+            const lineGen = d3.line().x(d => x(d.year)).y(d => y(d.value)).curve(d3.curveMonotoneX);
+            const linePath = g.append('path').datum(prodData).attr('fill', 'none').attr('stroke', '#B87333').attr('stroke-width', 2.5).attr('d', lineGen);
 
             const totalLength = linePath.node().getTotalLength();
-            linePath
-                .attr('stroke-dasharray', `${totalLength} ${totalLength}`)
-                .attr('stroke-dashoffset', totalLength)
-                .transition().duration(1800).ease(d3.easeCubicInOut)
-                .attr('stroke-dashoffset', 0);
+            linePath.attr('stroke-dasharray', `${totalLength} ${totalLength}`).attr('stroke-dashoffset', totalLength).transition().duration(1800).ease(d3.easeCubicInOut).attr('stroke-dashoffset', 0);
 
-            // ── Key milestone annotation ──
-            const milestones = [
-                { year: 2013, label: 'Congo enters\ntop 5', align: 'middle', below: false },
-            ];
-
+            const milestones = [{ year: 2013, label: 'Congo enters\ntop 5', align: 'middle', below: false }];
             milestones.forEach(m => {
                 const d = prodData.find(p => p.year === m.year);
                 if (!d) return;
-                const cx = x(m.year);
-                const cy = y(d.value);
-
-                g.append('circle')
-                    .attr('cx', cx).attr('cy', cy).attr('r', 4)
-                    .attr('fill', '#B87333').attr('stroke','#1a1a28').attr('stroke-width', 2);
-
-                g.append('line')
-                    .attr('x1', cx).attr('x2', cx)
-                    .attr('y1', cy - 5).attr('y2', cy - 28)
-                    .attr('stroke','rgba(184,115,51,0.4)').attr('stroke-width',1);
-
+                const cx = x(m.year), cy = y(d.value);
+                g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 4).attr('fill', '#B87333').attr('stroke','#1a1a28').attr('stroke-width', 2);
+                g.append('line').attr('x1', cx).attr('x2', cx).attr('y1', cy - 5).attr('y2', cy - 28).attr('stroke','rgba(184,115,51,0.4)').attr('stroke-width',1);
                 const lines = m.label.split('\n');
                 lines.forEach((line, i) => {
-                    g.append('text')
-                        .attr('x', cx).attr('y', cy - 32 - (lines.length - 1 - i) * 12)
-                        .attr('text-anchor', m.align)
-                        .attr('fill','#a09890').attr('font-size','10px')
-                        .text(line);
+                    g.append('text').attr('x', cx).attr('y', cy - 32 - (lines.length - 1 - i) * 12).attr('text-anchor', m.align).attr('fill','#a09890').attr('font-size','10px').text(line);
                 });
             });
 
-            // ── Axes ──
-            const xAxis = g.append('g')
-                .attr('transform', `translate(0,${innerHeight})`)
-                .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(8));
+            const xAxis = g.append('g').attr('transform', `translate(0,${innerHeight})`).call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(8));
             xAxis.selectAll('text').attr('fill','#a09890').attr('font-size','10px');
             xAxis.select('.domain').attr('stroke','rgba(255,255,255,0.1)');
             xAxis.selectAll('.tick line').attr('stroke','rgba(255,255,255,0.1)');
 
-            const yAxis = g.append('g')
-                .call(d3.axisLeft(y).tickValues(leftTickValues).tickFormat(d => d === 0 ? '' : `${d/1000}M`));
+            const yAxis = g.append('g').call(d3.axisLeft(y).tickValues(leftTickValues).tickFormat(d => d === 0 ? '' : `${d/1000}M`));
             yAxis.selectAll('text').attr('fill','#a09890').attr('font-size','10px');
             yAxis.select('.domain').remove();
             yAxis.selectAll('.tick line').attr('stroke','rgba(255,255,255,0.1)');
 
-            // Left Y-axis label
-            g.append('text')
-                .attr('transform', 'rotate(-90)')
-                .attr('x', -innerHeight / 2)
-                .attr('y', -62)
-                .attr('text-anchor', 'middle')
-                .attr('fill', '#a09890')
-                .attr('font-size', '10px')
-                .attr('letter-spacing', '0.04em')
-                .text('Million metric tonnes of copper');
+            g.append('text').attr('transform', 'rotate(-90)').attr('x', -innerHeight / 2).attr('y', -62).attr('text-anchor', 'middle').attr('fill', '#a09890').attr('font-size', '10px').attr('letter-spacing', '0.04em').text('Million metric tonnes of copper');
 
-            // Right axis — labels sit at the exact same pixels as the left grid lines.
-            // leftTickValues has 6 entries → map to 0%, 10%, 20%, 30%, 40%, 50%.
             const rightLabels = ['0%', '10%', '20%', '30%', '40%', '50%'];
             const y2AxisG = g.append('g').attr('transform', `translate(${innerWidth},0)`);
             leftTickValues.forEach((t, i) => {
-                if (i === 0) return; // skip 0% label at the bottom axis line
-                y2AxisG.append('text')
-                    .attr('x', 8)
-                    .attr('y', y(t) + 3.5)
-                    .attr('fill','#D4A574').attr('font-size','10px').attr('opacity',0.75)
-                    .text(rightLabels[i]);
+                if (i === 0) return;
+                y2AxisG.append('text').attr('x', 8).attr('y', y(t) + 3.5).attr('fill','#D4A574').attr('font-size','10px').attr('opacity',0.75).text(rightLabels[i]);
             });
 
-            // Right Y-axis label
-            g.append('text')
-                .attr('transform', 'rotate(-90)')
-                .attr('x', -innerHeight / 2)
-                .attr('y', innerWidth + 74)
-                .attr('text-anchor', 'middle')
-                .attr('fill', '#D4A574')
-                .attr('font-size', '10px')
-                .attr('letter-spacing', '0.04em')
-                .attr('opacity', 0.8)
-                .text('Chile share of world production (%)');
+            g.append('text').attr('transform', 'rotate(-90)').attr('x', -innerHeight / 2).attr('y', innerWidth + 74).attr('text-anchor', 'middle').attr('fill', '#D4A574').attr('font-size', '10px').attr('letter-spacing', '0.04em').attr('opacity', 0.8).text('Chile share of world production (%)');
 
-            // ── Legend — upper-left inside chart ──
             const legend = g.append('g').attr('transform', 'translate(10, 10)');
-            legend.append('rect')
-                .attr('x', -6).attr('y', -4)
-                .attr('width', 380).attr('height', 24)
-                .attr('fill', 'rgba(10,10,18,0.65)')
-                .attr('rx', 5);
-            legend.append('line').attr('x1',2).attr('x2',20).attr('y1',8).attr('y2',8)
-                .attr('stroke','#B87333').attr('stroke-width',2.5);
-            legend.append('text').attr('x',26).attr('y',12)
-                .attr('fill','#a09890').attr('font-size','10px').text('World production (Mt)');
-            legend.append('line').attr('x1',162).attr('x2',180).attr('y1',8).attr('y2',8)
-                .attr('stroke','#D4A574').attr('stroke-width',1.5)
-                .attr('stroke-dasharray','4,3').attr('opacity',0.8);
-            legend.append('text').attr('x',186).attr('y',12)
-                .attr('fill','#D4A574').attr('font-size','10px').attr('opacity',0.9).text('Chile share of world production %');
+            legend.append('rect').attr('x', -6).attr('y', -4).attr('width', isMobile() ? 280 : 380).attr('height', 24).attr('fill', 'rgba(10,10,18,0.65)').attr('rx', 5);
+            legend.append('line').attr('x1',2).attr('x2',20).attr('y1',8).attr('y2',8).attr('stroke','#B87333').attr('stroke-width',2.5);
+            legend.append('text').attr('x',26).attr('y',12).attr('fill','#a09890').attr('font-size','10px').text('World production (Mt)');
+            legend.append('line').attr('x1',162).attr('x2',180).attr('y1',8).attr('y2',8).attr('stroke','#D4A574').attr('stroke-width',1.5).attr('stroke-dasharray','4,3').attr('opacity',0.8);
+            legend.append('text').attr('x',186).attr('y',12).attr('fill','#D4A574').attr('font-size','10px').attr('opacity',0.9).text('Chile share of world production %');
 
-            // ── Interactive crosshair ──
-            const vLine = g.append('line')
-                .attr('y1', 0).attr('y2', innerHeight)
-                .attr('stroke','rgba(255,255,255,0.25)').attr('stroke-width',1)
-                .attr('pointer-events','none').attr('opacity',0);
+            const vLine = g.append('line').attr('y1', 0).attr('y2', innerHeight).attr('stroke','rgba(255,255,255,0.25)').attr('stroke-width',1).attr('pointer-events','none').attr('opacity',0);
+            const hoverDot = g.append('circle').attr('r',5).attr('fill','#B87333').attr('stroke','#1a1a28').attr('stroke-width',2).attr('pointer-events','none').attr('opacity',0);
 
-            const hoverDot = g.append('circle').attr('r',5)
-                .attr('fill','#B87333').attr('stroke','#1a1a28').attr('stroke-width',2)
-                .attr('pointer-events','none').attr('opacity',0);
-
-            const ttg = g.append('g').attr('opacity',0).attr('pointer-events','none');
-            const ttrect = ttg.append('rect')
-                .attr('fill','rgba(10,10,18,0.95)')
-                .attr('stroke','rgba(184,115,51,0.35)')
-                .attr('rx',6).attr('width',148).attr('height',66);
-            const ttYear  = ttg.append('text').attr('x',12).attr('y',20)
-                .attr('fill','#B87333').attr('font-size','12px').attr('font-weight','700');
-            const ttVal   = ttg.append('text').attr('x',12).attr('y',38)
-                .attr('fill','#f5f0e8').attr('font-size','15px').attr('font-weight','700');
-            const ttShare = ttg.append('text').attr('x',12).attr('y',56)
-                .attr('fill','#D4A574').attr('font-size','10px');
-
+            // HTML Tooltip Integration with Economic Insights
             g.append('rect')
                 .attr('width', innerWidth).attr('height', innerHeight)
                 .attr('fill','none').attr('pointer-events','all')
@@ -2069,33 +1940,50 @@
                     const clampedYear = Math.max(1960, Math.min(2024, year));
                     const dp = prodData.find(d => d.year === clampedYear);
                     if (!dp) return;
+                    
                     const xPos = x(clampedYear);
                     const yPos = y(dp.value);
                     vLine.attr('x1',xPos).attr('x2',xPos).attr('opacity',1);
                     hoverDot.attr('cx',xPos).attr('cy',yPos).attr('opacity',1);
-                    ttYear.text(clampedYear);
-                    ttVal.text(`${(dp.value/1000).toFixed(2)} Mt`);
+                    
                     const share = chileShareMap[clampedYear];
-                    ttShare.text(share ? `Chile share: ${share.toFixed(1)}%` : '');
-                    let ttX = xPos + 12;
-                    if (ttX + 148 > innerWidth) ttX = xPos - 160;
-                    ttg.attr('transform', `translate(${ttX},${Math.max(5,yPos-36)})`).attr('opacity',1);
+                    const prevYear = clampedYear > 1960 ? prodData.find(d => d.year === clampedYear - 1) : null;
+                    
+                    let yoyText = '';
+                    if (prevYear) {
+                        const yoy = ((dp.value - prevYear.value) / prevYear.value * 100).toFixed(1);
+                        const color = yoy > 0 ? '#2ecc71' : '#e74c3c';
+                        yoyText = `<div style="color: ${color}; font-size: 13px; margin-top: 4px; font-weight: 600;">${yoy > 0 ? '▲' : '▼'} ${Math.abs(yoy)}% YoY Global Growth</div>`;
+                    }
+                    
+                    let insightText = '';
+                    if (clampedYear >= 2015) {
+                        insightText = `<div style="color: #ffd93d; font-size: 12px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; line-height: 1.4;"><strong>Policy Insight:</strong> Chile's market share compression reflects domestic ore grade decline vs rapid DRC/Peru expansion.</div>`;
+                    }
+                    
+                    showTooltip(event, `
+                        <div class="tooltip-title" style="font-size: 16px;">${clampedYear} Global Production</div>
+                        <div class="tooltip-value" style="font-size: 18px;">${(dp.value/1000).toFixed(2)} Mt</div>
+                        ${share ? `<div class="tooltip-sub" style="color: #D4A574; font-size: 14px;">Chile Share: ${share.toFixed(1)}%</div>` : ''}
+                        ${yoyText}
+                        ${insightText}
+                    `);
                 })
                 .on('mouseleave touchend', () => {
                     vLine.attr('opacity',0);
                     hoverDot.attr('opacity',0);
-                    ttg.attr('opacity',0);
+                    hideTooltip();
                 });
         }
-        
         // Share race chart
         function createShareRaceChart() {
             const container = d3.select('#share-race-chart');
+            container.selectAll('*').remove();
             const width = container.node().getBoundingClientRect().width;
-            const height = 350;
-            const margin = {top: 20, right: 110, bottom: 40, left: 60};
+            const height = isMobile() ? 300 : 350;
+            const margin = isMobile() ? {top: 15, right: 50, bottom: 35, left: 40} : {top: 20, right: 110, bottom: 40, left: 60};
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             const innerWidth = width - margin.left - margin.right;
@@ -2360,8 +2248,8 @@
             
             const containerWidth = container.node().getBoundingClientRect().width;
             const width = Math.max(containerWidth, 300);
-            const height = 400;
-            const margin = {top: 40, right: 30, bottom: 50, left: 60};
+            const height = isMobile() ? 320 : 400;
+            const margin = isMobile() ? {top: 30, right: 20, bottom: 40, left: 45} : {top: 40, right: 30, bottom: 50, left: 60};
             
             const svg = container.append('svg')
                 .attr('width', '100%')
@@ -2587,53 +2475,40 @@
         // Sankey Diagram - Mine to Company flow
         function createSankeyChart() {
             const container = d3.select('#sankey-chart');
+            container.selectAll('*').remove();
             const width = container.node().getBoundingClientRect().width;
-            const height = 720;
-            const margin = {top: 30, right: 220, bottom: 50, left: 200};
+            const height = isMobile() ? 600 : 720;
+            const margin = isMobile() ? {top: 25, right: 90, bottom: 40, left: 85} : {top: 30, right: 220, bottom: 50, left: 200};
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            // RESPONSIVE UPDATE: Use viewBox instead of fixed dimensions
+            const svg = container.append('svg')
+                .attr('viewBox', `0 0 ${width} ${height}`)
+                .attr('preserveAspectRatio', 'xMidYMid meet')
+                .style('width', '100%')
+                .style('height', 'auto');
+                
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             const innerWidth = width - margin.left - margin.right;
             const innerHeight = height - margin.top - margin.bottom;
             
-            // Company colors
             const companyColors = {
-                'BHP': '#4a9eff',
-                'Codelco': '#B87333',
-                'Antofagasta Minerals': '#2ecc71',
-                'Anglo American': '#9b59b6',
-                'Teck': '#e67e22',
-                'Lundin Mining': '#1abc9c',
-                'Freeport-McMoRan': '#e74c3c',
-                'Collahuasi': '#f39c12',
-                'Glencore': '#34495e',
-                'Otros': '#7f8c8d'
+                'BHP': '#4a9eff', 'Codelco': '#B87333', 'Antofagasta Minerals': '#2ecc71',
+                'Anglo American': '#9b59b6', 'Teck': '#e67e22', 'Lundin Mining': '#1abc9c',
+                'Freeport-McMoRan': '#e74c3c', 'Collahuasi': '#f39c12', 'Glencore': '#34495e', 'Otros': '#7f8c8d'
             };
             
-            // Prepare data - sort mines by production
             const mines = [...data.companies].sort((a, b) => b.value - a.value);
             mines.push({mine: "Otros", company: "Otros", value: 601.6});
             
-            // Aggregate companies
             const companyTotals = {};
-            mines.forEach(d => {
-                companyTotals[d.company] = (companyTotals[d.company] || 0) + d.value;
-            });
+            mines.forEach(d => { companyTotals[d.company] = (companyTotals[d.company] || 0) + d.value; });
             
-            const companiesSorted = Object.entries(companyTotals)
-                .sort((a, b) => b[1] - a[1])
-                .map(d => d[0]);
-            
+            const companiesSorted = Object.entries(companyTotals).sort((a, b) => b[1] - a[1]).map(d => d[0]);
             const totalProduction = d3.sum(mines, d => d.value);
             
-            // Calculate positions for mines (left side)
-            const mineScale = d3.scaleBand()
-                .domain(mines.map(d => d.mine))
-                .range([0, innerHeight])
-                .padding(0.08);
+            const mineScale = d3.scaleBand().domain(mines.map(d => d.mine)).range([0, innerHeight]).padding(0.08);
             
-            // Calculate proportional heights for companies (right side)
             const companyPadding = 8;
             const totalPadding = companyPadding * (companiesSorted.length - 1);
             const availableHeight = innerHeight - totalPadding;
@@ -2646,97 +2521,71 @@
                 currentY += h + companyPadding;
             });
             
-            // Track company current Y position for stacking links
             const companyYOffset = {};
             companiesSorted.forEach(c => companyYOffset[c] = 0);
             
-            // State for selection
             let selectedMine = null;
             let selectedCompany = null;
             
-            // Draw links (flows)
             const links = g.append('g').attr('class', 'links');
             
             mines.forEach(mine => {
                 const sourceY = mineScale(mine.mine);
                 const sourceHeight = mineScale.bandwidth();
-                
                 const company = mine.company;
                 const companyTotal = companyTotals[company];
                 const companyPos = companyPositions[company];
                 const linkHeight = (mine.value / companyTotal) * companyPos.height;
-                
                 const targetY = companyPos.y + companyYOffset[company];
                 companyYOffset[company] += linkHeight;
                 
-                // Create gradient
                 const gradientId = `gradient-${mine.mine.replace(/[^a-zA-Z0-9]/g, '')}`;
-                const gradient = svg.append('defs').append('linearGradient')
-                    .attr('id', gradientId)
-                    .attr('x1', '0%').attr('x2', '100%');
+                const gradient = svg.append('defs').append('linearGradient').attr('id', gradientId).attr('x1', '0%').attr('x2', '100%');
                 gradient.append('stop').attr('offset', '0%').attr('stop-color', companyColors[company] || '#666').attr('stop-opacity', 0.5);
                 gradient.append('stop').attr('offset', '100%').attr('stop-color', companyColors[company] || '#666').attr('stop-opacity', 0.85);
                 
-                const areaPath = `
-                    M 0,${sourceY}
-                    C ${innerWidth * 0.4},${sourceY} ${innerWidth * 0.6},${targetY} ${innerWidth},${targetY}
-                    L ${innerWidth},${targetY + linkHeight}
-                    C ${innerWidth * 0.6},${targetY + linkHeight} ${innerWidth * 0.4},${sourceY + sourceHeight} 0,${sourceY + sourceHeight}
-                    Z
-                `;
+                const areaPath = `M 0,${sourceY} C ${innerWidth * 0.4},${sourceY} ${innerWidth * 0.6},${targetY} ${innerWidth},${targetY} L ${innerWidth},${targetY + linkHeight} C ${innerWidth * 0.6},${targetY + linkHeight} ${innerWidth * 0.4},${sourceY + sourceHeight} 0,${sourceY + sourceHeight} Z`;
                 
-                const path = links.append('path')
-                    .attr('class', 'sankey-link')
-                    .attr('data-mine', mine.mine)
-                    .attr('data-company', company)
-                    .attr('d', areaPath)
-                    .attr('fill', `url(#${gradientId})`)
-                    .attr('stroke', 'none')
-                    .attr('opacity', 0.7)
-                    .style('cursor', 'pointer');
+                const path = links.append('path').attr('class', 'sankey-link').attr('data-mine', mine.mine).attr('data-company', company).attr('d', areaPath).attr('fill', `url(#${gradientId})`).attr('stroke', 'none').attr('opacity', 0.7).style('cursor', 'pointer');
                 
                 path.on('click', function(event) {
                     event.stopPropagation();
                     if (selectedMine === mine.mine) {
-                        selectedMine = null;
-                        selectedCompany = null;
-                        resetSelection();
+                        selectedMine = null; selectedCompany = null; resetSelection();
                     } else {
-                        selectedMine = mine.mine;
-                        selectedCompany = null;
-                        highlightMineSelection(mine.mine, company);
+                        selectedMine = mine.mine; selectedCompany = null; highlightMineSelection(mine.mine, company);
                     }
                 });
                 
                 path.on('mouseover', function(event) {
-                    if (!selectedMine && !selectedCompany) {
-                        d3.select(this).attr('opacity', 1);
-                    }
+                    if (!selectedMine && !selectedCompany) d3.select(this).attr('opacity', 1);
                     const pct = (mine.value / totalProduction * 100).toFixed(1);
                     const companyPct = (mine.value / companyTotal * 100).toFixed(1);
+                    
+                    // Economic Insights Injection
+                    let insight = '';
+                    if (company === 'Codelco') {
+                        insight = `<div style="color: #e74c3c; font-size: 12px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; line-height: 1.4;"><strong>Fiscal Impact:</strong> State production constrained by aging infrastructure, impacting national revenue.</div>`;
+                    } else if (company === 'BHP') {
+                        insight = `<div style="color: #2ecc71; font-size: 12px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; line-height: 1.4;"><strong>Market Dynamic:</strong> Private capital outpaces state output, driven by high feed grades (1.03%).</div>`;
+                    }
+                    
                     showTooltip(event, `
-                        <div class="tooltip-title">${mine.mine}</div>
-                        <div class="tooltip-value">${mine.value.toFixed(1)}</div>
-                        <div class="tooltip-sub">→ ${company}</div>
+                        <div class="tooltip-title" style="font-size: 15px;">${mine.mine}</div>
+                        <div class="tooltip-value" style="font-size: 16px;">${mine.value.toFixed(1)} TMT</div>
+                        <div class="tooltip-sub" style="font-size: 13px;">→ ${company}</div>
                         <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.1);">
-                            <div style="color: #a09890;">${pct}% of Chile total</div>
-                            <div style="color: #a09890;">${companyPct}% of ${company}</div>
+                            <div style="color: #a09890; font-size: 13px;">${pct}% of Chile total</div>
+                            <div style="color: #a09890; font-size: 13px;">${companyPct}% of ${company}</div>
                         </div>
-                        <div style="margin-top: 8px; color: #ffd93d; font-size: 10px;">Click to select</div>
+                        ${insight}
+                        <div style="margin-top: 8px; color: #ffd93d; font-size: 11px; font-style: italic;">Click to lock selection</div>
                     `);
                 })
-                .on('mousemove', function(event) {
-                    tooltip.style('left', (event.pageX + 15) + 'px').style('top', (event.pageY - 10) + 'px');
-                })
-                .on('mouseout', function() {
-                    if (!selectedMine && !selectedCompany) {
-                        d3.select(this).attr('opacity', 0.7);
-                    }
-                    hideTooltip();
-                });
+                .on('mousemove', function(event) { tooltip.style('left', (event.pageX + 15) + 'px').style('top', (event.pageY - 10) + 'px'); })
+                .on('mouseout', function() { if (!selectedMine && !selectedCompany) d3.select(this).attr('opacity', 0.7); hideTooltip(); });
             });
             
-            // Selection functions
             function highlightMineSelection(mineName, companyName) {
                 links.selectAll('.sankey-link').attr('opacity', 0.15).attr('stroke', 'none');
                 links.select(`[data-mine="${mineName}"]`).attr('opacity', 1).attr('stroke', '#fff').attr('stroke-width', 2);
@@ -2755,9 +2604,7 @@
                 g.selectAll('.company-node').attr('stroke', 'none');
                 g.select(`.company-node[data-company="${companyName}"]`).attr('stroke', '#fff').attr('stroke-width', 2);
                 const companyMines = mines.filter(m => m.company === companyName);
-                companyMines.forEach(m => {
-                    g.selectAll(`.mine-label[data-mine="${m.mine}"], .mine-value[data-mine="${m.mine}"]`).attr('opacity', 1);
-                });
+                companyMines.forEach(m => { g.selectAll(`.mine-label[data-mine="${m.mine}"], .mine-value[data-mine="${m.mine}"]`).attr('opacity', 1); });
                 const total = companyTotals[companyName];
                 const pct = (total / totalProduction * 100).toFixed(1);
                 showSelectionInfo(`${companyName}: ${total.toFixed(0)} (${companyMines.length} mines, ${pct}% of total)`);
@@ -2770,124 +2617,69 @@
                 hideSelectionInfo();
             }
             
-            // Selection info box
-            const selectionInfo = g.append('g')
-                .attr('class', 'selection-info')
-                .attr('transform', `translate(${innerWidth / 2 - 150}, ${innerHeight + 20})`)
-                .attr('opacity', 0);
-            selectionInfo.append('rect').attr('width', 300).attr('height', 30)
-                .attr('fill', 'rgba(10,10,18,0.9)').attr('stroke', '#ffd93d').attr('stroke-width', 1).attr('rx', 6);
-            selectionInfo.append('text').attr('class', 'selection-text')
-                .attr('x', 150).attr('y', 20).attr('text-anchor', 'middle').attr('fill', '#ffd93d').attr('font-size', '11px');
+            const selectionInfo = g.append('g').attr('class', 'selection-info').attr('transform', `translate(${innerWidth / 2 - 150}, ${innerHeight + 20})`).attr('opacity', 0);
+            selectionInfo.append('rect').attr('width', 300).attr('height', 30).attr('fill', 'rgba(10,10,18,0.9)').attr('stroke', '#ffd93d').attr('stroke-width', 1).attr('rx', 6);
+            selectionInfo.append('text').attr('class', 'selection-text').attr('x', 150).attr('y', 20).attr('text-anchor', 'middle').attr('fill', '#ffd93d').attr('font-size', '11px');
             
-            function showSelectionInfo(text) {
-                selectionInfo.select('.selection-text').text(text);
-                selectionInfo.attr('opacity', 1);
-            }
-            function hideSelectionInfo() {
-                selectionInfo.attr('opacity', 0);
-            }
+            function showSelectionInfo(text) { selectionInfo.select('.selection-text').text(text); selectionInfo.attr('opacity', 1); }
+            function hideSelectionInfo() { selectionInfo.attr('opacity', 0); }
             
-            // Click on background to deselect
-            svg.on('click', function() {
-                if (selectedMine || selectedCompany) {
-                    selectedMine = null;
-                    selectedCompany = null;
-                    resetSelection();
-                }
-            });
+            svg.on('click', function() { if (selectedMine || selectedCompany) { selectedMine = null; selectedCompany = null; resetSelection(); } });
             
-            // Draw mine nodes (left)
             mines.forEach(mine => {
                 const y = mineScale(mine.mine);
                 const h = mineScale.bandwidth();
-                g.append('rect').attr('x', -8).attr('y', y).attr('width', 8).attr('height', h)
-                    .attr('fill', companyColors[mine.company] || '#666').attr('rx', 2);
-                g.append('text').attr('class', 'mine-label').attr('data-mine', mine.mine)
-                    .attr('x', -15).attr('y', y + h / 2).attr('text-anchor', 'end').attr('dominant-baseline', 'middle')
-                    .attr('fill', '#f5f0e8').attr('font-size', '13px').attr('font-weight', '500').text(mine.mine);
-                g.append('text').attr('class', 'mine-value').attr('data-mine', mine.mine)
-                    .attr('x', -15).attr('y', y + h / 2 + 14).attr('text-anchor', 'end').attr('dominant-baseline', 'middle')
-                    .attr('fill', '#a09890').attr('font-size', '11px').text(`${mine.value.toFixed(0)}`);
+                g.append('rect').attr('x', -8).attr('y', y).attr('width', 8).attr('height', h).attr('fill', companyColors[mine.company] || '#666').attr('rx', 2);
+                g.append('text').attr('class', 'mine-label').attr('data-mine', mine.mine).attr('x', -15).attr('y', y + h / 2).attr('text-anchor', 'end').attr('dominant-baseline', 'middle').attr('fill', '#f5f0e8').attr('font-size', isMobile() ? '9px' : '13px').attr('font-weight', '500').text(mine.mine);
+                g.append('text').attr('class', 'mine-value').attr('data-mine', mine.mine).attr('x', -15).attr('y', y + h / 2 + 14).attr('text-anchor', 'end').attr('dominant-baseline', 'middle').attr('fill', '#a09890').attr('font-size', isMobile() ? '8px' : '11px').text(`${mine.value.toFixed(0)}`);
             });
             
-            // Draw company nodes (right) - clickable
             companiesSorted.forEach(company => {
                 const pos = companyPositions[company];
                 const total = companyTotals[company];
                 const pct = (total / totalProduction * 100).toFixed(1);
                 
-                g.append('rect').attr('class', 'company-node').attr('data-company', company)
-                    .attr('x', innerWidth).attr('y', pos.y).attr('width', 12).attr('height', pos.height)
-                    .attr('fill', companyColors[company] || '#666').attr('rx', 3).style('cursor', 'pointer')
+                g.append('rect').attr('class', 'company-node').attr('data-company', company).attr('x', innerWidth).attr('y', pos.y).attr('width', 12).attr('height', pos.height).attr('fill', companyColors[company] || '#666').attr('rx', 3).style('cursor', 'pointer')
                     .on('click', function(event) {
                         event.stopPropagation();
-                        if (selectedCompany === company) {
-                            selectedCompany = null;
-                            selectedMine = null;
-                            resetSelection();
-                        } else {
-                            selectedCompany = company;
-                            selectedMine = null;
-                            highlightCompanySelection(company);
-                        }
+                        if (selectedCompany === company) { selectedCompany = null; selectedMine = null; resetSelection(); } 
+                        else { selectedCompany = company; selectedMine = null; highlightCompanySelection(company); }
                     })
                     .on('mouseover', function(event) {
-                        if (!selectedMine && !selectedCompany) {
-                            d3.select(this).attr('stroke', '#fff').attr('stroke-width', 2);
-                        }
+                        if (!selectedMine && !selectedCompany) d3.select(this).attr('stroke', '#fff').attr('stroke-width', 2);
                         const companyMines = mines.filter(m => m.company === company).map(m => m.mine).join(', ');
                         showTooltip(event, `
                             <div class="tooltip-title">${company}</div>
                             <div class="tooltip-value">${total.toFixed(1)}</div>
                             <div class="tooltip-sub">${pct}% of Chile total</div>
-                            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); color: #a09890; font-size: 10px;">Mines: ${companyMines}</div>
-                            <div style="margin-top: 8px; color: #ffd93d; font-size: 10px;">Click to highlight all mines</div>
+                            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); color: #a09890; font-size: 11px;">Mines: ${companyMines}</div>
+                            <div style="margin-top: 8px; color: #ffd93d; font-size: 11px; font-style: italic;">Click to highlight all mines</div>
                         `);
                     })
-                    .on('mousemove', function(event) {
-                        tooltip.style('left', (event.pageX + 15) + 'px').style('top', (event.pageY - 10) + 'px');
-                    })
-                    .on('mouseout', function() {
-                        if (!selectedMine && !selectedCompany) {
-                            d3.select(this).attr('stroke', 'none');
-                        }
-                        hideTooltip();
-                    });
+                    .on('mousemove', function(event) { tooltip.style('left', (event.pageX + 15) + 'px').style('top', (event.pageY - 10) + 'px'); })
+                    .on('mouseout', function() { if (!selectedMine && !selectedCompany) d3.select(this).attr('stroke', 'none'); hideTooltip(); });
                 
                 if (pos.height > 25) {
-                    g.append('text').attr('class', 'company-label').attr('data-company', company)
-                        .attr('x', innerWidth + 20).attr('y', pos.y + pos.height / 2 - 10).attr('dominant-baseline', 'middle')
-                        .attr('fill', '#f5f0e8').attr('font-size', '14px').attr('font-weight', '600').text(company);
-                    g.append('text').attr('class', 'company-value').attr('data-company', company)
-                        .attr('x', innerWidth + 20).attr('y', pos.y + pos.height / 2 + 6).attr('dominant-baseline', 'middle')
-                        .attr('fill', companyColors[company] || '#666').attr('font-size', '13px').attr('font-weight', '700').text(`${total.toFixed(0)}`);
-                    g.append('text').attr('class', 'company-pct').attr('data-company', company)
-                        .attr('x', innerWidth + 20).attr('y', pos.y + pos.height / 2 + 22).attr('dominant-baseline', 'middle')
-                        .attr('fill', '#a09890').attr('font-size', '11px').text(`${pct}%`);
+                    g.append('text').attr('class', 'company-label').attr('data-company', company).attr('x', innerWidth + 20).attr('y', pos.y + pos.height / 2 - 10).attr('dominant-baseline', 'middle').attr('fill', '#f5f0e8').attr('font-size', isMobile() ? '10px' : '14px').attr('font-weight', '600').text(company);
+                    g.append('text').attr('class', 'company-value').attr('data-company', company).attr('x', innerWidth + 20).attr('y', pos.y + pos.height / 2 + 6).attr('dominant-baseline', 'middle').attr('fill', companyColors[company] || '#666').attr('font-size', isMobile() ? '9px' : '13px').attr('font-weight', '700').text(`${total.toFixed(0)}`);
+                    g.append('text').attr('class', 'company-pct').attr('data-company', company).attr('x', innerWidth + 20).attr('y', pos.y + pos.height / 2 + 22).attr('dominant-baseline', 'middle').attr('fill', '#a09890').attr('font-size', isMobile() ? '8px' : '11px').text(`${pct}%`);
                 } else {
-                    g.append('text').attr('class', 'company-label').attr('data-company', company)
-                        .attr('x', innerWidth + 20).attr('y', pos.y + pos.height / 2).attr('dominant-baseline', 'middle')
-                        .attr('fill', '#f5f0e8').attr('font-size', '11px').text(`${company.replace('-McMoRan', '')} ${total.toFixed(0)}`);
+                    g.append('text').attr('class', 'company-label').attr('data-company', company).attr('x', innerWidth + 20).attr('y', pos.y + pos.height / 2).attr('dominant-baseline', 'middle').attr('fill', '#f5f0e8').attr('font-size', '11px').text(`${company.replace('-McMoRan', '')} ${total.toFixed(0)}`);
                 }
             });
             
-            // Title labels
-            g.append('text').attr('x', -15).attr('y', -15).attr('text-anchor', 'end')
-                .attr('fill', '#a09890').attr('font-size', '13px').attr('font-weight', '600').text('MINES');
-            g.append('text').attr('x', innerWidth + 20).attr('y', -15)
-                .attr('fill', '#a09890').attr('font-size', '13px').attr('font-weight', '600').text('COMPANIES');
-            g.append('text').attr('x', innerWidth / 2).attr('y', -15).attr('text-anchor', 'middle')
-                .attr('fill', '#666').attr('font-size', '11px').text('Click flow or company to highlight • Click background to reset');
+            g.append('text').attr('x', -15).attr('y', -15).attr('text-anchor', 'end').attr('fill', '#a09890').attr('font-size', '13px').attr('font-weight', '600').text('MINES');
+            g.append('text').attr('x', innerWidth + 20).attr('y', -15).attr('fill', '#a09890').attr('font-size', '13px').attr('font-weight', '600').text('COMPANIES');
+            g.append('text').attr('x', innerWidth / 2).attr('y', -15).attr('text-anchor', 'middle').attr('fill', '#666').attr('font-size', '11px').text('Click flow or company to highlight • Click background to reset');
         }
-        
         function createCompanyTrendsChart() {
             const container = d3.select('#company-trends-chart');
+            container.selectAll('*').remove();
             const width = container.node().getBoundingClientRect().width;
-            const height = 320;
-            const margin = {top: 20, right: 120, bottom: 40, left: 50};
+            const height = isMobile() ? 280 : 320;
+            const margin = isMobile() ? {top: 15, right: 50, bottom: 35, left: 40} : {top: 20, right: 120, bottom: 40, left: 50};
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             const companies = [
@@ -3050,7 +2842,7 @@
             const height = 450;
             const margin = {top: 30, right: 150, bottom: 50, left: 60};
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             const innerWidth = width - margin.left - margin.right;
@@ -3248,7 +3040,7 @@
             const height = 280;
             const margin = {top: 20, right: 30, bottom: 40, left: 50};
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             const x = d3.scaleLinear().domain([2003, 2024]).range([0, width - margin.left - margin.right]);
@@ -3283,17 +3075,18 @@
             container.selectAll('*').remove();
             
             const width = container.node().getBoundingClientRect().width;
-            const height = 650;
-            const margin = {top: 40, right: 40, bottom: 50, left: 90};
+            const height = isMobile() ? 500 : 650;
+            const margin = isMobile() ? {top: 30, right: 20, bottom: 40, left: 50} : {top: 40, right: 40, bottom: 50, left: 90};
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             const innerWidth = width - margin.left - margin.right;
             const innerHeight = height - margin.top - margin.bottom;
             
-            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
-                               'July', 'August', 'September', 'October', 'November', 'December'];
+            const monthNames = isMobile() 
+                ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
             const months = d3.range(1, 13);
             
             // Group data by month
@@ -3518,7 +3311,7 @@
             const innerWidth = width - margin.left - margin.right;
             const innerHeight = height - margin.top - margin.bottom;
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             // Use raw monthly production data
@@ -3730,7 +3523,7 @@
             const innerWidth = width - margin.left - margin.right;
             const innerHeight = height - margin.top - margin.bottom;
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -3999,7 +3792,7 @@
             const height = 420;
             const margin = {top: 40, right: 80, bottom: 50, left: 55};
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             const years = d3.range(2003, 2025);
@@ -4194,7 +3987,7 @@
             const height = 400;
             const margin = {top: 60, right: 30, bottom: 60, left: 60};
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             
             const innerWidth = width - margin.left - margin.right;
             const innerHeight = height - margin.top - margin.bottom;
@@ -4436,7 +4229,7 @@
             const height = 220;
             const margin = {top: 30, right: 20, bottom: 30, left: 40};
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -4485,9 +4278,9 @@
             const container = d3.select('#exports-chart');
             container.selectAll('*').remove();
             const width = container.node().getBoundingClientRect().width;
-            const height = 380;
+            const height = isMobile() ? 320 : 380;
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             
             // Donut on the left
             const chartWidth = width * 0.55;
@@ -4586,12 +4379,12 @@
             const container = d3.select('#china-growth-chart');
             container.selectAll('*').remove();
             const width = container.node().getBoundingClientRect().width;
-            const height = 380;
-            const margin = {top: 35, right: 110, bottom: 20, left: 110};
+            const height = isMobile() ? 320 : 380;
+            const margin = isMobile() ? {top: 30, right: 50, bottom: 15, left: 50} : {top: 35, right: 110, bottom: 20, left: 110};
             const innerWidth = width - margin.left - margin.right;
             const innerHeight = height - margin.top - margin.bottom;
             
-            const svg = container.append('svg').attr('width', width).attr('height', height);
+            const svg = responsiveSVG(container, width, height);
             const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
             
             // Data with ranks (1 = highest share)
@@ -4773,18 +4566,38 @@
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                // Redraw responsive charts
-                if (document.getElementById('share-race-chart')) {
-                    d3.select('#share-race-chart').selectAll('*').remove();
-                    createShareRaceChart();
-                }
-                if (document.getElementById('rolling-trend-chart')) {
-                    createRollingTrendChart();
-                }
-                if (document.getElementById('yoy-chart')) {
-                    createYoYChart();
-                }
-            }, 250);
+                // Redraw all charts on resize
+                const charts = [
+                    ['hero-chart', createHeroChart],
+                    ['top-producers-chart', createTopProducersChart],
+                    ['world-mine-chart', createWorldMineChart],
+                    ['share-race-chart', createShareRaceChart],
+                    ['gdp-stacked-chart', createGDPStackedChart],
+                    ['sankey-chart', createSankeyChart],
+                    ['company-trends-chart', createCompanyTrendsChart],
+                    ['rolling-trend-chart', createRollingTrendChart],
+                    ['yoy-chart', createYoYChart],
+                    ['heatmap', () => createHeatmap(document.querySelector('.heat-btn.active')?.dataset?.key || 'total')],
+                    ['histogram-chart', createHistogramChart],
+                    ['seasonal-chart', createSeasonalChart],
+                    ['exports-chart', createExportsChart],
+                    ['china-growth-chart', createChinaGrowthChart],
+                    ['ridgeline-chart', createRidgelinePlot],
+                ];
+                charts.forEach(([id, fn]) => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        d3.select('#' + id).selectAll('*').remove();
+                        fn();
+                    }
+                });
+                // Re-create sparklines
+                createSparkline('#spark-chile', data.worldProduction.map(d => d.Chile), '#B87333');
+                createSparkline('#spark-congo', data.worldProduction.filter(d => d.year >= 2013).map(d => d.Congo), '#9b59b6');
+                createSparkline('#spark-peru', data.worldProduction.map(d => d.Peru), '#4a9eff');
+                createSparkline('#spark-china', data.worldProduction.map(d => d.China), '#e74c3c');
+                createSparkline('#spark-usa', data.worldProduction.map(d => d.USA), '#666');
+            }, 300);
         });
         
         // Initialize
@@ -4861,32 +4674,41 @@
                 chartWidth = containerWidth - 30;
                 totalHeight = chartHeight + 30;
             } else {
-                // 3x3 grid layout
-                companies = [
-                    ['BHP', 'Codelco', 'Antofagasta Minerals'],
-                    ['Collahuasi', 'Anglo American', 'Teck'],
-                    ['Freeport-McMoRan', 'Lundin Mining', 'Glencore']
-                ];
-                cols = 3;
-                rows = 3;
+                // Grid layout - 1 col on mobile, 3 on desktop
+                const allCompanies = ['BHP', 'Codelco', 'Antofagasta Minerals', 'Collahuasi', 'Anglo American', 'Teck', 'Freeport-McMoRan', 'Lundin Mining', 'Glencore'];
+                if (isMobile()) {
+                    cols = 1;
+                    rows = allCompanies.length;
+                    companies = allCompanies.map(c => [c]);
+                } else {
+                    cols = 3;
+                    rows = 3;
+                    companies = [
+                        ['BHP', 'Codelco', 'Antofagasta Minerals'],
+                        ['Collahuasi', 'Anglo American', 'Teck'],
+                        ['Freeport-McMoRan', 'Lundin Mining', 'Glencore']
+                    ];
+                }
                 const gap = 15;
                 chartWidth = (containerWidth - gap * (cols + 1)) / cols;
-                chartHeight = 240;
+                chartHeight = isMobile() ? 180 : 240;
                 totalHeight = rows * chartHeight + (rows + 1) * gap;
             }
             
             const gap = 15;
             const margin = isSingleView 
-                ? {top: 50, right: 180, bottom: 50, left: 70}
-                : {top: 40, right: 50, bottom: 35, left: 50};
+                ? (isMobile() ? {top: 40, right: 80, bottom: 40, left: 50} : {top: 50, right: 180, bottom: 50, left: 70})
+                : (isMobile() ? {top: 30, right: 25, bottom: 30, left: 40} : {top: 40, right: 50, bottom: 35, left: 50});
             
             // Update container height
             container.style('min-height', totalHeight + 'px');
             
             // Create SVG
             const svg = container.append('svg')
-                .attr('width', containerWidth)
-                .attr('height', totalHeight);
+                .attr('viewBox', `0 0 ${containerWidth} ${totalHeight}`)
+                .attr('preserveAspectRatio', 'xMidYMid meet')
+                .style('width', '100%')
+                .style('height', 'auto');
             
             // Draw each mini chart
             function drawMiniChart(company, col, row) {
